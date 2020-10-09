@@ -12,7 +12,7 @@ namespace DockerComposeProductApi.Services
         {
             return new List<Product>()
             {
-                new Product(){ Name="Ma tsafafest Pro", Price = 1299.90},
+                new Product(){ Name="Macbook Pro", Price = 1299.90},
                 new Product(){ Name="SurfaceBook 3", Price = 1599.90}                
             };
         }
