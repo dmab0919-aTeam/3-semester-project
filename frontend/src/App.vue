@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Vue.js App"/>
+    <HelloWorld :msg="'Product: ' + productName1 + ', price: ' + productPrice1 + ' USD' "/>
+    <HelloWorld :msg="'Product: ' + productName2 + ', price: ' + productPrice2 + ' USD' "/>
   </div>
 </template>
 
@@ -11,6 +12,15 @@ import axios from 'axios';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      productName1 : null,
+      productPrice1 : null,
+      productName2 : null,
+      productPrice2 : null,
+      
+    }
+  },
   components: {
     HelloWorld
   },
@@ -18,7 +28,10 @@ export default {
   created() {
     axios.get("products")
         .then(resp => {
-         console.log(resp.data)
+          this.productName1 = resp.data[0].name;
+          this.productPrice1 = resp.data[0].price;
+          this.productName2 = resp.data[1].name;
+          this.productPrice2 = resp.data[1].price;
         }).catch(err => {
       console.log(err)
     });
