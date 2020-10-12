@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld :msg="'Product: ' + productName1 + ', price: ' + productPrice1 + ' USD' "/>
+    <HelloWorld :msg="'Product: ' + productName1 + ', price: ' + productPrice1 + ' k' "/>
     <HelloWorld :msg="'Product: ' + productName2 + ', price: ' + productPrice2 + ' USD' "/>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
       productPrice1 : null,
       productName2 : null,
       productPrice2 : null,
-      
     }
   },
   components: {
