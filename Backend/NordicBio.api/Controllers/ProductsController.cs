@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NordicBio.api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace NordicBio.api.Controllers
 {
@@ -18,9 +19,9 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public string GetAll()
         {
-            return Ok(_productsService.GetAll());
+            return _productsService.Getmovies();
         }
     }
 }

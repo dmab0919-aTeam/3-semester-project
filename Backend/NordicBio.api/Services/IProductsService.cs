@@ -1,4 +1,5 @@
-﻿using NordicBio.api.Domain;
+﻿using Newtonsoft.Json.Linq;
+using NordicBio.api.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace NordicBio.api.Services
     public interface IProductsService
     {
         public ICollection<Product> GetAll();
+        public string Getmovies();
     }
 }
