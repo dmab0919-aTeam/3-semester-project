@@ -1,10 +1,10 @@
-﻿using DockerComposeProductApi.Domain;
+﻿using NordicBio.api.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DockerComposeProductApi.Services
+namespace NordicBio.api.Services
 {
     public interface IProductsService
     {

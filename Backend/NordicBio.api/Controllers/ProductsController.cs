@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DockerComposeProductApi.Services;
+using NordicBio.api.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DockerComposeProductApi.Controllers
+namespace NordicBio.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

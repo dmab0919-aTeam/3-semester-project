@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DockerComposeProductApi.Domain
+namespace NordicBio.api.Domain
 {
     public class Order
     {

@@ -1,4 +1,4 @@
-# DockerComposeProductApi
+# NordicBio.api
 
 ### .Net core docker compose example.
 * Install docker
