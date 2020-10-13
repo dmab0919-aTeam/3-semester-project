@@ -26,11 +26,11 @@ export default {
   
   created() {
     axios.get("products")
-        .then(resp => {
-          this.productName1 = resp.data[0].name;
-          this.productPrice1 = resp.data[0].price;
-          this.productName2 = resp.data[1].name;
-          this.productPrice2 = resp.data[1].price;
+        .then(response => {
+          this.productName1 = response.data[0].name;
+          this.productPrice1 = response.data[0].price;
+          this.productName2 = response.data[1].name;
+          this.productPrice2 = response.data[1].price;
         }).catch(err => {
       console.log(err)
     });
