@@ -4,11 +4,11 @@ services:
   backend:
     container_name: 3-semester-backend
     build:
-      context: ./Backend/DockerComposeProductApi/
+      context: ./Backend/NordicBio.api/
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - ./Backend/DockerComposeProductApi/:/app
+      - ./Backend/NordicBio.api/:/app
     ports:
       - "5000:80"  
     depends_on:
