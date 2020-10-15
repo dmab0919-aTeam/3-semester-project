@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Axios from 'axios'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 Vue.prototype.$http = Axios;
 

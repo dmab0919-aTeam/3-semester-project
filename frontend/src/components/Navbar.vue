@@ -4,7 +4,6 @@
         </div>
 </template>
 
-
 <script>
 import logo from "../assets/logo.png"
 
@@ -14,25 +13,23 @@ export default {
             logo: logo
         }
     }
-    
 }
 </script>
 
 <style>
+    
     .navbar-wrapper {
         margin: 0px;
-        background-color: rgb(31, 31, 31);
+        background-color: white;
         width: 100%;
         border-radius: 5px;   
-    }
-
-    .navbar-movies {
-        box-sizing: border-box;
-        float: left;
+        text-align: center;
+        position: absolute;
     }
 
     img {
         max-width: 100%;
+
 
     }
 

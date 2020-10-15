@@ -1,11 +1,12 @@
 <template>
     <div class="movie-item">
         <div class="image_wrapper">
-            <img src="https://image.tmdb.org/t/p/w500/7W0G3YECgDAfnuiHG91r8WqgIOe.jpg" 
-            alt="A movie"></div>
+            <img :src="'https://image.tmdb.org/t/p/w500' + this.poster_path" 
+            alt="A movie"/>
+            </div>
         <div class="movie-item_information_wrapper">
-            <p class="overflow-ellipsis"><strong>{{ movie.title}}</strong> </p>
-            <p class="subtitle">Year: {{ movie.releaseYear }} | Rating: {{ movie.rating }} </p>
+            <p class="overflow-ellipsis"><strong>{{ this.title }}</strong> </p>
+            <p class="subtitle">Year: {{ this.release_year }} | Rating: {{ this.vote_avarage }} </p>
         </div>
     </div>
 </template>
@@ -15,12 +16,14 @@
 export default {
     data() {
         return {
-            movie: {
-                title: 'Trolls world tour this is an other system',
-                rating: '5.9',
-                releaseYear: '2019'
-            }
+            
         }
+    },
+    props: {
+        title: String,
+        release_year: String,
+        vote_avarage: Number,
+        poster_path: String
     }
 }
 </script>
@@ -45,8 +48,7 @@ export default {
 
     .movie-item_information_wrapper {
         border-radius: 5px;
-        text-align: left;
-             
+        text-align: left;   
     }
 
     .subtitle {
@@ -66,7 +68,6 @@ export default {
     p {
         overflow: hidden;
         white-space: nowrap; 
-
         color: rgb(231, 231, 231);
         font-size: 1em;
         padding: 0px;
