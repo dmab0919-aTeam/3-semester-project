@@ -1,36 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld :msg="'Product: ' + productName1 + ', price: ' + productPrice1 + ' k' "/>
-    <HelloWorld :msg="'Product: ' + productName2 + ', price: ' + productPrice2 + ' USD' "/>
+    <Navbar />
+    <MovieItem /> <MovieItem /> <MovieItem /> <MovieItem />
+    <p> {{ movie.original_title }} </p>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import axios from 'axios';
+import MovieItem from "./components/MovieItem";
+import Navbar from "./components/Navbar";
 
 export default {
   name: 'App',
   data() {
     return {
-      productName1 : null,
-      productPrice1 : null,
-      productName2 : null,
-      productPrice2 : null,
+      movie: {
+        original_title: null,
+        release_date: null,
+        vote_avarage: null
+      }
     }
   },
   components: {
-    HelloWorld
+    MovieItem, Navbar
   },
   
   created() {
     axios.get("products")
         .then(response => {
-          this.productName1 = response.data[0].name;
-          this.productPrice1 = response.data[0].price;
-          this.productName2 = response.data[1].name;
-          this.productPrice2 = response.data[1].price;
+          this.response = response.data
+          this.original_title = response.data[1].original_title;
+          this.release_date = response.data[1].release_date;
+          this.vote_avarage = response.data[1].vote_avarage;
         }).catch(err => {
       console.log(err)
     });
@@ -40,11 +42,16 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Aria, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+body {
+  background-color: rgb(20, 20, 20)
+
+}
+
+
 </style>

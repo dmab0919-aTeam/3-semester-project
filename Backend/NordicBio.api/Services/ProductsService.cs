@@ -50,12 +50,8 @@ namespace NordicBio.api.Services
         private string GetResponseString()
         {
             var httpClient = new HttpClient();
-
- 
-
             var response = httpClient.GetAsync("https://api.themoviedb.org/3/movie/upcoming?api_key=e1875a74a5c3708b92a2472f875f422d&language=da-DK&page=1").Result;
             var contents = response.Content.ReadAsStringAsync().Result;
-
             return contents;
         }
     }
