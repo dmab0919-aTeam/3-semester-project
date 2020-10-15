@@ -5,16 +5,10 @@
     <div v-for="movie in movies" :key="movie.title">
       <MovieItem 
         :title="movie.title"
-        :release_year="movie.release_year"
-        :vote_avarage="movie.vote_avarage"
-        :poster_path="movie.poster_path"
+        :release_year="movie.release_Date"
+        :vote_avarage="movie.vote_Avarage"
+        :poster_path="movie.poster_Path"
       />
-    </div>
-    <div>
-      <b-button>Button</b-button>
-      <b-button variant="danger">Button</b-button>
-      <b-button variant="success">Button</b-button>
-      <b-button variant="outline-primary">Button</b-button>
     </div>
   </div>
 </template>
@@ -53,7 +47,11 @@ export default {
   font-family: Aria, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
 }
+
+body {
+  background-color: rgb(49, 49, 49);
+}
+
 
 </style>

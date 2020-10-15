@@ -32,7 +32,7 @@ export default {
     .movie-item {
         border-radius: 5px;
         box-sizing: border-box;
-        margin: 1em;
+        margin: 3em;
         cursor: pointer;
         transition: all 0.25s ease;
         width: 14em;
@@ -43,7 +43,7 @@ export default {
     .movie-item:hover {
         transform: scale(1.1, 1.1);
         color: #ffee10;
-        box-shadow: 0 0 15px #ffee10;
+        box-shadow: 0 0 20px #ff8800;
     }
 
     .movie-item_information_wrapper {

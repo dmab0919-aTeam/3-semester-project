@@ -24,7 +24,6 @@ export default {
         width: 100%;
         border-radius: 5px;   
         text-align: center;
-        position: absolute;
     }
 
     img {
