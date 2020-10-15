@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.api", "NordicBio.api\NordicBio.api.csproj", "{82A25A29-F5D6-497C-BB3C-EFC5FD0E7630}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NordicBio.dbupdater", "NordicBio.dbupdater\NordicBio.dbupdater.csproj", "{2A67D617-9C48-4A56-8BE9-7FA2F62F035C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dbupdater", "NordicBio.dbupdater\NordicBio.dbupdater.csproj", "{2A67D617-9C48-4A56-8BE9-7FA2F62F035C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dal", "NordicBio.dal\NordicBio.dal.csproj", "{113FC5AB-01ED-4E22-9035-F5B54DAC7972}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dbSetup", "NordicBio.dbSetup\NordicBio.dbSetup.csproj", "{A868BD36-C173-4A9D-ABE4-305395B22D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NordicBio.model", "NordicBio.model\NordicBio.model.csproj", "{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{2A67D617-9C48-4A56-8BE9-7FA2F62F035C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A67D617-9C48-4A56-8BE9-7FA2F62F035C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A67D617-9C48-4A56-8BE9-7FA2F62F035C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A868BD36-C173-4A9D-ABE4-305395B22D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A868BD36-C173-4A9D-ABE4-305395B22D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A868BD36-C173-4A9D-ABE4-305395B22D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A868BD36-C173-4A9D-ABE4-305395B22D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
