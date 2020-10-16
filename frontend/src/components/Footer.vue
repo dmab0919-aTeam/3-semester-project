@@ -1,14 +1,8 @@
 <template>
 <div class="footer">
     <div class="footer-content">
-        <p class="footer-text"> We DaneCinima have 
-        dedicated our time to develop the perfect 
-        platform to book movies from and offer an 
-        unique user experience and private user function. 
-        We strive to evolve and keep up with modern 
-        tecnology and demands from our customers.
-        <br><br>
-        Features: Account creation | Multiple locations | Membership prices | Eliminated double booking
+        <p class="footer-text">
+        Contact | About | Membership Prices | Booking | Movies 
         <br>
         &copy; nordicbioaalborg | Designed by @The-A-Team
         </p>
