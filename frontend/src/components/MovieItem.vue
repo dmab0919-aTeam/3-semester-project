@@ -1,79 +1,52 @@
 <template>
-    <div class="movie-item">
-        <div class="image_wrapper">
-            <img :src="'https://image.tmdb.org/t/p/w500' + this.poster_path" 
-            alt="A movie"/>
-            </div>
-        <div class="movie-item_information_wrapper">
-            <p class="overflow-ellipsis"><strong>{{ this.title }}</strong> </p>
-            <p class="subtitle">Year: {{ this.release_year }} | Rating: {{ this.vote_avarage }} </p>
-        </div>
+    <div>
+        <ul class="container">
+            <li v-for="movie in movies" :key="movie.title">
+            
+            <Movie 
+            :title="movie.title"
+            :release_year="movie.releaseDate"
+            :vote_avarage="movie.voteAverage"
+            :poster_path="movie.posterPath"
+            />
+            </li>
+        </ul>
     </div>
 </template>
 
-
 <script>
+import axios from 'axios';
+import Movie from "./Movie";
+
 export default {
-    data() {
-        return {
-            
-        }
-    },
-    props: {
-        title: String,
-        release_year: String,
-        vote_avarage: Number,
-        poster_path: String
+  name: 'Frontpage',
+  data() {
+    return {
+      movies: []
     }
+  },
+  components: {
+      Movie
+  },
+  
+  created() {
+    axios.get("movies")
+        .then(response => {
+          this.movies = response.data
+        }).catch(err => {
+      console.log(err)
+    });
+  }
 }
 </script>
 
 <style scoped>
-    .movie-item {
-        border-radius: 5px;
-        box-sizing: border-box;
-        margin: 3em;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        width: 14em;
-        height: 20em;
-        float: left;
-    }
-
-    .movie-item:hover {
-        transform: scale(1.1, 1.1);
-        color: #ffee10;
-        box-shadow: 0 0 20px #ff8800;
-    }
-
-    .movie-item_information_wrapper {
-        border-radius: 5px;
-        text-align: left;   
-    }
-
-    .subtitle {
-        color: grey;
-        font-style: normal;
-    }
-
-    .overflow-ellipsis {
-        text-overflow: ellipsis;
-    }
-
-    img {
-        max-height: 100%;
-        max-width: 100%;
-    }
-
-    p {
-        overflow: hidden;
-        white-space: nowrap; 
-        color: rgb(231, 231, 231);
-        font-size: 1em;
-        padding: 0px;
-        margin: 0px; 
-    }
-
-
-
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 </style>

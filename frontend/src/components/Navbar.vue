@@ -1,35 +1,29 @@
 <template>
-        <div class="navbar-wrapper">
-            <img :src="logo"/>
-        </div>
+    <div class="container">
+        <img src="../assets/logo.png" alt="NBA">
+    </div>
 </template>
 
 <script>
-import logo from "../assets/logo.png"
-
 export default {
-    data: function() {
-        return {
-            logo: logo
-        }
-    }
 }
 </script>
 
-<style>
-    
-    .navbar-wrapper {
-        margin: 0px;
-        background-color: white;
-        width: 100%;
-        border-radius: 5px;   
+<style scoped>
+    .container {
+        font-family: Arial, Helvetica, sans-serif;
         text-align: center;
+        margin-bottom: 1em;
+        background-color:white;
+        color: white;
+        border-radius: 10px;
+        padding: 1em
     }
 
-    img {
-        max-width: 100%;
-
-
+    .header {
+        font-size: 6vh;
+        margin: 0px;
     }
 
+   
 </style>

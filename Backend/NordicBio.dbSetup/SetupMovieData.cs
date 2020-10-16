@@ -20,7 +20,8 @@ namespace NordicBio.dbSetup
             JArray items = (JArray)json["results"];
             int length = items.Count;
 
-            string sql = "INSERT INTO Movies (title, release_date, vote_avarage, poster_path) VALUES (@title, @release_date, @vote_avarage, @poster_path)";
+            string sql = "INSERT INTO Movies (Title, ReleaseDate, VoteAverage, PosterPath) " +
+                "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath)";
             string constring = "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
             using (var connection = new SqlConnection(constring))
             {
@@ -28,10 +29,10 @@ namespace NordicBio.dbSetup
                 {
                     var affectedRows = connection.Execute(sql, new
                     {
-                        title = (string)json.results[i].title,
-                        release_date = (string)json.results[i].release_date,
-                        vote_avarage = (decimal)json.results[i].vote_average,
-                        poster_path = (string)json.results[i].poster_path
+                        Title = (string)json.results[i].title,
+                        ReleaseDate = (string)json.results[i].release_date,
+                        VoteAverage = (decimal)json.results[i].vote_average,
+                        PosterPath = (string)json.results[i].poster_path
                     });
                 }
             }

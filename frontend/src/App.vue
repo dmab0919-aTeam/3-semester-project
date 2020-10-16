@@ -1,43 +1,16 @@
 <template>
   <div id="app">
-    <Navbar />
-
-    <div v-for="movie in movies" :key="movie.title">
-      <MovieItem 
-        :title="movie.title"
-        :release_year="movie.release_Date"
-        :vote_avarage="movie.vote_Avarage"
-        :poster_path="movie.poster_Path"
-      />
-    </div>
+    <frontpage />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import MovieItem from "./components/MovieItem";
-import Navbar from "./components/Navbar";
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import frontpage from "./layouts/frontpage"
 
 export default {
   name: 'App',
-  data() {
-    return {
-      movies: []
-    }
-  },
-  components: {
-    MovieItem, Navbar
-  },
-  
-  created() {
-    axios.get("movies")
-        .then(response => {
-          this.movies = response.data
-        }).catch(err => {
-      console.log(err)
-    });
+   components: {
+    frontpage
   }
 }
 </script>
@@ -47,11 +20,15 @@ export default {
   font-family: Aria, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin: 1em;
+  padding: 0;
+  
+  min-height: 100vh;
+  position: relative;
 }
-
 body {
-  background-color: rgb(49, 49, 49);
+  background-color: rgb(14, 14, 14);
 }
-
 
 </style>
