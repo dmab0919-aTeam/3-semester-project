@@ -20,7 +20,6 @@ namespace NordicBio.dal
 
         public IEnumerable<Movie> GetAllMovies()
         {
-
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
 

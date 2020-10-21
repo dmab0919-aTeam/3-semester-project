@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <frontpage />
+    <Navbar/>
+    <router-view>
+      
+    </router-view>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import frontpage from "./layouts/frontpage"
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+
 
 export default {
+  components: {
+    Navbar, Footer
+  },
   name: 'App',
-   components: {
-    frontpage
-  }
+   
 }
 </script>
 
