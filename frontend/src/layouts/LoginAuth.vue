@@ -1,4 +1,3 @@
-
 <template>
  <div>
    <form class="login" @submit.prevent="login">
@@ -12,3 +11,10 @@
    </form>
  </div>
 </template>
+
+<script>
+
+export default {
+
+}
+</script>

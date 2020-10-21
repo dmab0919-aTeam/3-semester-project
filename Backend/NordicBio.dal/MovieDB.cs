@@ -11,7 +11,7 @@ namespace NordicBio.dal
     {
         public IEnumerable<Movie> GetAllMovies()
         {
-            string constring = "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
+            string constring = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
 
