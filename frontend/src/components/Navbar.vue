@@ -6,19 +6,26 @@
         <div class="link-container">
             <a class="links" href="">Booking</a>
             <a class="links" href="">Movies</a>
-            <a class="links" href="">About us</a>
+            
+            <router-link :to="{ name: 'login' }"
+               tabindex="0"
+            > 
+                <a class="links">Login</a>
+            </router-link>
         </div>
         <div class="input-field">
             <input v-model="Search" placeholder="Find film..">
         </div>
-        
-        
-        
     </div>
 </template>
 
 <script>
 export default {
+    methods: {
+        gotoLogin: function() {
+            this.$router.push({ name: 'login' })
+        }
+    }
 }
 </script>
 
