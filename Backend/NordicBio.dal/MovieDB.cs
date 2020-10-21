@@ -9,20 +9,23 @@ using System.Configuration;
 namespace NordicBio.dal
 {
     public class MovieDB
+        
     {
+        private string _constring;
+
+        public MovieDB(string constring)
+        {
+            this._constring = constring;
+        }
+
         public IEnumerable<Movie> GetAllMovies()
         {
-            
+
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
 
-			Console.WriteLine(ConfigurationManager.AppSettings["myCustomConnString"]);
 
-			var connectionString = ConfigurationManager.AppSettings["myCustomConnString"];
-
-			Console.WriteLine(connectionString);
-
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_constring))
             {
                 res = connection.Query<Movie>(sql).ToList();
             }

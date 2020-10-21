@@ -11,7 +11,7 @@ namespace NordicBio.dbSetup
     {
         static void Main(string[] args)
         {
-            var connectionString = ConfigurationManager.AppSettings["myCustomConnString"];
+            var connectionString = ConfigurationManager.AppSettings["ConnString"];
             
             var client = new RestClient("https://api.themoviedb.org");
             var request = new RestRequest("3/movie/upcoming?api_key=e1875a74a5c3708b92a2472f875f422d&language=da-DK&page=1", Method.GET);
