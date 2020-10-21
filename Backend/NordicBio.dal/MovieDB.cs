@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Configuration;
 
 namespace NordicBio.dal
 {
@@ -11,11 +12,17 @@ namespace NordicBio.dal
     {
         public IEnumerable<Movie> GetAllMovies()
         {
-            string constring = "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
+            
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
 
-            using (var connection = new SqlConnection(constring))
+			Console.WriteLine(ConfigurationManager.AppSettings["myCustomConnString"]);
+
+			var connectionString = ConfigurationManager.AppSettings["myCustomConnString"];
+
+			Console.WriteLine(connectionString);
+
+            using (var connection = new SqlConnection(connectionString))
             {
                 res = connection.Query<Movie>(sql).ToList();
             }

@@ -11,15 +11,11 @@ namespace NordicBio.dbupdater
         static int Main(string[] args)
         {
 
-            var appsettings = ConfigurationManager.AppSettings["myCustomConnString"];
-			
-			//string connectionString = ConfigurationManager.ConnectionString["myCustomConnString"];
-
-			Console.WriteLine(appsettings);
+            var dbString = ConfigurationManager.AppSettings["myCustomConnString"];
 
             var connectionString =
                 args.FirstOrDefault()
-                ?? connectionString;
+                ?? dbString;
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 
