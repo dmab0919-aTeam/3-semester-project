@@ -16,13 +16,13 @@ namespace NordicBio.dal
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
 
-			Console.WriteLine(ConfigurationManager.AppSettings["myCustomConnString"]);
+			string cnstr = System.Configuration.ConfigurationManager.ConnectionStrings["myCustomConnString"].ConnectionString;
 
-			var connectionString = ConfigurationManager.AppSettings["myCustomConnString"];
+			Console.WriteLine(cnstr);
 
-			Console.WriteLine(connectionString);
+			//string dbTest = ConfigurationManager.AppSettings["myCustomConnString"];
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(cnstr))
             {
                 res = connection.Query<Movie>(sql).ToList();
             }
