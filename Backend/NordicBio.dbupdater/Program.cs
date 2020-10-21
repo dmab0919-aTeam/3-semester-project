@@ -1,5 +1,6 @@
 ﻿using DbUp;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 
@@ -9,9 +10,12 @@ namespace NordicBio.dbupdater
     {
         static int Main(string[] args)
         {
+
+            var dbString = ConfigurationManager.AppSettings["ConnString"];
+
             var connectionString =
                 args.FirstOrDefault()
-                ?? "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
+                ?? dbString;
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 

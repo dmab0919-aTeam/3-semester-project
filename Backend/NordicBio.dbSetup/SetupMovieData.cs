@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace NordicBio.dbSetup
@@ -10,6 +11,8 @@ namespace NordicBio.dbSetup
     {
         static void Main(string[] args)
         {
+            var connectionString = ConfigurationManager.AppSettings["connString"];
+            
             var client = new RestClient("https://api.themoviedb.org");
             var request = new RestRequest("3/movie/upcoming?api_key=e1875a74a5c3708b92a2472f875f422d&language=da-DK&page=1", Method.GET);
 
@@ -22,8 +25,8 @@ namespace NordicBio.dbSetup
 
             string sql = "INSERT INTO Movies (Title, ReleaseDate, VoteAverage, PosterPath) " +
                 "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath)";
-            string constring = ""Server=localhost,1433\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;"";
-            using (var connection = new SqlConnection(constring))
+            
+            using (var connection = new SqlConnection(connectionString))
             {
                 for (int i = 1; i < 20; i++)
                 {
