@@ -22,7 +22,7 @@ namespace NordicBio.dbSetup
 
             string sql = "INSERT INTO Movies (Title, ReleaseDate, VoteAverage, PosterPath) " +
                 "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath)";
-            string constring = "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
+            string constring = ""Server=localhost,1433\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;"";
             using (var connection = new SqlConnection(constring))
             {
                 for (int i = 1; i < 20; i++)

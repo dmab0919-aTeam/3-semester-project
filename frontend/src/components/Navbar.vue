@@ -6,7 +6,7 @@
         <div class="link-container">
             <a class="links" href="">Booking</a>
             <a class="links" href="">Movies</a>
-            
+            <button @click.prevent="gotoLogin">TEST</button>
             <router-link :to="{ name: 'login' }"
                tabindex="0"
             > 
@@ -21,6 +21,11 @@
 
 <script>
 export default {
+    data() {
+      return {
+        Search: ''
+      }
+    },
     methods: {
         gotoLogin: function() {
             this.$router.push({ name: 'login' })
