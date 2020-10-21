@@ -1,0 +1,47 @@
+%  A simple AAU report template.
+%  2015-05-08 v. 1.2.0
+%  Copyright 2010-2015 by Jesper Kjær Nielsen <jkn@es.aau.dk>
+
+\input{setup/preamble.tex}% Package inclusion and set up of the document
+\input{setup/hyphenations.tex}% 
+\input{setup/macros.tex}% My macros
+
+\begin{document}
+
+% Translate word that are english by default, to danish
+\addto\captionsenglish{
+   \renewcommand\chaptername{Kapitel} 
+   \renewcommand{\figurename}{Figur}
+   \renewcommand{\bibname}{Litteraturliste}
+   \renewcommand{\contentsname}{Indholdsfortegnelse}
+   \renewcommand{\tablename}{Tabel}
+   \renewcommand{\appendixname}{Bilag}
+} 
+
+% Frontmatter
+\pagestyle{empty}% Disable headers and footers
+\pagenumbering{roman}% Use roman page numbering in the frontmatter
+\input{intro/frontpage.tex}
+\input{intro/colophon.tex}
+\input{intro/titlepages.tex}
+\input{intro/forord.tex}
+\input{intro/laesevejledning.tex}
+\cleardoublepage
+\pdfbookmark[0]{Contents}{label:contents}
+\pagestyle{fancy}% Enable headers and footers again
+\tableofcontents
+\cleardoublepage
+
+% Mainmatter
+\pagenumbering{arabic}% Use arabic page numbering in the mainmatter
+\input{intro/indledning.tex}
+\input{outro/konklusion.tex}
+\input{outro/refleksion.tex}
+
+% Endmatter?
+\printbibliography[heading=bibintoc]
+\label{bib:mybiblio}
+\begin{appendices}
+\input{bilag/somebilag.tex}
+\end{appendices}
+\end{document}
