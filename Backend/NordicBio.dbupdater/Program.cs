@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Configuration;
 
 namespace NordicBio.dbupdater
 {
@@ -9,9 +10,17 @@ namespace NordicBio.dbupdater
     {
         static int Main(string[] args)
         {
+
+			var appSettings = ConfigurationManager.AppSettings;
+			string result = appSettings["myCustomConnString"];
+
+			//string connectionString = ConfigurationManager.ConnectionString["myCustomConnString"];
+
+			Console.WriteLine(result);
+
             var connectionString =
                 args.FirstOrDefault()
-                ?? "Server=(localdb)\\mssqllocaldb; Database=NordicBio; Trusted_connection=true";
+                ?? connectionString;
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 
