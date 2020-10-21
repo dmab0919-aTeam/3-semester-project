@@ -1,33 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    container_name: 3-semester-backend
-    build:
-      context: ./Backend/NordicBio.api/
-      dockerfile: Dockerfile
-    restart: always
-    volumes:
-      - ./Backend/NordicBio.api/:/app
-    ports:
-      - "5000:80"  
-    depends_on:
-      - database
-    networks:
-      - product-network
-  frontend:
-    container_name: 3-semester-frontend
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    networks:
-      - product-network
   database:
     container_name: 3-semester-database
     image: "mcr.microsoft.com/mssql/server"
