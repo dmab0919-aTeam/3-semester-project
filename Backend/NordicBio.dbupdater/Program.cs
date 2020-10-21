@@ -1,8 +1,8 @@
 ﻿using DbUp;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Configuration;
 
 namespace NordicBio.dbupdater
 {
@@ -11,12 +11,11 @@ namespace NordicBio.dbupdater
         static int Main(string[] args)
         {
 
-			var appSettings = ConfigurationManager.AppSettings;
-			string result = appSettings["myCustomConnString"];
-
+            var appsettings = ConfigurationManager.AppSettings["myCustomConnString"];
+			
 			//string connectionString = ConfigurationManager.ConnectionString["myCustomConnString"];
 
-			Console.WriteLine(result);
+			Console.WriteLine(appsettings);
 
             var connectionString =
                 args.FirstOrDefault()
