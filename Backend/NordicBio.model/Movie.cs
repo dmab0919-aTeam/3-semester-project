@@ -9,5 +9,6 @@ namespace NordicBio.model
         public string ReleaseDate { get; set; }
         public double VoteAverage { get; set; }
         public string PosterPath { get; set; }
+        public string Description { get; set; }
     }
 }
