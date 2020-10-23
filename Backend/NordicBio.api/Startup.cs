@@ -31,9 +31,13 @@ namespace NordicBio.api
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            
             services.AddControllers();
-           
+
+            var jwtSection = Configuration.GetSection("JwtBearerTokenSettings");
+            services.Configure<JwtBearerTokenSettings>(jwtSection);
+            var jwtBearerTokenSettings = jwtSection.Get<JwtBearerTokenSettings>();
+            var key = Encoding.ASCII.GetBytes(JwtBearerTokenSettings.SecretKey);
+
 
         }
 
