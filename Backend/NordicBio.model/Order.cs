@@ -9,7 +9,7 @@ namespace NordicBio.model
         public double TotalPrice { get; set; }
         ArrayList tickets;
 
-        public Order(int orderNumber, double totalPrice)
+        public Order(int orderNumber)
         {
             OrderNumber = orderNumber;
             TotalPrice = CalculateTotalPrice();
