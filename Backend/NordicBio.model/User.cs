@@ -11,7 +11,7 @@ namespace NordicBio.model
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
-        ArrayList orders = new ArrayList();
+        
 
         public User(string firstName, string lastName, string email, string phoneNumber, string password, bool isAdmin)
         {
@@ -21,11 +21,6 @@ namespace NordicBio.model
             PhoneNumber = phoneNumber;
             Password = password;
             IsAdmin = isAdmin;
-        }
-
-        public void AddOrder(Order order) 
-        {
-            orders.Add(order);
         }
     }
 }

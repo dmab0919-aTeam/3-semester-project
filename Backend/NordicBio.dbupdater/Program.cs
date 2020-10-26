@@ -1,4 +1,5 @@
 ﻿using DbUp;
+using NordicBio.dbSetup;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -42,6 +43,10 @@ namespace NordicBio.dbupdater
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Success!");
             Console.ResetColor();
+
+            SetupDB s = new SetupDB();
+            s.Setup();
+
             return 0;
         }
     }
