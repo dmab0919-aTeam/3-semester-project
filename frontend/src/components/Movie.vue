@@ -26,9 +26,11 @@ export default {
  
 <style scoped>
   .item {
+    height: 25em;
+    width: 15em;
     margin: 1em;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.50s ease;
 }
 
 .item:hover {
@@ -41,20 +43,22 @@ export default {
 }
 
 .overflow-ellipsis {
+    overflow: hidden;
     text-overflow: ellipsis;
+    color: whitesmoke;
 }
 
 img {
-    max-height: 20em;
-    max-width: 15em;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 img:hover {
-    box-shadow: 1px 0px 12px 12px rgba(211,84,0,0.64);
+    transition: all 0.50s ease;
+    box-shadow: 1px 0px 12px 12px rgba(17, 255, 243, 0.64);
 }
 
 p {
-    overflow: hidden;
     white-space: nowrap; 
     color: rgb(231, 231, 231);
     font-size: 1em;
