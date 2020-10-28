@@ -6,18 +6,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\Script0001 - Create tables.sql" />
-    <None Remove="Scripts\Script0002 - Fix faults.sql" />
+    <None Remove=".gitignore" />
+    <None Remove="Scripts\Script0001 - Setup Database.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0001 - Create tables.sql" />
-    <EmbeddedResource Include="Scripts\Script0002 - Fix faults.sql" />
+    <EmbeddedResource Include=".gitignore" />
+    <EmbeddedResource Include="Scripts\Script0001 - Setup Database.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="dbup" Version="4.4.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NordicBio.dbSetup\NordicBio.dbSetup.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Scripts\Script001 - Setup database.sql" />
   </ItemGroup>
 
 </Project>
