@@ -7,9 +7,9 @@ using System.Data.SqlClient;
 
 namespace NordicBio.dbSetup
 {
-    public class SetupMovieData
+    public class SetupDB
     {
-        static void Main(string[] args)
+        public void Setup()
         {
             var connectionString = ConfigurationManager.AppSettings["ConnString"];
             
