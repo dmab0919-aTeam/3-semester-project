@@ -30,7 +30,7 @@ export default {
 
                 console.log(email + password)
 
-                axios.post(`auth?username=${email}&password=${password}`)
+                axios.post(`auth/login?email=${email}&password=${password}`)
                     .then(response => {
                         const token = response.data.Key,
                             user = response.data.user;

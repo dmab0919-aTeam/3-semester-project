@@ -49,8 +49,8 @@ namespace NordicBio.api
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = "https://www.yogihosting.com",
-                    ValidIssuer = "https://www.yogihosting.com",
+                    ValidAudience = "A-Team",
+                    ValidIssuer = "A-Team",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MynameisJamesBond007"))
                 };
             });
