@@ -13,6 +13,7 @@ const routes = [
          path: '/login',
          name: 'login',
          component: loginAuth,
+         meta: { requiresAuth: false}
       }
    ] 
 
