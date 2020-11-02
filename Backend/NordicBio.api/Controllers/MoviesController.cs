@@ -29,7 +29,6 @@ namespace NordicBio.api.Controllers
         }
         // GET: api/<MoviesController>
         [HttpGet]
-        [Authorize]
         public IEnumerable<Movie> Get()
         {
             return movieDB.GetAllMovies();
