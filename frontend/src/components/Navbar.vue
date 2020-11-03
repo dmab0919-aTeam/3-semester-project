@@ -9,6 +9,11 @@
             > 
                 <button>Login</button>
             </router-link>
+            <router-link :to="{ name: 'register' }"
+               tabindex="0"
+            > 
+                <button>Register</button>
+            </router-link>
         </div>
     </div>
 </template>
