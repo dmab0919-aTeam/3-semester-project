@@ -46,11 +46,6 @@ namespace NordicBio.api.Controllers
             {
                 return NotFound("User not found or wrong crenditials!");
             }
-
-            Token t = new Token();
-            t.Key = GenerateJSONWebToken();
-            var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
-            return Ok(tokenString);
         }
 
         [HttpPost]
