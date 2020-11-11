@@ -1,14 +1,15 @@
 <template>
     <div>
         <ul class="container">
-            <li v-for="movie in movies" :key="movie.title">
-            
-            <Movie 
-            :title="movie.title"
-            :release_year="movie.releaseDate"
-            :vote_avarage="movie.voteAverage"
-            :poster_path="movie.posterPath"
-            />
+            <li v-for="movie in movies" :key="movie.id">
+              <router-link :to="{ name: 'singleMovie', params: { id: movie.id, title: movie.title, release_year: movie.releaseDate,  vote_avarage: movie.voteAverage, poster_path: movie.posterPath}}">
+                <Movie 
+                :title="movie.title"
+                :release_year="movie.releaseDate"
+                :vote_avarage="movie.voteAverage"
+                :poster_path="movie.posterPath"
+                />
+              </router-link>
             </li>
         </ul>
     </div>
