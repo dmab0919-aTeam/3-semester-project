@@ -57,6 +57,10 @@ namespace NordicBio.api.Controllers
                 return NotFound("User not found or wrong crenditials!");
             }
 
+            Token t = new Token();
+            t.Key = GenerateJSONWebToken();
+            var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
+            return Ok(tokenString);
         }
 
         [HttpPost]
@@ -86,7 +90,6 @@ namespace NordicBio.api.Controllers
             {
                 return BadRequest("User was not created");
             }
-          
         }
 
         private string GenerateJSONWebToken(string email)
