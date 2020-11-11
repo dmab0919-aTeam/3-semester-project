@@ -41,12 +41,6 @@
 
 <script>
 export default {
-  import
-  
-  components: {
-    'star-rating', VueStarRating.default
-  },
-  
   name: "singleMovie",
   
   data() {
@@ -61,7 +55,6 @@ export default {
   },
   
   created() {
-    
     this.data.title = this.$route.params.title;
     this.data.release_year = this.$route.params.release_year;
     this.data.vote_avarage = this.$route.params.vote_avarage;

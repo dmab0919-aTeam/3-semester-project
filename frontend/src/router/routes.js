@@ -15,18 +15,18 @@ const routes = [
          path: '/login',
          name: 'login',
          component: loginAuth,
+          meta: { requiresAuth: false}
       },
     {
         path: '/movie/:id',
         name: 'singleMovie',
         component: singleMovie
-    }
-         meta: { requiresAuth: false}
-      },
+    },
       {
          path: '/register',
          name: 'register',
          component: registerpage,
+          meta: { requiresAuth: false}
       }
    ] 
 
