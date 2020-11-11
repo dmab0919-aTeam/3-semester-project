@@ -4,17 +4,16 @@
             <img src="../assets/logo.png" alt="NBA">
         </div>
         <div class="link-container">
-            <a class="links" href="">Booking</a>
-            <a class="links" href="">Movies</a>
-            <button @click.prevent="gotoLogin">TEST</button>
             <router-link :to="{ name: 'login' }"
                tabindex="0"
             > 
-                <a class="links">Login</a>
+                <button>Login</button>
             </router-link>
-        </div>
-        <div class="input-field">
-            <input v-model="Search" placeholder="Find film..">
+            <router-link :to="{ name: 'register' }"
+               tabindex="0"
+            > 
+                <button>Register</button>
+            </router-link>
         </div>
     </div>
 </template>
@@ -39,50 +38,24 @@ export default {
         font-family: Arial, Helvetica, sans-serif;
         margin-bottom: 1em;
         background-color:white;
-        color: white;
         border-radius: 10px;
         padding: 1em;
         text-align: center;
     }
 
-    .header {
-        font-size: 6vh;
-        margin: 0px;
-    }
-
-    .links {
-        text-decoration: none;
-        color: black;
-        border-radius: 10px;
-        text-align: center;
-        padding-left: 1.5em;
-        padding-right: 1.5em;
-        margin: 1em;
-        box-sizing: border-box;
-        
-    }
-
-    .links:hover {
-        cursor: pointer;
-        background-color: rgba(211,84,0,0.64);
-        color: white;
-
-    }
-
     .link-container {
-        display: inline-block;
-        
+       padding-top: 1em;
     }
 
-    .input-field {
-        display: inline-block;
-        
+    button{
+        padding-left: 2em;
+        padding-right: 2em;
+        border: 2px solid black;
+        border-radius: 5px;
     }
 
-    .input-field input {
-        text-align: right;
-        
+    button:hover {
+        background-color: black;
+        color: white;
     }
-
-   
 </style>
