@@ -4,7 +4,7 @@
 	LastName varchar(20) NOT NULL,
 	Email varchar(50) PRIMARY KEY,
 	PhoneNumber varchar(20) NOT NULL,
-	[Password] varchar(50) NOT NULL,
+	[Password] varchar(200) NOT NULL,
 	IsAdmin bit
 ) 
 
