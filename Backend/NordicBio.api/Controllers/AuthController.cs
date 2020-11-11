@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Newtonsoft.Json;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
-using NordicBio.dal;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using NordicBio.dal;
 using NordicBio.model;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Text;
 
 namespace NordicBio.api.Controllers
 {
@@ -45,7 +35,7 @@ namespace NordicBio.api.Controllers
         public ActionResult Login(string email, string password)
         {
             User user = userDB.GetUser(email);
-            if(BCrypt.Net.BCrypt.Verify(password, user.Password))
+            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 Token t = new Token();
                 t.Key = GenerateJSONWebToken(user.Email);
@@ -71,7 +61,8 @@ namespace NordicBio.api.Controllers
             string email,
             string phonenumber,
             string password
-            ) {
+            )
+        {
 
             User user = new User()
             {
@@ -86,7 +77,8 @@ namespace NordicBio.api.Controllers
             if (userDB.CreateUser(user))
             {
                 return Ok("User successfully created");
-            } else
+            }
+            else
             {
                 return BadRequest("User was not created");
             }
@@ -113,6 +105,6 @@ namespace NordicBio.api.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-       
+
     }
 }

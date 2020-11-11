@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NordicBio.dal;
 using NordicBio.model;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,13 +15,13 @@ namespace NordicBio.api.Controllers
         private readonly IConfiguration _configuration;
 
         private MovieDB movieDB;
-        
+
         public MoviesController(IConfiguration configuration)
         {
             _configuration = configuration;
             string constring = _configuration.GetConnectionString("constring");
             movieDB = new MovieDB(constring);
-            
+
         }
         // GET: api/<MoviesController>
         [HttpGet]
