@@ -2,12 +2,15 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using NordicBio.api.Validation;
 using NordicBio.dal;
 using NordicBio.model;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NordicBio.api.Controllers
 {
@@ -34,18 +37,36 @@ namespace NordicBio.api.Controllers
         [Route("login")]
         public ActionResult Login(string email, string password)
         {
+
+            List<ValidateString> validations = new List<ValidateString>()
+            {
+                new ValidateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "Email is not valid"),
+                new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
+            };
+
+            if (InputValidator.StringInputValidation(validations).Count > 0)
+            {
+                return BadRequest(InputValidator.StringInputValidation(validations));
+            }
+
             User user = userDB.GetUser(email);
-            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+            if(user != null)
             {
-                Token t = new Token();
-                t.Key = GenerateJSONWebToken(user.Email);
-                var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
-                return Ok(tokenString);
-            }
-            else
+                if (user.Password.Equals(Encrypt.HashPassword(user.Salt, password)))
+                {
+                    Token t = new Token();
+                    t.Key = GenerateJSONWebToken(user.Email);
+                    var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
+                    return Ok(tokenString);
+                } else
+                {
+                    return NotFound("Email and password does not match");
+                }
+            } else
             {
-                return NotFound("User not found or wrong crenditials!");
+                return NotFound("User not found");
             }
+            
         }
 
         [HttpPost]
@@ -58,16 +79,25 @@ namespace NordicBio.api.Controllers
             string password
             )
         {
-
-            User user = new User()
+            List<ValidateString> validations = new List<ValidateString>()
             {
-                FirstName = firstname,
-                LastName = lastname,
-                Email = email,
-                PhoneNumber = phonenumber,
-                Password = BCrypt.Net.BCrypt.HashPassword(password),
-                IsAdmin = false
+                new ValidateString(firstname,  "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "Firstname is not valid"),
+                new ValidateString(lastname, "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "Lastname is not valid"),
+                new ValidateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "Email is not valid"),
+                new ValidateString(phonenumber, "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", "Phonenumber is not valid"),
+                new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
             };
+
+            if(InputValidator.StringInputValidation(validations).Count > 0)
+            {
+                return BadRequest(InputValidator.StringInputValidation(validations));
+            }
+
+            string salt = Encrypt.Salt();
+            string hashedPassword = Encrypt.HashPassword(salt, password);
+
+            User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
+            
 
             if (userDB.CreateUser(user))
             {
@@ -99,7 +129,6 @@ namespace NordicBio.api.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
 
     }
 }

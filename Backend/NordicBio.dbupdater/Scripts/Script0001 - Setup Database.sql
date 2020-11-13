@@ -5,6 +5,7 @@
 	Email varchar(50) PRIMARY KEY,
 	PhoneNumber varchar(20) NOT NULL,
 	[Password] varchar(200) NOT NULL,
+	Salt varchar(20) NOT NULL,
 	IsAdmin bit
 ) 
 
