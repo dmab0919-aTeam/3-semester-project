@@ -37,21 +37,24 @@ namespace NordicBio.api.Controllers
         [Route("login")]
         public ActionResult Login(string email, string password)
         {
-
+            //Alle parametre bliver sendt med i en ValidateString klasse med den passende regex og en fejl besked
             List<ValidateString> validations = new List<ValidateString>()
             {
                 new ValidateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "Email is not valid"),
                 new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
             };
 
+            //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne
             if (InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
             }
 
+            //Useren bliver fundet i DB
             User user = userDB.GetUser(email);
             if(user != null)
             {
+                //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
                 if (user.Password.Equals(Encrypt.HashPassword(user.Salt, password)))
                 {
                     Token t = new Token();
@@ -79,6 +82,7 @@ namespace NordicBio.api.Controllers
             string password
             )
         {
+            //Alle parametre bliver sendt med i en ValidateString klasse med den passende regex og en fejl besked 
             List<ValidateString> validations = new List<ValidateString>()
             {
                 new ValidateString(firstname,  "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "Firstname is not valid"),
@@ -88,10 +92,12 @@ namespace NordicBio.api.Controllers
                 new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
             };
 
+            //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne.
             if(InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
             }
+
 
             string salt = Encrypt.Salt();
             string hashedPassword = Encrypt.HashPassword(salt, password);

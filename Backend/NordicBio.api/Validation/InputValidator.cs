@@ -8,6 +8,7 @@ namespace NordicBio.api.Validation
 {
     public static class InputValidator
     {
+        //Metode til at validere string parametre, hvis input ikke stemmer overens med regex, bliver fejlbeskeden tilføjet til listen og returneret. 
         public static List<string> StringInputValidation(List<ValidateString> validations)
         {
             List<string> v = new List<string>();
