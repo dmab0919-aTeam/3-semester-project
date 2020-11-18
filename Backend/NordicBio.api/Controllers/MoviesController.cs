@@ -32,9 +32,9 @@ namespace NordicBio.api.Controllers
 
         // GET api/<MoviesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Movie Get(int id)
         {
-            return "value";
+            return movieDB.GetMovie(id);
         }
     }
 }

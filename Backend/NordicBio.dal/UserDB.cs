@@ -27,7 +27,7 @@ namespace NordicBio.dal
                 {
                     res = con.QuerySingleOrDefault<User>(sql, parameters);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw new Exception("brugeren findes ikke");
                 }
