@@ -19,9 +19,8 @@ namespace NordicBio.api.Controllers
         public MoviesController(IConfiguration configuration)
         {
             _configuration = configuration;
-            string constring = _configuration.GetConnectionString("constring");
+            string constring = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
             movieDB = new MovieDB(constring);
-
         }
         // GET: api/<MoviesController>
         [HttpGet]
