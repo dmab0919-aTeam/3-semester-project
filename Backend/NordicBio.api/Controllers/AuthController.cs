@@ -29,7 +29,7 @@ namespace NordicBio.api.Controllers
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
-            string constring = _configuration.GetConnectionString("constring");
+            string constring = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
             userDB = new UserDB(constring);
         }
 
