@@ -11,7 +11,7 @@ namespace NordicBio.dbSetup
     {
         public void Setup()
         {
-            var connectionString = ConfigurationManager.AppSettings["ConnString"];
+            var connectionString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
             
             // RestSharp client, request and response
             var client = new RestClient("https://api.themoviedb.org");
