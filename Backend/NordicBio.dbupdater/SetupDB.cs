@@ -23,8 +23,8 @@ namespace NordicBio.dbSetup
             JArray items = (JArray)json["results"];
 
             // Prepaired statement
-            string sql = "INSERT INTO [dbo].[Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
-                "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
+            string sql = "INSERT INTO [dbo].[Movies] (Title, ReleaseDate, VoteAverage, PosterPath, BackdropPath, Description) " +
+                "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @BackDropPath, @Description)";
             
             // Executer sql statement
             using (var connection = new SqlConnection(connectionString))
@@ -37,7 +37,9 @@ namespace NordicBio.dbSetup
                         ReleaseDate = (string)json.results[i].release_date,
                         VoteAverage = (decimal)json.results[i].vote_average,
                         PosterPath = (string)json.results[i].poster_path,
+                        BackDropPath = (string)json.results[i].backdrop_path,
                         Description = (string)json.results[i].overview
+
                     });
                 }
             }
