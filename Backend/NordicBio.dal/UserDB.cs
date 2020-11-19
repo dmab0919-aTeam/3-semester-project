@@ -23,7 +23,15 @@ namespace NordicBio.dal
             var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                res = con.QuerySingleOrDefault<User>(sql, parameters);
+                try
+                {
+                    res = con.QuerySingleOrDefault<User>(sql, parameters);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("brugeren findes ikke");
+                }
+                
             }
 
             return res;
@@ -38,14 +46,23 @@ namespace NordicBio.dal
                 Lastname = user.LastName,
                 Email = user.Email,
                 Phonenumber = user.PhoneNumber,
+                Salt = user.Salt,
                 Password = user.Password,
-                Isadmin = user.IsAdmin
+                Isadmin = false
             };
-            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Password, @Isadmin)";
+            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @Isadmin)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                res = con.QuerySingleOrDefault(sql, parameters);
+                try
+                {
+                    con.QuerySingleOrDefault(sql, parameters);
+                    res = true;
+                } catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                
             }
 
             return res;
