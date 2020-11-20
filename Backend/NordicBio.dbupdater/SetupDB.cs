@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace NordicBio.dbSetup
@@ -12,7 +10,7 @@ namespace NordicBio.dbSetup
         public void Setup()
         {
             var connectionString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
-            
+
             // RestSharp client, request and response
             var client = new RestClient("https://api.themoviedb.org");
             var request = new RestRequest("3/movie/upcoming?api_key=e1875a74a5c3708b92a2472f875f422d&language=EN&page=1", Method.GET);
@@ -25,7 +23,7 @@ namespace NordicBio.dbSetup
             // Prepaired statement
             string sql = "INSERT INTO [dbo].[Movies] (Title, ReleaseDate, VoteAverage, PosterPath, BackdropPath, Description) " +
                 "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @BackDropPath, @Description)";
-            
+
             // Executer sql statement
             using (var connection = new SqlConnection(connectionString))
             {

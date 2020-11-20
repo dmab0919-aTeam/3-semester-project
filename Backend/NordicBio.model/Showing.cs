@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections;
 
 namespace NordicBio.model
 {
     public class Showing
     {
         public double Price { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime ShowingTime { get; set; }
         public int HallNumber { get; set; }
-        public Movie MyMovie { get; set; }
-        
+        public int MovieID { get; set; }
 
-        public Showing(double price, DateTime time, int hallNumber, Movie myMovie)
+        public Showing()
+        {
+
+        }
+        public Showing(double price, DateTime showingTime, int hallNumber, int movieID)
         {
             Price = price;
-            Time = time;
+            ShowingTime = showingTime;
             HallNumber = hallNumber;
-            MyMovie = myMovie;
+            MovieID = movieID;
         }
 
-        
+
     }
 }
