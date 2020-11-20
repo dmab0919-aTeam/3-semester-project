@@ -58,7 +58,7 @@ CREATE TABLE [dbo].[Movies] (
 CREATE TABLE [dbo].[Showings] (
 	Id int PRIMARY KEY identity(1,1),
 	Price float NOT NULL,
-	[Time] varchar(20) NOT NULL,
+	[ShowingTime] datetime NOT NULL,
 	HallNumber int NOT NULL,
 	MovieID int NOT NULL,
 	FOREIGN KEY (MovieID) REFERENCES [dbo].[Movies] (Id),

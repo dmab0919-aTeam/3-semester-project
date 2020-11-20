@@ -14,26 +14,26 @@ namespace NordicBio.api.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        private MovieDB movieDB;
+        private MovieDB _movieDB;
 
         public MoviesController(IConfiguration configuration)
         {
             _configuration = configuration;
-            string constring = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
-            movieDB = new MovieDB(constring);
+            string constring = _configuration.GetConnectionString("constring");
+            _movieDB = new MovieDB(constring);
         }
         // GET: api/<MoviesController>
         [HttpGet]
         public IEnumerable<Movie> Get()
         {
-            return movieDB.GetAllMovies();
+            return _movieDB.GetAllMovies();
         }
 
         // GET api/<MoviesController>/5
         [HttpGet("{id}")]
         public Movie Get(int id)
         {
-            return movieDB.GetMovie(id);
+            return _movieDB.GetMovie(id);
         }
     }
 }

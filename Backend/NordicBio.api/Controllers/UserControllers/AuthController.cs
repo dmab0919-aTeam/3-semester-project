@@ -24,13 +24,13 @@ namespace NordicBio.api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private UserDB userDB;
+        private UserDB _userDB;
 
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
-            string constring = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
-            userDB = new UserDB(constring);
+            string constring = _configuration.GetConnectionString("constring");
+            _userDB = new UserDB(constring);
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB
-            User user = userDB.GetUser(email);
+            User user = _userDB.GetUser(email);
             if(user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
@@ -105,7 +105,7 @@ namespace NordicBio.api.Controllers
             User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
             
 
-            if (userDB.CreateUser(user))
+            if (_userDB.CreateUser(user))
             {
                 return Ok("User successfully created");
             }
