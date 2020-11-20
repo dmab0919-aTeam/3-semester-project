@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace NordicBio.api.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class SeatController : ControllerBase
