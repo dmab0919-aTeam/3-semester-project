@@ -3,7 +3,7 @@
     <div class="container">
       <a ><img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" /></a>
 
-      <div class="hero" style="">
+      <div class="hero" :style="style">
 
         <div class="details">
 
@@ -29,7 +29,7 @@
 
         <div class="column2">
 
-          <p>Bilbo Baggins is swept into a quest to reclaim the lost Dwarf Kingdom of Erebor from the fearsome dragon Smaug. Approached out of the blue by the wizard Gandalf the Grey, Bilbo finds himself joining a company of thirteen dwarves led by the legendary warrior, Thorin Oakenshield. Their journey will take them into the Wild; through...</p>
+          <p>{{ this.data.description }}</p>
           
         </div> <!-- end column2 -->
       </div> <!-- end description -->
@@ -40,27 +40,56 @@
 </template>
 
 <script>
-export default {
-  name: "singleMovie",
-  
-  data() {
-    return {
-      data: {
-        title: '',
-        release_year: '',
-        vote_avarage: '',
-        poster_path: ''
-      }
+    import axios from 'axios';
+    export default {
+        name: "singleMovie",
+
+        data() {
+            return {
+                data: {
+                    title: '',
+                    release_year: '',
+                    vote_avarage: '',
+                    poster_path: '',
+                    backdrop_path: '',
+                    description: ''
+                },
+            }
+        },
+        methods: {
+            fetchSingleMovie() {
+                axios.get(`movies/${this.$route.params.id}`)
+                    .then(response => {
+                        this.data.title = response.data.title;
+                        this.data.release_year = response.data.releaseYear;
+                        this.data.vote_avarage = response.data.voteAverage;
+                        this.data.poster_path = response.data.posterPath;
+                        this.data.backdrop_path = response.data.backdropPath;
+                        this.data.description = response.data.description;
+
+                        console.log(response.data)
+                        //this.movies = response.data
+                    }).catch(err => {
+                        console.log(err)
+                    });
+            }
+        },
+        computed: {
+            style() {
+                return 'background: url(' + 'https://image.tmdb.org/t/p/w500' + this.data.backdrop_path + ');';
+            }
+        },
+
+        created() {
+            this.data.title = this.$route.params.title;
+            this.data.release_year = this.$route.params.release_year;
+            this.data.vote_avarage = this.$route.params.vote_avarage;
+            this.data.poster_path = this.$route.params.poster_path;
+            this.data.backdrop_path = this.$route.params.backdrop_path;
+            this.data.description = this.$route.params.description;
+            this.fetchSingleMovie();
+        }
     }
-  },
-  
-  created() {
-    this.data.title = this.$route.params.title;
-    this.data.release_year = this.$route.params.release_year;
-    this.data.vote_avarage = this.$route.params.vote_avarage;
-    this.data.poster_path = this.$route.params.poster_path;
-  }
-}
 </script>
 
 <style scoped>
@@ -117,8 +146,6 @@ a:hover {
   position:absolute;
   overflow: hidden;
   top:0; left:0;
-  background:red;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/hobbit_bg.jpg");
   z-index:-1;
 
   transform: skewY(-2.2deg);
