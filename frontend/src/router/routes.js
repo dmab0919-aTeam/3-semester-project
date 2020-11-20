@@ -4,6 +4,7 @@ const frontpage = () => import('../layouts/frontpage.vue')
 const loginAuth = () => import('../layouts/LoginAuth.vue')
 const singleMovie = () => import('../components/singleMovie.vue')
 const registerpage = () => import('../layouts/registerpage.vue')
+const adminPanel = () => import('../layouts/adminPanel')
 
 const routes = [
       {
@@ -27,6 +28,12 @@ const routes = [
          name: 'register',
          component: registerpage,
           meta: { requiresAuth: false}
+      },
+      {
+         path: '/admin',
+         name: 'adminPanel',
+         component: adminPanel,
+         meta: { requiresAuth: true}
       }
    ] 
 
