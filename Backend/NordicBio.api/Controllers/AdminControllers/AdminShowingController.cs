@@ -10,17 +10,16 @@ namespace NordicBio.api.Controllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
-    public class ShowingController : ControllerBase
+    public class AdminShowingController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private ShowingDB _showingDB;
-        public ShowingController(IConfiguration configuration)
+        public AdminShowingController(IConfiguration configuration)
         {
             _configuration = configuration;
             string constring = _configuration.GetConnectionString("constring");
             _showingDB = new ShowingDB(constring);
         }
-
 
         // GET: api/<ShowingController>
         [HttpGet]
@@ -29,19 +28,12 @@ namespace NordicBio.api.Controllers
             return _showingDB.getAllShowings();
         }
 
-
-
-
-
         // GET api/<ShowingController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("/movie/{id}")]
+        public IEnumerable<Showing> Get(int id)
         {
-            return "value";
+            return _showingDB.getShowingsByID(id);
         }
-
-
-
 
         // POST api/<ShowingController>
         [HttpPost]

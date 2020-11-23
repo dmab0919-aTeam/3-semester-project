@@ -3,21 +3,14 @@
     <div class="container">
       <a ><img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" /></a>
 
-      <div class="hero" :style="style">
-
         <div class="details">
 
           <h1>{{ this.data.title }}</h1>
-          
-          
-
+        
           <span class="likes">{{ this.data.vote_avarage }} Vote Average</span>
 
         </div> <!-- end details -->
 
-      </div> <!-- end hero -->
-
-      
       <div class="description">
 
         <!--
@@ -28,13 +21,9 @@
         </div>  end column1 -->
 
         <div class="column2">
-
           <p>{{ this.data.description }}</p>
-          
         </div> <!-- end column2 -->
       </div> <!-- end description -->
-
-
     </div> <!-- end container -->
   </div> <!-- end movie-card -->
 </template>
@@ -43,7 +32,6 @@
     import axios from 'axios';
     export default {
         name: "singleMovie",
-
         data() {
             return {
                 data: {
@@ -115,9 +103,10 @@ a:hover {
 }
 
 .movie-card {
-  font: 14px/22px "Lato", Arial, sans-serif;
+  font: 18px/26px "Lato", Arial, sans-serif;
   color: #A9A8A3;
   padding: 40px 0;
+  text-align: center;
 }
 
 .container {
@@ -125,8 +114,8 @@ a:hover {
   width: 100%;
   height: 640px;
   background: #F0F0ED;
+  float: left;
   border-radius: 5px;
-  position: relative;
 }
 
 .hero {
@@ -157,17 +146,17 @@ a:hover {
 }
 
 .cover {
-  position: absolute;
+  float: left;  
   top: 160px;
   left: 40px;
   z-index: 2;
-  height: 300px;
-  width: 200px;
+  height: 60%;
+  width: 20%;
 }
 
 .details {
-
   padding: 190px 0 0 280px;
+  text-align: center;
 
 
 .title1 {
@@ -197,28 +186,15 @@ span {
 }
 
 
-.likes {
-  margin-left: 24px;
-}
-
-
-.likes:before {
-  content: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/icon_like.png");
-  position: relative;
-  top: 2px;
-  padding-right: 7px;
-}
-
 }
 
 .description {
-
   bottom: 0px;
   height: 200px;
+  left: 400px;
   font-size: 16px;
   line-height: 26px;
   color: #B1B0AC;
-
 }
 
 .column1 {

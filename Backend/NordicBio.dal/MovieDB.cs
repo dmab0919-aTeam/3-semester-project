@@ -18,6 +18,8 @@ namespace NordicBio.dal
             this._constring = constring;
         }
 
+
+        // Get all movies in the database
         public IEnumerable<Movie> GetAllMovies()
         {
             string sql = "SELECT * FROM Movies";
@@ -39,6 +41,7 @@ namespace NordicBio.dal
             return res;
         }
 
+        // Get single movie by the id of the movie
         public Movie GetMovie(int id)
         {
             var parameters = new { Id = id };
