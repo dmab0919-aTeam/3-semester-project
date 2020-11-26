@@ -26,14 +26,6 @@
             </select>
             <br>
             <input type="submit" value="continue to seating">
-
-            <ul>
-            <li v-for="props in props" :key="props"> 
-                {{ this.Price }} {{ this.ShowingTime}} 
-                {{ this.HallNumber }} {{ this.MovieID }}
-            </li>
-        </ul>
-
           </div>
         </div>
         
