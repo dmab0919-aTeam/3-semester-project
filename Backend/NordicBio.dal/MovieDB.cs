@@ -1,15 +1,15 @@
 ﻿using Dapper;
+using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Configuration;
 
 namespace NordicBio.dal
 {
-    public class MovieDB
-        
+    public class MovieDB : ICRUD<Movie>
+
     {
         private string _constring;
 
@@ -19,8 +19,39 @@ namespace NordicBio.dal
         }
 
 
-        // Get all movies in the database
-        public IEnumerable<Movie> GetAllMovies()
+        // CRUD Functionality
+        public bool Create(Movie t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Movie t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Movie Get(int id)
+        {
+            var parameters = new { Id = id };
+            string sql = "SELECT * FROM Movies WHERE id = @Id";
+            Movie res;
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    res = connection.QuerySingleOrDefault<Movie>(sql, parameters);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Filmen Findes ikke");
+                }
+            }
+
+            return res;
+        }
+
+        public IEnumerable<Movie> GetAll()
         {
             string sql = "SELECT * FROM Movies";
             List<Movie> res;
@@ -36,31 +67,14 @@ namespace NordicBio.dal
                 {
                     throw;
                 }
-                
+
             }
             return res;
         }
 
-        // Get single movie by the id of the movie
-        public Movie GetMovie(int id)
+        public bool Update(Movie t)
         {
-            var parameters = new { Id = id };
-            string sql = "SELECT * FROM Movies WHERE id = @Id";
-            Movie res;
-
-            using(var connection = new SqlConnection(_constring))
-            {
-                try
-                {
-                    res = connection.QuerySingleOrDefault<Movie>(sql, parameters);
-                }
-                catch (Exception)
-                {
-                    throw new Exception("Filmen Findes ikke");
-                }
-            }
-
-            return res;
+            throw new NotImplementedException();
         }
     }
 }
