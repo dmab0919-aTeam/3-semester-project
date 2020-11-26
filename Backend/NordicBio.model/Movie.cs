@@ -12,6 +12,10 @@ namespace NordicBio.model
         public string BackdropPath { get; set; }
         public string Description { get; set; }
 
+        public Movie()
+        {
+
+        }
         public Movie(int id, string title, string releaseDate, double voteAverage, string posterPath, string backdropPath, string description)
         {
             Id = id;
