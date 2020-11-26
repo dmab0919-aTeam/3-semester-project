@@ -1,5 +1,6 @@
 ﻿
 using Dapper;
+using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace NordicBio.dal
 {
-    public class ShowingDB
+    public class ShowingDB : ICRUD<Showing>
     {
         private string _constring;
         public ShowingDB(string constring)
@@ -17,15 +18,37 @@ namespace NordicBio.dal
         }
 
 
-        public bool CreateShowing(Showing showing)
+        // Get all showings on a movie by movie_id
+        public IEnumerable<Showing> getShowingsByID(int id)
+        {
+            var parameters = new { MovieID = id };
+            string sql = "SELECT * FROM Showings WHERE MovieID = @MovieID ORDER BY ShowingTime";
+            List<Showing> res;
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    res = connection.Query<Showing>(sql, parameters).ToList();
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Filmen Findes ikke");
+                }
+            }
+
+            return res;
+        }
+
+        public bool Create(Showing t)
         {
             bool res = false;
             var parameters = new
             {
-                Price = showing.Price,
-                ShowingTime = showing.ShowingTime,
-                HallNumber = showing.HallNumber,
-                MovieID = showing.MovieID
+                Price = t.Price,
+                ShowingTime = t.ShowingTime,
+                HallNumber = t.HallNumber,
+                MovieID = t.MovieID
             };
             var sql = "INSERT INTO Showings " +
                 "(Price, ShowingTime, HallNumber, MovieID) " +
@@ -48,32 +71,13 @@ namespace NordicBio.dal
             return res;
         }
 
-        // Get all showings on a movie by movie_id
-        public IEnumerable<Showing> getShowingsByID(int id)
+        public Showing Get(int id)
         {
-            var parameters = new { Id = id };
-            string sql = "SELECT * FROM Showings WHERE MovieID = @Id";
-            List<Showing> res;
-
-            using (var connection = new SqlConnection(_constring))
-            {
-                try
-                {
-                    res = connection.Query<Showing>(sql, parameters).ToList();
-                }
-                catch (Exception)
-                {
-                    throw new Exception("Filmen Findes ikke");
-                }
-            }
-
-            return res;
+            throw new NotImplementedException();
         }
 
-
-        public IEnumerable<Showing> getAllShowings()
+        public IEnumerable<Showing> GetAll()
         {
-
             string sql = "SELECT * FROM Showings";
             List<Showing> res;
 
@@ -90,6 +94,16 @@ namespace NordicBio.dal
                 }
             }
             return res;
+        }
+
+        public bool Update(Showing t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Showing t)
+        {
+            throw new NotImplementedException();
         }
     }
 }

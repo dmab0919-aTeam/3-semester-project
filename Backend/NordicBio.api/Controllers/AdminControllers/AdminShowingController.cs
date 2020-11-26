@@ -25,11 +25,11 @@ namespace NordicBio.api.Controllers
         [HttpGet]
         public IEnumerable<Showing> GetAllShowings()
         {
-            return _showingDB.getAllShowings();
+            return _showingDB.GetAll();
         }
 
         // GET api/<ShowingController>/5
-        [HttpGet("/movie/{id}")]
+        [HttpGet("movie/{id}")]
         public IEnumerable<Showing> Get(int id)
         {
             return _showingDB.getShowingsByID(id);
@@ -40,7 +40,7 @@ namespace NordicBio.api.Controllers
         public ActionResult Post([FromBody] Showing showing)
         {
 
-            return Ok(_showingDB.CreateShowing(showing));
+            return Ok(_showingDB.Create(showing));
 
         }
 
