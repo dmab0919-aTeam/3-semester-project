@@ -33,9 +33,10 @@ namespace NordicBio.api
 
         public static string HashPassword(string salt, string password)
         {
+            // Add random sleep or slow hasing b-crypt
             string letter4 = password.Substring(4, 1);
             int length = password.Length;
-
+            
             string saltedPassword = password + letter4 + length + salt;
 
             return ComputeSha256Hash(saltedPassword);

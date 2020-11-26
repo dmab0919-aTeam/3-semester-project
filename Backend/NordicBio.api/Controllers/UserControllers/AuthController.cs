@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace NordicBio.api.Controllers
 {
@@ -52,7 +51,7 @@ namespace NordicBio.api.Controllers
 
             //Useren bliver fundet i DB
             User user = _userDB.GetUser(email);
-            if(user != null)
+            if (user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
                 if (user.Password.Equals(Encrypt.HashPassword(user.Salt, password)))
@@ -61,15 +60,16 @@ namespace NordicBio.api.Controllers
                     t.Key = GenerateJSONWebToken(user.Email);
                     var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
                     return Ok(tokenString);
-                } else
+                }
+                else
                 {
                     return NotFound("Email and password does not match");
                 }
-            } else
+            }
+            else
             {
                 return NotFound("User not found");
             }
-            
         }
 
         [HttpPost]
@@ -93,7 +93,7 @@ namespace NordicBio.api.Controllers
             };
 
             //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne.
-            if(InputValidator.StringInputValidation(validations).Count > 0)
+            if (InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
             }
@@ -103,9 +103,9 @@ namespace NordicBio.api.Controllers
             string hashedPassword = Encrypt.HashPassword(salt, password);
 
             User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
-            
 
-            if (_userDB.CreateUser(user))
+
+            if (_userDB.Create(user))
             {
                 return Ok("User successfully created");
             }

@@ -1,46 +1,69 @@
 <template>
   <div class="movie-card">
-    <div class="container">
-      <a ><img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" /></a>
+      <div class="details">
+        <h1>Title: {{ this.data.title }}</h1>
+      </div> <!-- end details -->
+      
+      <div class="column2">
+        <strong>Description:</strong> <p>{{ this.data.description }}</p>
+      </div> <!-- end column2 -->
 
-        <div class="details">
+      <div class="container">
+        <div class="image-container">
+          <div class="image">
+            <img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" />
+            <div class="voteaverage">{{ this.data.vote_avarage }} Vote Average</div>
+          </div>
+        </div>
 
-          <h1>{{ this.data.title }}</h1>
+        <div class="shoing-container">
+          <div class="showings">
+            <p>Choose a showing for this movie:</p>
+            <select name="showings" id="showings">
+              <option value="1">
+                1
+              </option>
+            </select>
+            <br>
+            <input type="submit" value="continue to seating">
+
+            <ul>
+            <li v-for="props in props" :key="props"> 
+                {{ this.Price }} {{ this.ShowingTime}} 
+                {{ this.HallNumber }} {{ this.MovieID }}
+            </li>
+        </ul>
+
+          </div>
+        </div>
         
-          <span class="likes">{{ this.data.vote_avarage }} Vote Average</span>
-
-        </div> <!-- end details -->
-
-      <div class="description">
-
-        <!--
-        <div class="column1">
-          <span class="tag">action</span>
-          <span class="tag">fantasy</span>
-          <span class="tag">adventure</span>
-        </div>  end column1 -->
-
-        <div class="column2">
-          <p>{{ this.data.description }}</p>
-        </div> <!-- end column2 -->
-      </div> <!-- end description -->
-    </div> <!-- end container -->
+      </div>
   </div> <!-- end movie-card -->
 </template>
 
 <script>
     import axios from 'axios';
+ 
     export default {
         name: "singleMovie",
+        props: [{
+          Price: Number,
+          ShowingTime: String,
+          HallNumber: Number,
+          MovieID: Number
+        }],
+        
         data() {
             return {
+                showings: [],
                 data: {
                     title: '',
                     release_year: '',
                     vote_avarage: '',
                     poster_path: '',
                     backdrop_path: '',
-                    description: ''
+                    description: '',
+                    id: ''
                 },
             }
         },
@@ -54,12 +77,23 @@
                         this.data.poster_path = response.data.posterPath;
                         this.data.backdrop_path = response.data.backdropPath;
                         this.data.description = response.data.description;
+                        this.data.id = response.data.id;
 
                         console.log(response.data)
                         //this.movies = response.data
                     }).catch(err => {
                         console.log(err)
                     });
+            },
+            fetchShowings() {
+              axios.get(`admin/adminshowing/movie/${this.$route.data.id}`).then(response => {
+                this.Price = response.data.Price;
+                this.ShowingTime = response.data.ShowingTime;
+                this.HallNumber = response.data.HallNumber;
+                this.MovieID = response.data.MovieID;
+              }).catch(err => {
+                console.log(err)
+              });
             }
         },
         computed: {
@@ -69,257 +103,72 @@
         },
 
         created() {
-            this.data.title = this.$route.params.title;
-            this.data.release_year = this.$route.params.release_year;
-            this.data.vote_avarage = this.$route.params.vote_avarage;
-            this.data.poster_path = this.$route.params.poster_path;
-            this.data.backdrop_path = this.$route.params.backdrop_path;
-            this.data.description = this.$route.params.description;
-            this.fetchSingleMovie();
-        }
-    }
+          this.data.title = this.$route.params.title;
+          this.data.release_year = this.$route.params.release_year;
+          this.data.vote_avarage = this.$route.params.vote_avarage;
+          this.data.poster_path = this.$route.params.poster_path;
+          this.data.backdrop_path = this.$route.params.backdrop_path;
+          this.data.description = this.$route.params.description;
+          this.fetchSingleMovie();
+          this.fetchShowings();
+      }
+      }
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-*, *:before, *:after {
+* {
   box-sizing: border-box;
-}
-
-body {
-  background: #43423E;
-}
-
-a {
-  text-decoration: none;
-  color: #5C7FB8
-}
-
-a:hover {
-  text-decoration: underline;
+  font-family: sans-serif;
 }
 
 .movie-card {
   font: 18px/26px "Lato", Arial, sans-serif;
-  color: #A9A8A3;
-  padding: 40px 0;
-  text-align: center;
-}
-
-.container {
-  margin: 0 auto;
-  width: 100%;
-  height: 640px;
-  background: #F0F0ED;
-  float: left;
-  border-radius: 5px;
-}
-
-.hero {
-  height: 342px;
-  margin:0;
-  position: relative;
-  overflow: hidden;
-  z-index:1;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-
-}
-
-.hero:before {
-  content:'';
-  width:100%; height:100%;
-  position:absolute;
-  overflow: hidden;
-  top:0; left:0;
-  z-index:-1;
-
-  transform: skewY(-2.2deg);
-  transform-origin:0 0;
-
-/*chrome antialias fix*/
--webkit-backface-visibility: hidden;
-
-}
-
-.cover {
-  float: left;  
-  top: 160px;
-  left: 40px;
-  z-index: 2;
-  height: 60%;
-  width: 20%;
-}
-
-.details {
-  padding: 190px 0 0 280px;
-  text-align: center;
-
-
-.title1 {
-  color: white;
-  font-size: 44px;
-  margin-bottom: 13px;
-  position: relative;
-
-span {
-  position: absolute;
-  top: 3px;
-  margin-left: 12px;
-  background: #C4AF3D;
-  border-radius: 5px;
-  color: #544C21;
-  font-size: 14px;
-  padding: 0px 4px;
-
-}
-}
-
-.title2 {
-  color: #C7C1BA;
-  font-size: 23px;
-  font-weight: 300;
-  margin-bottom: 15px;
-}
-
-
-}
-
-.description {
-  bottom: 0px;
-  height: 200px;
-  left: 400px;
-  font-size: 16px;
-  line-height: 26px;
-  color: #B1B0AC;
-}
-
-.column1 {
-  padding-left: 50px;
-  padding-top: 120px;
-  width: 220px;
-  float: left;
-  text-align: center;
-}
-
-.tag {
-  background: white;
+  color: black;
+  background-color: rgb(243, 243, 243);
+  min-height: 90vh;
+  margin: 2em;
+  padding: 2em;
   border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
+}
+
+.image-container {
+  height: 25em;
+  width: 15em;
+  padding-top: 1em;
+  margin: 1em;
   cursor: pointer;
 }
 
-.tag:hover {
-  background: #ddd;
+img { 
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 10px 10px 8px grey;
+}
+
+.details {
+  text-align: center;
 }
 
 .column2 {
-  padding-left: 41px;
-  padding-top: 30px;
-  margin-left: 250px;
-  width: 480px;
-  float: left;
+  padding: 2em;
 }
 
-/*star rating stuff via: https://codepen.io/jamesbarnett/pen/vlpkh/*/
 
-fieldset, label { margin: 0; padding: 0; }
-
-/****** Style Star Rating Widget *****/
-
-.rating {
-  border: none;
-  float: left;
+.container {
+  display: flex;
 }
 
-.rating > input { display: none; }
-.rating > label:before {
-  margin: 5px;
-  margin-top: 0;
-  font-size: 1em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
-}
-
-.rating > .half:before {
-  content: "\f089";
-  position: absolute;
-}
-
-.rating > label {
-  color: #ddd;
-  float: right;
-}
-
-/***** CSS Magic to Highlight Stars on Hover *****/
-
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
-
-/*tooltip stuff via: https://codepen.io/peiche/pen/JaftA*/
-
-a[data-tooltip] {
- position: relative;
-}
-a[data-tooltip]::before,
-a[data-tooltip]::after {
-  position: absolute;
-  display: none;
-  opacity: 0.85;
-}
-a[data-tooltip]::before {
-  /*
-   * using data-tooltip instead of title so we 
-   * don't have the real tooltip overlapping
-   */
-  content: attr(data-tooltip);
-  background: #000;
-  color: #fff;
-  font-size: 13px;
-  padding: 5px;
+.voteaverage {
+  font-size: 18px;
+  border: 2px solid grey;
+  text-align: center;
+  padding: 2px;
   border-radius: 5px;
-  /* we don't want the text to wrap */
-  white-space: nowrap;
-  text-decoration: none;
-}
-a[data-tooltip]::after {
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  content: '';
 }
 
-a[data-tooltip]:hover::before,
-a[data-tooltip]:hover::after {
-  display: block;
-}
-
-/** positioning **/
-
-/* top tooltip */
-a[data-tooltip][data-placement="top"]::before {
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 40px;
-}
-a[data-tooltip][data-placement="top"]::after {
-  border-top-color: #000;
-  border-bottom: none;
-  bottom: 50px;
-  left: 20px;
-  margin-bottom: 4px;
+.showings {
+  float: left;
+  position: relative;
 }
 </style>

@@ -17,7 +17,7 @@ CREATE TABLE [dbo].[Sodas] (
 	ML int NOT NULL
 ) 
 
-CREATE TABLE [dbo].[Candies] (
+CREATE TABLE [dbo].[Candy] (
 	Id int PRIMARY KEY identity(1,1),
 	[Name] varchar(20) NOT NULL,
 	Price float NOT NULL,
