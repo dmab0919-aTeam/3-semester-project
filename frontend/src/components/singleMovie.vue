@@ -18,13 +18,16 @@
 
         <div class="shoing-container">
           <div class="showings">
+            <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
             <p>Choose a showing for this movie: {{ this.data.title }} </p>
             <select v-model="data.selected_showing">
               <option v-for="(item, key) in this.showings" v-bind:key="key" :value="item.id">
                 {{ item.showingtime }}
               </option>
             </select>
-            <br>
+            <br><br><br><br><br>
+
+            <button @click.prevent="selectshowing()">Continue</button>
           </div>
         </div>
       </div>
@@ -40,6 +43,8 @@
         data() {
             return {
                 data: {
+                    hasError: false,
+                    errorMessage: '',
                     selected_showing: '',
                     title: '',
                     release_year: '',
@@ -63,9 +68,6 @@
                         this.data.backdrop_path = response.data.backdropPath;
                         this.data.description = response.data.description;
                         this.data.id = response.data.id;
-
-                        console.log(response.data)
-                        //this.movies = response.data
                     }).catch(err => {
                         console.log(err)
                     });
@@ -79,8 +81,6 @@
               }).catch(err => {
                 console.log(err)
               });*/
-
-              console.log("Hej med")
               this.showings = [
                 {
                   id: 1,
@@ -101,11 +101,16 @@
                   hallnumber: 2
                 }
               ];
-            }
-        },
-        computed: {
-            style() {
-                return 'background: url(' + 'https://image.tmdb.org/t/p/w500' + this.data.backdrop_path + ');';
+            },
+            selectshowing() {
+              if(this.data.selected_showing === ""){
+                this.data.errorMessage = "You need to vælge an dato";
+                this.data.hasError = true;
+              } else{
+                this.data.hasError = false;
+                this.data.errorMessage = "";
+              }
+
             }
         },
 
