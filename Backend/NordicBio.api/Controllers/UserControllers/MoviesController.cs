@@ -24,14 +24,14 @@ namespace NordicBio.api.Controllers
         }
         // GET: api/<MoviesController>
         [HttpGet]
-        public IEnumerable<Movie> Get()
+        public IEnumerable<MovieModel> Get()
         {
             return _movieDB.GetAllMovies();
         }
 
         // GET api/<MoviesController>/5
         [HttpGet("{id}")]
-        public Movie Get(int id)
+        public MovieModel Get(int id)
         {
             return _movieDB.GetMovie(id);
         }

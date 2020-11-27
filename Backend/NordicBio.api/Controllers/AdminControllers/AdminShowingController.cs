@@ -23,21 +23,21 @@ namespace NordicBio.api.Controllers
 
         // GET: api/<ShowingController>
         [HttpGet]
-        public IEnumerable<Showing> GetAllShowings()
+        public IEnumerable<ShowingModel> GetAllShowings()
         {
             return _showingDB.getAllShowings();
         }
 
         // GET api/<ShowingController>/5
         [HttpGet("/movie/{id}")]
-        public IEnumerable<Showing> Get(int id)
+        public IEnumerable<ShowingModel> Get(int id)
         {
             return _showingDB.getShowingsByID(id);
         }
 
         // POST api/<ShowingController>
         [HttpPost]
-        public ActionResult Post([FromBody] Showing showing)
+        public ActionResult Post([FromBody] ShowingModel showing)
         {
 
             return Ok(_showingDB.CreateShowing(showing));

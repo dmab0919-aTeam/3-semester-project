@@ -24,7 +24,7 @@ namespace NordicBio.api.Controllers
 
         // REQUEST - GET *
         [HttpGet]
-        public IEnumerable<Seat> Get([FromBody] int showingID)
+        public IEnumerable<SeatModel> Get([FromBody] int showingID)
         {
             return _seatDB.GetAllSeats(showingID);
         }

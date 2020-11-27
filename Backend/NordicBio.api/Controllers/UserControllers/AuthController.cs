@@ -51,7 +51,7 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB
-            User user = _userDB.GetUser(email);
+            UserModel user = _userDB.GetUser(email);
             if(user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
@@ -102,7 +102,7 @@ namespace NordicBio.api.Controllers
             string salt = Encrypt.Salt();
             string hashedPassword = Encrypt.HashPassword(salt, password);
 
-            User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
+            UserModel user = new UserModel(firstname, lastname, email, phonenumber, salt, hashedPassword);
             
 
             if (_userDB.CreateUser(user))
