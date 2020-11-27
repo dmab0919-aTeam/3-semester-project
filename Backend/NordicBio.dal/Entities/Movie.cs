@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NordicBio.model
+﻿namespace NordicBio.dal.Entities
 {
     public class Movie
     {

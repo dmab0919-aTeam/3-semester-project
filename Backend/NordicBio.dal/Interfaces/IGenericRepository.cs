@@ -7,7 +7,8 @@ namespace NordicBio.dal.Interfaces
     {
         Task<T> GetByID(int id);
         Task<IEnumerable<T>> GetAll();
-        Task<bool> Add(T entity);
+        Task<int> Add(T entity);
         Task<int> Delete(int id);
+        Task<int> Update(T entity);
     }
 }

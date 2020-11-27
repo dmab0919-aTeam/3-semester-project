@@ -1,19 +1,25 @@
 ﻿
 using Dapper;
-using NordicBio.model;
+using Microsoft.Extensions.Configuration;
+using NordicBio.dal.Entities;
+using NordicBio.dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class ShowingDB
+    public class ShowingRepository : IShowingRepository
     {
-        private string _constring;
-        public ShowingDB(string constring)
+        private readonly IConfiguration _configuration;
+        private readonly string _constring;
+
+        public ShowingRepository(IConfiguration configuration)
         {
-            _constring = constring;
+            this._configuration = configuration;
+            this._constring = _configuration.GetConnectionString("constring");
         }
 
 
@@ -90,6 +96,31 @@ namespace NordicBio.dal
                 }
             }
             return res;
+        }
+
+        public Task<Showing> GetByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Showing>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Add(Showing entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Update(Showing entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

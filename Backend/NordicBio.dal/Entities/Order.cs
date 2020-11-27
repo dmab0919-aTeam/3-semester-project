@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
-namespace NordicBio.model
+namespace NordicBio.dal.Entities
 {
     public class Order
     {
@@ -16,15 +15,15 @@ namespace NordicBio.model
             tickets = new ArrayList();
         }
 
-        public void AddTicket(Ticket newTicket) 
+        public void AddTicket(Ticket newTicket)
         {
             tickets.Add(newTicket);
         }
 
-        public double CalculateTotalPrice() 
+        public double CalculateTotalPrice()
         {
             double res = 0;
-            foreach (Ticket t in tickets) 
+            foreach (Ticket t in tickets)
             {
                 if (t.Type == "Child")
                 {

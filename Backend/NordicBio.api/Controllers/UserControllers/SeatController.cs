@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using NordicBio.dal;
+using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System.Collections.Generic;
 
@@ -11,22 +10,19 @@ namespace NordicBio.api.Controllers
 
     public class SeatController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private SeatDB _seatDB;
+        private readonly IUnitOfWork _unitOfWork;
 
-        // Construtor - Initializing connection string
-        public SeatController(IConfiguration configuration)
+        public SeatController(IUnitOfWork unitOfWork)
         {
-            _configuration = configuration;
-            string constring = _configuration.GetConnectionString("constring");
-            _seatDB = new SeatDB(constring);
+            this._unitOfWork = unitOfWork;
         }
 
         // REQUEST - GET *
         [HttpGet]
         public IEnumerable<SeatModel> Get([FromBody] int showingID)
         {
-            return _seatDB.GetAllSeats(showingID);
+            //return _seatDB.GetAllSeats(showingID);
+            return null;
         }
 
 

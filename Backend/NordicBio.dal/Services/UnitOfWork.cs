@@ -1,0 +1,35 @@
+﻿using NordicBio.dal.Interfaces;
+
+namespace NordicBio.dal.Service
+{
+    class UnitOfWork : IUnitOfWork
+    {
+
+        public IMovieRepository Movies { get; }
+
+        public IOrderRepository Orders { get; }
+
+        public ISeatRepository Seats { get; }
+
+        public IShowingRepository Showings { get; }
+
+        public ITicketRepository Tickets { get; }
+
+        public IUserRepository Users { get; }
+
+        public UnitOfWork
+            (
+                IMovieRepository movieRepository,
+                ISeatRepository seatRepository,
+                IShowingRepository showingRepository,
+                IUserRepository userRepository
+            )
+
+        {
+            Movies = movieRepository;
+            Seats = seatRepository;
+            Showings = showingRepository;
+            Users = userRepository;
+        }
+    }
+}

@@ -1,25 +1,30 @@
 ﻿using Dapper;
-using NordicBio.model;
+using Microsoft.Extensions.Configuration;
+using NordicBio.dal.Entities;
+using NordicBio.dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class UserDB
+    public class UserRepository : IUserRepository
     {
-        private string _constring;
-        public UserDB(string constring)
+        private readonly IConfiguration _configuration;
+        private readonly string _constring;
+
+        public UserRepository(IConfiguration configuration)
         {
-            _constring = constring;
+            this._configuration = configuration;
+            this._constring = _configuration.GetConnectionString("constring");
         }
 
         public User GetUser(string email)
         {
             User res;
 
-            var parameters = new { UserEmail = email};
+            var parameters = new { UserEmail = email };
             var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -31,7 +36,7 @@ namespace NordicBio.dal
                 {
                     throw new Exception("brugeren findes ikke");
                 }
-                
+
             }
 
             return res;
@@ -58,14 +63,40 @@ namespace NordicBio.dal
                 {
                     con.QuerySingleOrDefault(sql, parameters);
                     res = true;
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     throw new Exception(e.Message);
                 }
-                
+
             }
 
             return res;
+        }
+
+        public Task<User> GetByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<User>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Add(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Update(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using NordicBio.dal;
-using NordicBio.model;
-using System.Collections.Generic;
+using NordicBio.dal.Entities;
+using NordicBio.dal.Interfaces;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,30 +9,42 @@ namespace NordicBio.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+
     public class MoviesController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IUnitOfWork _unitOfWork;
 
-        private MovieDB _movieDB;
-
-        public MoviesController(IConfiguration configuration)
+        public MoviesController(IUnitOfWork unitOfWork)
         {
-            _configuration = configuration;
-            string constring = _configuration.GetConnectionString("constring");
-            _movieDB = new MovieDB(constring);
-        }
-        // GET: api/<MoviesController>
-        [HttpGet]
-        public IEnumerable<MovieModel> Get()
-        {
-            return _movieDB.GetAllMovies();
+            this._unitOfWork = unitOfWork;
         }
 
-        // GET api/<MoviesController>/5
-        [HttpGet("{id}")]
-        public MovieModel Get(int id)
+        [HttpGet] // Get all
+        public async Task<IActionResult> Get()
         {
-            return _movieDB.GetMovie(id);
+            var data = await _unitOfWork.Movies.GetAll();
+            return Ok(data);
+        }
+
+        [HttpGet("{id}")] // Get by id
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _unitOfWork.Movies.GetByID(id);
+            return Ok(data);
+        }
+
+        [HttpDelete("{id}")] // Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var data = await _unitOfWork.Movies.Delete(id);
+            return Ok(data);
+        }
+        [HttpPut] // Update
+        public async Task<IActionResult> Update(Movie movie)
+        {
+            var data = await _unitOfWork.Movies.Update(movie);
+            return Ok(data);
         }
     }
 }
