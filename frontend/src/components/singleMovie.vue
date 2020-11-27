@@ -19,9 +19,9 @@
         <div class="shoing-container">
           <div class="showings">
             <p>Choose a showing for this movie:</p>
-            <select name="showings" id="showings">
-              <option value="1">
-                1
+            <select v-model="selected_showing">
+              <option v-for="(item, key) in this.showings" v-bind:key="key" :value="item.id">
+                {{ item.showingtime }}
               </option>
             </select>
             <br>
@@ -42,13 +42,32 @@
         data() {
             return {
                 data: {
+                    selected_showing: '',
                     title: '',
                     release_year: '',
                     vote_avarage: '',
                     poster_path: '',
                     backdrop_path: '',
                     description: '',
-                    id: ''
+                    id: '',
+                    showings: [{
+                      id: 1,
+                  price: 120,
+                  showingtime: "2020-27-11",
+                  hallnumber: 2
+                    },
+                {
+                  id: 2,
+                  price: 120,
+                  showingtime: "2020-28-11",
+                  hallnumber: 3
+                },
+                {
+                  id: 3,
+                  price: 120,
+                  showingtime: "2020-29-11",
+                  hallnumber: 2
+                }]
                 },
             }
         },
@@ -71,14 +90,36 @@
                     });
             },
             fetchShowings() {
-              axios.get(`admin/adminshowing/movie/${this.$route.data.id}`).then(response => {
+              /*axios.get(`admin/adminshowing/movie/${this.$route.data.id}`).then(response => {
                 this.Price = response.data.Price;
                 this.ShowingTime = response.data.ShowingTime;
                 this.HallNumber = response.data.HallNumber;
                 this.MovieID = response.data.MovieID;
               }).catch(err => {
                 console.log(err)
-              });
+              });*/
+
+              console.log("Hej med")
+              this.showings = [
+                {
+                  id: 1,
+                  price: 120,
+                  showingtime: "2020-27-11",
+                  hallnumber: 2
+                },
+                {
+                  id: 2,
+                  price: 120,
+                  showingtime: "2020-28-11",
+                  hallnumber: 3
+                },
+                {
+                  id: 3,
+                  price: 120,
+                  showingtime: "2020-29-11",
+                  hallnumber: 2
+                }
+              ];
             }
         },
         computed: {
