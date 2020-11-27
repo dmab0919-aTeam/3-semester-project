@@ -30,12 +30,14 @@
             <button @click.prevent="selectshowing()">Continue</button>
           </div>
         </div>
+        <seat-picker/>
       </div>
   </div> <!-- end movie-card -->
 </template>
 
 <script>
     import axios from 'axios';
+    import SeatPicker from './SeatPicker.vue'
  
     export default {
         name: "singleMovie",
@@ -56,6 +58,9 @@
                     showings: []
                 },
             }
+        },
+        components: {
+          SeatPicker
         },
         methods: {
             fetchSingleMovie() {
