@@ -38,16 +38,9 @@
  
     export default {
         name: "singleMovie",
-        props: [{
-          Price: Number,
-          ShowingTime: String,
-          HallNumber: Number,
-          MovieID: Number
-        }],
         
         data() {
             return {
-                showings: [],
                 data: {
                     title: '',
                     release_year: '',
