@@ -18,17 +18,15 @@
 
         <div class="shoing-container">
           <div class="showings">
-            <p>Choose a showing for this movie:</p>
-            <select v-model="selected_showing">
+            <p>Choose a showing for this movie: {{ this.data.title }} </p>
+            <select v-model="data.selected_showing">
               <option v-for="(item, key) in this.showings" v-bind:key="key" :value="item.id">
                 {{ item.showingtime }}
               </option>
             </select>
             <br>
-            <input type="submit" value="continue to seating">
           </div>
         </div>
-        
       </div>
   </div> <!-- end movie-card -->
 </template>
@@ -50,24 +48,7 @@
                     backdrop_path: '',
                     description: '',
                     id: '',
-                    showings: [{
-                      id: 1,
-                  price: 120,
-                  showingtime: "2020-27-11",
-                  hallnumber: 2
-                    },
-                {
-                  id: 2,
-                  price: 120,
-                  showingtime: "2020-28-11",
-                  hallnumber: 3
-                },
-                {
-                  id: 3,
-                  price: 120,
-                  showingtime: "2020-29-11",
-                  hallnumber: 2
-                }]
+                    showings: []
                 },
             }
         },
