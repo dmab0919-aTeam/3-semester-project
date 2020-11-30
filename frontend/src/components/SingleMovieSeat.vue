@@ -21,7 +21,7 @@
             <br><br><br><br><br>
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
 
-            <button @click.prevent="continue()">Continue</button>
+            <button @click.prevent="this.continue()">Continue</button>
           </div>
         </div>
       </div>
