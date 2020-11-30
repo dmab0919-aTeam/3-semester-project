@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _constring;
@@ -18,6 +18,10 @@ namespace NordicBio.dal
         {
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
+        }
+        public string FetchConnection()
+        {
+            return _constring;
         }
 
         public User GetUser(string email)

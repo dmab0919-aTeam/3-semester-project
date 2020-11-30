@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class MovieRepository : IMovieRepository
+    public class MovieRepository : IMovieRepository, IRepository
 
     {
         private readonly IConfiguration _configuration;
@@ -59,6 +59,11 @@ namespace NordicBio.dal
                     throw;
                 }
             }
+        }
+
+        public string FetchConnection()
+        {
+            return _constring;
         }
 
         public async Task<IEnumerable<Movie>> GetAll()
