@@ -2,7 +2,7 @@
 
 namespace NordicBio.model
 {
-    public class SeatModel
+    public class SeatDTO
     {
         public int Row { get; set; }
         public int Number { get; set; }

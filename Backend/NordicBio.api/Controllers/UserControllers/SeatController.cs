@@ -34,7 +34,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatModel seatmodel)
+        public async Task<IActionResult> Post([FromBody] SeatDTO seatmodel)
         {
             Seat seat = new Seat()
             {

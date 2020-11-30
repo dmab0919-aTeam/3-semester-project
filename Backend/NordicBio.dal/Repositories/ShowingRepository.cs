@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class ShowingRepository : IShowingRepository, IRepository
+    public class ShowingRepository : IShowingRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _constring;
@@ -22,21 +22,61 @@ namespace NordicBio.dal
             this._constring = _configuration.GetConnectionString("constring");
         }
 
-        public string FetchConnection()
+
+        // Get all showings on a movie by movie_id
+        public async Task<IEnumerable<Showing>> GetShowingsByID(int id)
         {
-            return _constring;
+            var parameters = new { Id = id };
+            string sql = "SELECT * FROM Showings WHERE MovieID = @Id";
+
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var res = await connection.QueryAsync<Showing>(sql, parameters);
+                    return res.ToList();
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Filmen Findes ikke");
+                }
+            }
         }
 
 
-        public bool CreateShowing(Showing showing)
+        public Task<Showing> GetByID(int id)
         {
-            bool res = false;
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Showing>> GetAll()
+        {
+            string sql = "SELECT * FROM Showings";
+
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var res = await connection.QueryAsync<Showing>(sql);
+                    return res.ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public async Task<int> Add(Showing entity)
+        {
             var parameters = new
             {
-                Price = showing.Price,
-                ShowingTime = showing.ShowingTime,
-                HallNumber = showing.HallNumber,
-                MovieID = showing.MovieID
+                Price = entity.Price,
+                ShowingTime = entity.ShowingTime,
+                HallNumber = entity.HallNumber,
+                MovieID = entity.MovieID
             };
             var sql = "INSERT INTO Showings " +
                 "(Price, ShowingTime, HallNumber, MovieID) " +
@@ -47,75 +87,14 @@ namespace NordicBio.dal
             {
                 try
                 {
-                    con.Execute(sql, parameters);
-                    res = true;
+                    var res = await con.ExecuteAsync(sql, parameters);
+                    return res;
                 }
                 catch (Exception)
                 {
                     throw new Exception("Showing blev ikke oprettet");
                 }
             }
-
-            return res;
-        }
-
-        // Get all showings on a movie by movie_id
-        public IEnumerable<Showing> getShowingsByID(int id)
-        {
-            var parameters = new { Id = id };
-            string sql = "SELECT * FROM Showings WHERE MovieID = @Id";
-            List<Showing> res;
-
-            using (var connection = new SqlConnection(_constring))
-            {
-                try
-                {
-                    res = connection.Query<Showing>(sql, parameters).ToList();
-                }
-                catch (Exception)
-                {
-                    throw new Exception("Filmen Findes ikke");
-                }
-            }
-
-            return res;
-        }
-
-
-        public IEnumerable<Showing> getAllShowings()
-        {
-
-            string sql = "SELECT * FROM Showings";
-            List<Showing> res;
-
-
-            using (var connection = new SqlConnection(_constring))
-            {
-                try
-                {
-                    res = connection.Query<Showing>(sql).ToList();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            return res;
-        }
-
-        public Task<Showing> GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Showing>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Add(Showing entity)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<int> Delete(int id)

@@ -1,6 +1,6 @@
 ﻿namespace NordicBio.model
 {
-    public class MovieModel
+    public class MovieDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -9,7 +9,7 @@
         public string PosterPath { get; set; }
         public string Description { get; set; }
 
-        public MovieModel(int id, string title, string releaseDate, double voteAverage, string posterPath, string description)
+        public MovieDTO(int id, string title, string releaseDate, double voteAverage, string posterPath, string description)
         {
             Id = id;
             Title = title;

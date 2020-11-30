@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NordicBio.model
 {
-    public class UserModel
+    public class UserDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,12 +16,12 @@ namespace NordicBio.model
         public string Salt { get; set; }
         public bool IsAdmin { get; set; }
 
-        public UserModel()
+        public UserDTO()
         {
 
         }
 
-        public UserModel(string firstName, string lastName, string email, string phoneNumber,string salt, string password)
+        public UserDTO(string firstName, string lastName, string email, string phoneNumber,string salt, string password)
         {
             FirstName = firstName;
             LastName = lastName;
