@@ -46,7 +46,11 @@ namespace NordicBio.dal.Service
 
         public void RollBackTransaction()
         {
-            _scope.Dispose();
+            if (_scope != null)
+            {
+                _scope.Dispose();
+            }
+
         }
     }
 }

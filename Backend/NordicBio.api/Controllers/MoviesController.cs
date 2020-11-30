@@ -2,6 +2,7 @@
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using System.Threading.Tasks;
+using System.Transactions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,16 +20,28 @@ namespace NordicBio.api.Controllers
             this._unitOfWork = unitOfWork;
         }
 
+        #region - USER SECTION -
+
         [HttpGet] // Get all
         public async Task<IActionResult> Get()
         {
-            var data = await _unitOfWork.Movies.GetAll();
-
-            if (data == null)
+            try
             {
-                return NotFound("Sorry.. We found no movies");
+                _unitOfWork.BeginTransaction();
+                var data = await _unitOfWork.Movies.GetAll();
+                if (data == null)
+                {
+                    return NotFound("Sorry.. We found no movies");
+                }
+                _unitOfWork.CommitTransaction();
+                return Ok(data);
+
             }
-            return Ok(data);
+            catch (TransactionAbortedException ex)
+            {
+                _unitOfWork.RollBackTransaction();
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")] // Get by id
@@ -60,5 +73,11 @@ namespace NordicBio.api.Controllers
             var data = await _unitOfWork.Movies.Update(movie);
             return Ok(data);
         }
+        #endregion
+        #region - ADMIN SECTION -
+
+
+        #endregion
+
     }
 }
