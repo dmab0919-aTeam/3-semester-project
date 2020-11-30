@@ -21,9 +21,22 @@ namespace NordicBio.dal
             this._constring = _configuration.GetConnectionString("constring");
         }
 
-        public Task<int> Add(Seat entity)
+        public async Task<int> Add(Seat entity)
         {
-            throw new NotImplementedException();
+            int res;
+            string sql = "INSERT INTO Seats (Row, Number, ShowingID) VALUES (@Row, @Number, @ShowingID)";
+            var parameters = new
+            {
+                Row = entity.Row,
+                Number = entity.Number,
+                ShowingID = entity.ShowingID
+            };
+
+            using(SqlConnection con = new SqlConnection(_constring))
+            {
+                res = await con.ExecuteAsync(sql, parameters);
+                return res;
+            }
         }
 
         public Task<int> Delete(int id)
@@ -39,14 +52,14 @@ namespace NordicBio.dal
         public async Task<IEnumerable<Seat>> GetAllById(int showingID)
         {
             string sql = "SELECT * FROM Seats WHERE ShowingID = @ShowingID";
-            var parameters = new { ShoginID = showingID };
+            var parameters = new { ShowingID = showingID };
 
             using (var connection = new SqlConnection(_constring))
             {
                 try
                 {
-                    var result = await connection.QueryAsync<Seat>(sql);
-                    return result.ToList();
+                    var result = await connection.QueryAsync<Seat>(sql,parameters);
+                    return result;
                 }
                 catch (Exception)
                 {

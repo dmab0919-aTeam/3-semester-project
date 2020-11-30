@@ -31,14 +31,14 @@ namespace NordicBio.dal
             {
                 Title = entity.Title,
                 ReleaseDate = entity.ReleaseDate,
-                VoteAvarage = entity.VoteAverage,
+                VoteAverage = entity.VoteAverage,
                 PosterPath = entity.PosterPath,
                 BackdropPath = entity.BackdropPath,
                 Description = entity.Description
             };
             using (var connection = new SqlConnection(_constring))
             {
-                var result = await connection.ExecuteAsync(sql, entity);
+                var result = await connection.ExecuteAsync(sql, parameters);
                 return result;
             }
         }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers
 {
@@ -18,11 +20,25 @@ namespace NordicBio.api.Controllers
         }
 
         // REQUEST - GET *
-        [HttpGet]
-        public IEnumerable<SeatModel> Get([FromBody] int showingID)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int showingID)
         {
-            //return _seatDB.GetAllSeats(showingID);
-            return null;
+            var data = await _unitOfWork.Seats.GetAllById(showingID);
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]SeatModel seatmodel)
+        {
+            Seat seat = new Seat()
+            {
+                Number = seatmodel.Number,
+                Row = seatmodel.Row,
+                ShowingID = seatmodel.ShowingID
+            };
+            
+            var data = await _unitOfWork.Seats.Add(seat);
+            return Ok(data);
         }
 
 
