@@ -83,7 +83,6 @@ namespace NordicBio.dal
         {
             string sql = "SELECT * FROM Movies WHERE id = @Id";
             var parameters = new { Id = id };
-
             using (var connection = new SqlConnection(_constring))
             {
                 try
