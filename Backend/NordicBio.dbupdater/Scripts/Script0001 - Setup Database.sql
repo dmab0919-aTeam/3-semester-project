@@ -51,7 +51,6 @@ CREATE TABLE [dbo].[Movies] (
 	[ReleaseDate] varchar(10) NOT NULL,
 	[VoteAverage] float NOT NULL,
 	[PosterPath] varchar(100) NOT NULL,
-	[BackdropPath] varchar(100) NOT NULL,
 	[Description] text NOT NULL,
 ); 
 

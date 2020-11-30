@@ -24,8 +24,8 @@ namespace NordicBio.dal
 
         public async Task<int> Add(Movie entity)
         {
-            var sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, BackdropPath, Description) " +
-                        "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @BackdropPath, @Description)";
+            var sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
+                        "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
 
             var parameters = new
             {
@@ -33,7 +33,6 @@ namespace NordicBio.dal
                 ReleaseDate = entity.ReleaseDate,
                 VoteAverage = entity.VoteAverage,
                 PosterPath = entity.PosterPath,
-                BackdropPath = entity.BackdropPath,
                 Description = entity.Description
             };
             using (var connection = new SqlConnection(_constring))

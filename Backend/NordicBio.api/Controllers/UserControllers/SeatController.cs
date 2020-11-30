@@ -2,7 +2,6 @@
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers
@@ -19,16 +18,23 @@ namespace NordicBio.api.Controllers
             this._unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _unitOfWork.Seats.GetAll();
+            return Ok(data);
+        }
+
         // REQUEST - GET *
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int showingID)
+        public async Task<IActionResult> GetByID(int id)
         {
-            var data = await _unitOfWork.Seats.GetAllById(showingID);
+            var data = await _unitOfWork.Seats.GetAllById(id);
             return Ok(data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]SeatModel seatmodel)
+        public async Task<IActionResult> Post([FromBody] SeatModel seatmodel)
         {
             Seat seat = new Seat()
             {
@@ -36,11 +42,9 @@ namespace NordicBio.api.Controllers
                 Row = seatmodel.Row,
                 ShowingID = seatmodel.ShowingID
             };
-            
+
             var data = await _unitOfWork.Seats.Add(seat);
             return Ok(data);
         }
-
-
     }
 }

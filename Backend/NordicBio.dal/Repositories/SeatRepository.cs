@@ -32,7 +32,7 @@ namespace NordicBio.dal
                 ShowingID = entity.ShowingID
             };
 
-            using(SqlConnection con = new SqlConnection(_constring))
+            using (SqlConnection con = new SqlConnection(_constring))
             {
                 res = await con.ExecuteAsync(sql, parameters);
                 return res;
@@ -44,21 +44,34 @@ namespace NordicBio.dal
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Seat>> GetAll()
+        public async Task<IEnumerable<Seat>> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Seat>> GetAllById(int showingID)
-        {
-            string sql = "SELECT * FROM Seats WHERE ShowingID = @ShowingID";
-            var parameters = new { ShowingID = showingID };
+            string sql = "SELECT * FROM [Seats]";
 
             using (var connection = new SqlConnection(_constring))
             {
                 try
                 {
-                    var result = await connection.QueryAsync<Seat>(sql,parameters);
+                    var result = await connection.QueryAsync<Seat>(sql);
+                    return result.ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<Seat>> GetAllById(int id)
+        {
+            var sql = "SELECT * FROM [Seats] WHERE ShowingID = @Id";
+            var parameters = new { Id = id };
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QueryAsync<Seat>(sql, parameters);
                     return result;
                 }
                 catch (Exception)
