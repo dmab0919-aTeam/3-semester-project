@@ -36,12 +36,16 @@
 
 <script>
 export default {
-  name: "singleMovie",
+  name: "SeatPicker",
+
+   props: {
+        selectedSeats: Array,
+        showingId: Number
+    },
   
   data() {
     return {
       data: {
-          selectedSeats: [],
           seatdata: null          
       }
     }
@@ -64,7 +68,7 @@ export default {
       this.data.seatdata = result
     },
     reservedSeat: function(rownumber, seatnumber) {
-      
+  
       seatnumber = seatnumber - 1
       rownumber = rownumber - 1
       this.data.seatdata[rownumber][seatnumber].status = "df"
@@ -74,17 +78,17 @@ export default {
       let arrayIndex = null;
       rowNumber = rowNumber + 1
       seatNumber = seatNumber + 1
-      this.data.selectedSeats.forEach(function(value,index){
+      this.selectedSeats.forEach(function(value,index){
         if(value.rowNumber === rowNumber && value.seatNumber === seatNumber){
           arrayIndex = index
         }
       });
       if(arrayIndex != null){
-        this.data.selectedSeats.splice(arrayIndex, 1)
+        this.selectedSeats.splice(arrayIndex, 1)
       }
 
       if(arrayIndex === null){
-        this.data.selectedSeats.push({
+        this.selectedSeats.push({
         seatNumber: seatNumber,
         rowNumber: rowNumber
         });

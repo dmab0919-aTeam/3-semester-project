@@ -18,16 +18,10 @@
 
         <div class="showing-container">
           <div class="showings">
-            <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
-            <p>Choose a showing for this movie: {{ this.data.title }} </p>
-            <select v-model="data.selected_showing">
-              <option v-for="(item, key) in this.showings" v-bind:key="key" :value="item.id">
-                {{ item.showingtime }}
-              </option>
-            </select>
             <br><br><br><br><br>
+            <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
 
-            <button @click.prevent="selectshowing()">Continue</button>
+            <button @click.prevent="continue()">Continue</button>
           </div>
         </div>
       </div>
@@ -36,16 +30,17 @@
 
 <script>
     import axios from 'axios';
+    import SeatPicker from './SeatPicker.vue'
  
     export default {
-        name: "singleMovie",
+        name: "singleMovieSeat",
         
         data() {
             return {
                 data: {
+                    selectedSeats: [],
                     hasError: false,
                     errorMessage: '',
-                    selected_showing: '',
                     title: '',
                     release_year: '',
                     vote_avarage: '',
@@ -53,11 +48,13 @@
                     backdrop_path: '',
                     description: '',
                     id: '',
-                    showings: []
+                    showingId: ''
                 },
             }
         },
-
+        components: {
+          SeatPicker
+        },
         methods: {
             fetchSingleMovie() {
                 axios.get(`movies/${this.$route.params.id}`)
@@ -73,59 +70,14 @@
                         console.log(err)
                     });
             },
-            fetchShowings() {
-              /*axios.get(`admin/adminshowing/movie/${this.$route.data.id}`).then(response => {
-                this.Price = response.data.Price;
-                this.ShowingTime = response.data.ShowingTime;
-                this.HallNumber = response.data.HallNumber;
-                this.MovieID = response.data.MovieID;
-              }).catch(err => {
-                console.log(err)
-              });*/
-              this.showings = [
-                {
-                  id: 1,
-                  price: 120,
-                  showingtime: "2020-27-11",
-                  hallnumber: 2
-                },
-                {
-                  id: 2,
-                  price: 120,
-                  showingtime: "2020-28-11",
-                  hallnumber: 3
-                },
-                {
-                  id: 3,
-                  price: 120,
-                  showingtime: "2020-29-11",
-                  hallnumber: 2
-                }
-              ];
-            },
-            selectshowing() {
-              if(this.data.selected_showing === ""){
-                this.data.errorMessage = "You need to vælge an dato";
-                this.data.hasError = true;
-              } else{
-                this.data.hasError = false;
-                this.data.errorMessage = "";
-                console.log(this.data.selected_showing);
-                this.$router.push({ name: 'singleMovieSeat', params: { id: this.$route.params.id, showingid: this.data.selected_showing} })
-                //this.$router.push({ name: 'singleMovieSeat', params: { id: this.$route.params.id, showingid: this.data.selected_showing.id} })
-              }
+            continue() {
+              //ToDo add logic for new page with payment...
             }
         },
 
         created() {
-          this.data.title = this.$route.params.title;
-          this.data.release_year = this.$route.params.release_year;
-          this.data.vote_avarage = this.$route.params.vote_avarage;
-          this.data.poster_path = this.$route.params.poster_path;
-          this.data.backdrop_path = this.$route.params.backdrop_path;
-          this.data.description = this.$route.params.description;
           this.fetchSingleMovie();
-          this.fetchShowings();
+          this.data.showingId = this.$route.params.showingid
       }
       }
 </script>

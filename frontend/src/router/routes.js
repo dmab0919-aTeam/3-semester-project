@@ -3,6 +3,7 @@
 const frontpage = () => import('../layouts/frontpage.vue')
 const loginAuth = () => import('../layouts/LoginAuth.vue')
 const singleMovie = () => import('../components/singleMovie.vue')
+const singleMovieSeat = () => import('../components/SingleMovieSeat.vue')
 const registerpage = () => import('../layouts/registerpage.vue')
 const adminPanel = () => import('../layouts/adminPanel')
 
@@ -23,6 +24,11 @@ const routes = [
         name: 'singleMovie',
         component: singleMovie
     },
+    {
+      path: '/movieseat/:id/:showingid',
+      name: 'singleMovieSeat',
+      component: singleMovieSeat
+  },
       {
          path: '/register',
          name: 'register',
