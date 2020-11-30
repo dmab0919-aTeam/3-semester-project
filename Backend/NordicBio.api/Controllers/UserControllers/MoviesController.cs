@@ -10,7 +10,6 @@ namespace NordicBio.api.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-
     public class MoviesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -24,6 +23,11 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> Get()
         {
             var data = await _unitOfWork.Movies.GetAll();
+
+            if (data == null)
+            {
+                return NotFound("Sorry.. We found no movies");
+            }
             return Ok(data);
         }
 
@@ -31,13 +35,23 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _unitOfWork.Movies.GetByID(id);
+
+            if (data == null)
+            {
+                return NotFound("Sorry.. We found no movie");
+            }
             return Ok(data);
         }
 
-        [HttpDelete("{id}")] // Delete
+        [HttpDelete("{id}")] // Delete by id
         public async Task<IActionResult> Delete(int id)
         {
             var data = await _unitOfWork.Movies.Delete(id);
+
+            if (data == 0)
+            {
+                return NotFound("Sorry.. We found no movie to delete with this id");
+            }
             return Ok(data);
         }
         [HttpPut] // Update

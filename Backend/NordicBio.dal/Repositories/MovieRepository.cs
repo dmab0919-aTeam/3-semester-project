@@ -67,7 +67,7 @@ namespace NordicBio.dal
 
         public async Task<IEnumerable<Movie>> GetAll()
         {
-            string sql = "SELECT * FROM [Movies]";
+            var sql = "SELECT * FROM [Movies]";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -85,7 +85,7 @@ namespace NordicBio.dal
 
         public async Task<Movie> GetByID(int id)
         {
-            string sql = "SELECT * FROM Movies WHERE id = @Id";
+            var sql = "SELECT * FROM Movies WHERE id = @Id";
             var parameters = new { Id = id };
             using (var connection = new SqlConnection(_constring))
             {

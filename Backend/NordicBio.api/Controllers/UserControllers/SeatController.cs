@@ -22,6 +22,11 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var data = await _unitOfWork.Seats.GetAll();
+
+            if (data == null)
+            {
+                return NotFound("Sorry.. We found no seats");
+            }
             return Ok(data);
         }
 
@@ -30,6 +35,11 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetByID(int id)
         {
             var data = await _unitOfWork.Seats.GetAllById(id);
+
+            if (data == null)
+            {
+                return NotFound("Sorry.. We found no seats");
+            }
             return Ok(data);
         }
 

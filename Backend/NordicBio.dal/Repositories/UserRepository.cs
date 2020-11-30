@@ -24,28 +24,6 @@ namespace NordicBio.dal
             return _constring;
         }
 
-        public User GetUser(string email)
-        {
-            User res;
-
-            var parameters = new { UserEmail = email };
-            var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
-            using (SqlConnection con = new SqlConnection(_constring))
-            {
-                try
-                {
-                    res = con.QuerySingleOrDefault<User>(sql, parameters);
-                }
-                catch (Exception)
-                {
-                    throw new Exception("brugeren findes ikke");
-                }
-
-            }
-
-            return res;
-        }
-
         public bool CreateUser(User user)
         {
             bool res;
@@ -101,6 +79,26 @@ namespace NordicBio.dal
         public Task<int> Update(User entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
+            var parameters = new { UserEmail = email };
+
+            using (SqlConnection connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QuerySingleOrDefaultAsync<User>(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("brugeren findes ikke");
+                }
+
+            }
         }
     }
 }
