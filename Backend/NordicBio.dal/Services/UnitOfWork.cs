@@ -1,4 +1,5 @@
 ﻿using NordicBio.dal.Interfaces;
+using System.Transactions;
 
 namespace NordicBio.dal.Service
 {
@@ -24,12 +25,28 @@ namespace NordicBio.dal.Service
                 IShowingRepository showingRepository,
                 IUserRepository userRepository
             )
-
         {
             Movies = movieRepository;
             Seats = seatRepository;
             Showings = showingRepository;
             Users = userRepository;
+        }
+
+        private TransactionScope _scope;
+
+        public void BeginTransaction()
+        {
+            _scope = new TransactionScope();
+        }
+
+        public void CommitTransaction()
+        {
+            _scope.Complete();
+        }
+
+        public void RollBackTransaction()
+        {
+            _scope.Dispose();
         }
     }
 }
