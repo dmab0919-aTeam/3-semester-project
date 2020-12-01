@@ -4,6 +4,7 @@ namespace NordicBio.dal.Entities
 {
     public class Showing
     {
+        public int Id { get; set; }
         public double Price { get; set; }
         public DateTime ShowingTime { get; set; }
         public int HallNumber { get; set; }
