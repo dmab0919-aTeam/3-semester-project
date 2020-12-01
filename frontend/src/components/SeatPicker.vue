@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SeatPicker",
 
@@ -93,12 +95,24 @@ export default {
         rowNumber: rowNumber
         });
       }
+    },
+    
+    fetchReservedSeats() {
+      axios.get(`seat/${this.showingId}`).then(response => {
+        console.log(response.data)
+        
+        response.data.forEach(element => {
+          this.reservedSeat(element.row, element.number)
+        });
+      }).catch(err => {
+        console.log(err)
+      });
     }
   },
 
   created() {
     this.generateSeats()
-    this.reservedSeat(4,2)
+    this.fetchReservedSeats()
   }
 }
 </script>

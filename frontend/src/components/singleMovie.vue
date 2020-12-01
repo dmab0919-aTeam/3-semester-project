@@ -20,11 +20,14 @@
           <div class="showings">
             <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
             <p>Choose a showing for this movie: {{ this.data.title }} </p>
-            <select v-model="data.selected_showing">
-              <option v-for="(item, key) in this.showings" v-bind:key="key" :value="item.id">
-                {{ item.showingtime }}
-              </option>
-            </select>
+            <label>
+              <select v-model="data.selected_showing">
+                <option v-for="(item, key) in this.data.showings" v-bind:key="key" :value="item.id">
+                  <a>Seat Price {{ item.price }} DKK</a>
+                  {{ item.showingTime }}
+                </option>
+              </select>
+            </label>
             <br><br><br><br><br>
 
             <button @click.prevent="selectshowing()">Continue</button>
@@ -74,34 +77,11 @@
                     });
             },
             fetchShowings() {
-              /*axios.get(`admin/adminshowing/movie/${this.$route.data.id}`).then(response => {
-                this.Price = response.data.Price;
-                this.ShowingTime = response.data.ShowingTime;
-                this.HallNumber = response.data.HallNumber;
-                this.MovieID = response.data.MovieID;
+            axios.get(`showing/movie/${this.$route.params.id}`).then(response => {
+                this.data.showings = response.data
               }).catch(err => {
                 console.log(err)
-              });*/
-              this.showings = [
-                {
-                  id: 1,
-                  price: 120,
-                  showingtime: "2020-27-11",
-                  hallnumber: 2
-                },
-                {
-                  id: 2,
-                  price: 120,
-                  showingtime: "2020-28-11",
-                  hallnumber: 3
-                },
-                {
-                  id: 3,
-                  price: 120,
-                  showingtime: "2020-29-11",
-                  hallnumber: 2
-                }
-              ];
+              });
             },
             selectshowing() {
               if(this.data.selected_showing === ""){

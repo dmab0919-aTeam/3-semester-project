@@ -77,7 +77,7 @@
 
         created() {
           this.fetchSingleMovie();
-          this.data.showingId = this.$route.params.showingid
+          this.data.showingId = 1 * this.$route.params.showingid
       }
       }
 </script>
