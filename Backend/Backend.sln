@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dbupdater", "Nord
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dal", "NordicBio.dal\NordicBio.dal.csproj", "{113FC5AB-01ED-4E22-9035-F5B54DAC7972}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.model", "NordicBio.model\NordicBio.model.csproj", "{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15D0A61B-84D3-4332-BB65-2D0FE81BD7E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

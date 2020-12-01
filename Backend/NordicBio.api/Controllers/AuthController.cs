@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using NordicBio.api.Validation;
-using NordicBio.dal;
+using NordicBio.dal.Entities;
+using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System;
 using System.Collections.Generic;
@@ -22,14 +22,11 @@ namespace NordicBio.api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private UserDB _userDB;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IUnitOfWork unitOfWork)
         {
-            _configuration = configuration;
-            string constring = _configuration.GetConnectionString("constring");
-            _userDB = new UserDB(constring);
+            this._unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -50,7 +47,13 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB
-            User user = _userDB.GetUser(email);
+            var data = _unitOfWork.Users.GetByEmail(email);
+            UserDTO user = new UserDTO
+            {
+                Password = data.Result.Password,
+                Salt = data.Result.Salt
+            };
+
             if (user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
@@ -104,8 +107,10 @@ namespace NordicBio.api.Controllers
 
             User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
 
+            var createRequest = _unitOfWork.Users.Add(user);
 
-            if (_userDB.Create(user))
+
+            if (createRequest.Result > 0)
             {
                 return Ok("User successfully created");
             }
@@ -135,6 +140,5 @@ namespace NordicBio.api.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
     }
 }

@@ -1,0 +1,17 @@
+﻿namespace NordicBio.dal.Interfaces
+{
+    public interface IUnitOfWork
+    {
+        public IMovieRepository Movies { get; }
+        public IOrderRepository Orders { get; }
+        public ISeatRepository Seats { get; }
+        public IShowingRepository Showings { get; }
+        public ITicketRepository Tickets { get; }
+        public IUserRepository Users { get; }
+        public void BeginTransaction();
+
+        public void CommitTransaction();
+        public void RollBackTransaction();
+
+    }
+}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace NordicBio.model
+﻿namespace NordicBio.dal.Entities
 {
     public class User
     {
@@ -21,7 +16,7 @@ namespace NordicBio.model
 
         }
 
-        public User(string firstName, string lastName, string email, string phoneNumber,string salt, string password)
+        public User(string firstName, string lastName, string email, string phoneNumber, string salt, string password)
         {
             FirstName = firstName;
             LastName = lastName;
