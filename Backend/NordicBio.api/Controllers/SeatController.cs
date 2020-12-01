@@ -4,7 +4,7 @@ using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System.Threading.Tasks;
 
-namespace NordicBio.api.Controllers
+namespace NordicBio.api.Controllers.UserControllers
 {
     [Route("api/[controller]")]
     [ApiController]
