@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Interfaces;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,13 +18,13 @@ namespace NordicBio.api.Controllers.UserControllers
             this._unitOfWork = unitOfWork;
         }
 
-
+        #region - USER SECTION -
         // GET: api/<ShowingController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var data = await _unitOfWork.Showings.GetAll();
-            if(data == null)
+            if (data == null)
             {
                 return NotFound("Sorry.. we found no showings");
             }
@@ -37,30 +36,21 @@ namespace NordicBio.api.Controllers.UserControllers
         public async Task<IActionResult> Get(int id)
         {
             var data = await _unitOfWork.Showings.GetShowingsByID(id);
-            if(data == null)
+            if (data == null)
             {
                 return NotFound("Sorry.. we found no showings for the specific movie");
             }
             return Ok(data);
         }
 
-
+        #endregion
+        #region - ADMIN SECTION -
         // TODO: admin create showings
         [HttpPost]
         public void Post([FromBody] string value)
         {
-        }
 
-        // PUT api/<ShowingController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
-
-        // DELETE api/<ShowingController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        #endregion
     }
 }

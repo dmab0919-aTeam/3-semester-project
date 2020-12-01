@@ -8,11 +8,11 @@ namespace NordicBio.dal
     {
         public static void AddInfrastructure(this IServiceCollection services)
         {
-            services.AddTransient<IMovieRepository, MovieRepository>();
-            //services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<ISeatRepository, SeatRepository>();
             services.AddTransient<IShowingRepository, ShowingRepository>();
             //services.AddTransient<ITicketRepository, TicketRepository>();
+            //services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<ISeatRepository, SeatRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }

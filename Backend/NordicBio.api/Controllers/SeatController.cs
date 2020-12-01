@@ -18,6 +18,7 @@ namespace NordicBio.api.Controllers.UserControllers
             this._unitOfWork = unitOfWork;
         }
 
+        #region - USER SECTION -
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -44,17 +45,23 @@ namespace NordicBio.api.Controllers.UserControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatDTO seatmodel)
+        public async Task<IActionResult> Post([FromBody] SeatDTO seatDTO)
         {
             Seat seat = new Seat()
             {
-                Number = seatmodel.Number,
-                Row = seatmodel.Row,
-                ShowingID = seatmodel.ShowingID
+                Number = seatDTO.Number,
+                Row = seatDTO.Row,
+                ShowingID = seatDTO.ShowingID
             };
 
             var data = await _unitOfWork.Seats.Add(seat);
             return Ok(data);
         }
+        #endregion
+        #region - ADMIN SECTION -
+
+        #endregion
+
+
     }
 }

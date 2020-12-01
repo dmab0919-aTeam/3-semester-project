@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using NordicBio.api.Validation;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
+using NordicBio.model;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -46,7 +47,13 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB
-            User user = _unitOfWork.Users.GetByEmail(email);
+            var data = _unitOfWork.Users.GetByEmail(email);
+            UserDTO user = new UserDTO
+            {
+                Password = data.Result.Password,
+                Salt = data.Result.Salt
+            };
+
             if (user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
@@ -100,8 +107,10 @@ namespace NordicBio.api.Controllers
 
             User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
 
+            var createRequest = _unitOfWork.Users.Add(user);
 
-            if (_userDB.Create(user))
+
+            if (createRequest.Result > 0)
             {
                 return Ok("User successfully created");
             }

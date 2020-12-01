@@ -27,9 +27,5 @@
     <ProjectReference Include="..\NordicBio.dal\NordicBio.dal.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\AdminControllers\" />
-  </ItemGroup>
-
 
 </Project>

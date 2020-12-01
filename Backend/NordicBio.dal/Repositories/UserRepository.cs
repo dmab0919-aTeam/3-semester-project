@@ -97,7 +97,6 @@ namespace NordicBio.dal
                 {
                     throw new Exception("brugeren findes ikke");
                 }
-
             }
         }
     }
