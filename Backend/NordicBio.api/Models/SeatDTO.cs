@@ -4,13 +4,13 @@
     {
         public int Row { get; set; }
         public int Number { get; set; }
-        public int ShowingID { get; set; }
+        public int OrderID { get; set; }
 
-        public SeatDTO(int Row, int Number, int ShowingID)
+        public SeatDTO(int Row, int Number, int OrderID)
         {
             this.Row = Row;
             this.Number = Number;
-            this.ShowingID = ShowingID;
+            this.OrderID = OrderID;
         }
     }
 }

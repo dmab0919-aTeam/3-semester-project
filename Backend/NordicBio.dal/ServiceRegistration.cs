@@ -10,7 +10,7 @@ namespace NordicBio.dal
         {
             services.AddTransient<IShowingRepository, ShowingRepository>();
             //services.AddTransient<ITicketRepository, TicketRepository>();
-            //services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<ISeatRepository, SeatRepository>();
             services.AddTransient<IUserRepository, UserRepository>();

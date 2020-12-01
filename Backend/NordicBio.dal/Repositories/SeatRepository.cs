@@ -24,12 +24,12 @@ namespace NordicBio.dal
         public async Task<int> Add(Seat entity)
         {
             int res;
-            string sql = "INSERT INTO Seats (Row, Number, ShowingID) VALUES (@Row, @Number, @ShowingID)";
+            string sql = "INSERT INTO Seats (Row, Number, OrderID) VALUES (@Row, @Number, @OrderID)";
             var parameters = new
             {
                 Row = entity.Row,
                 Number = entity.Number,
-                ShowingID = entity.ShowingID
+                OrderID = entity.OrderID
             };
 
             using (SqlConnection con = new SqlConnection(_constring))

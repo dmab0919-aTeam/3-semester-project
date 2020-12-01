@@ -6,7 +6,7 @@ using NordicBio.model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NordicBio.api.Controllers.UserControllers
+namespace NordicBio.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
