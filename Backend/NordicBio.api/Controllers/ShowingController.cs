@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Interfaces;
+using NordicBio.model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,10 +15,12 @@ namespace NordicBio.api.Controllers.UserControllers
     {
 
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ShowingController(IUnitOfWork unitOfWork)
+        public ShowingController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
+            this._mapper = mapper;
         }
 
         #region - USER SECTION -
@@ -24,11 +29,12 @@ namespace NordicBio.api.Controllers.UserControllers
         public async Task<IActionResult> Get()
         {
             var data = await _unitOfWork.Showings.GetAll();
-            if (data == null)
+            List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
+            if (showingdata == null)
             {
                 return NotFound("Sorry.. we found no showings");
             }
-            return Ok(data);
+            return Ok(showingdata);
         }
 
         // GET api/<ShowingController>/5
@@ -36,11 +42,12 @@ namespace NordicBio.api.Controllers.UserControllers
         public async Task<IActionResult> Get(int id)
         {
             var data = await _unitOfWork.Showings.GetShowingsByID(id);
-            if (data == null)
+            List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
+            if (showingdata == null)
             {
                 return NotFound("Sorry.. we found no showings for the specific movie");
             }
-            return Ok(data);
+            return Ok(showingdata);
         }
 
         #endregion

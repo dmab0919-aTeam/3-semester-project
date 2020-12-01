@@ -35,7 +35,7 @@ namespace NordicBio.dal
                 Phonenumber = user.PhoneNumber,
                 Salt = user.Salt,
                 Password = user.Password,
-                Isadmin = false
+                Isadmin = user.IsAdmin
             };
             var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @Isadmin)";
 

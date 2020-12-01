@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers.UserControllers
@@ -12,10 +14,12 @@ namespace NordicBio.api.Controllers.UserControllers
     public class SeatController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public SeatController(IUnitOfWork unitOfWork)
+        public SeatController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
+            this._mapper = mapper;
         }
 
         #region - USER SECTION -
@@ -23,12 +27,13 @@ namespace NordicBio.api.Controllers.UserControllers
         public async Task<IActionResult> GetAll()
         {
             var data = await _unitOfWork.Seats.GetAll();
+            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
-            if (data == null)
+            if (seatdata == null)
             {
                 return NotFound("Sorry.. We found no seats");
             }
-            return Ok(data);
+            return Ok(seatdata);
         }
 
         // REQUEST - GET *
@@ -36,23 +41,20 @@ namespace NordicBio.api.Controllers.UserControllers
         public async Task<IActionResult> GetByID(int id)
         {
             var data = await _unitOfWork.Seats.GetAllById(id);
+            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
-            if (data == null)
+            if (seatdata == null)
             {
                 return NotFound("Sorry.. We found no seats");
             }
-            return Ok(data);
+            return Ok(seatdata);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SeatDTO seatDTO)
         {
-            Seat seat = new Seat()
-            {
-                Number = seatDTO.Number,
-                Row = seatDTO.Row,
-                ShowingID = seatDTO.ShowingID
-            };
+            Seat seat = _mapper.Map<Seat>(seatDTO);
+
 
             var data = await _unitOfWork.Seats.Add(seat);
             return Ok(data);
