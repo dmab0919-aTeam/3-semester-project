@@ -58,6 +58,21 @@ namespace NordicBio.api.Controllers.UserControllers
         #endregion
         #region - ADMIN SECTION -
 
+        [HttpPost] // Post
+        public async Task<IActionResult> Post(MovieDTO movieDTO)
+        {
+            if (movieDTO != null)
+            {
+                Movie movie = _mapper.Map<Movie>(movieDTO);
+                var data = await _unitOfWork.Movies.Add(movie);
+                return Ok(data);
+            }
+            else
+            {
+                return BadRequest("Sorry.. The movie was not inserted");
+            }
+        }
+
         [HttpPut] // Update
         public async Task<IActionResult> Update(MovieDTO movieDTO)
         {
@@ -71,8 +86,6 @@ namespace NordicBio.api.Controllers.UserControllers
             {
                 return BadRequest("Sorry.. The movie was not updated");
             }
-
-
         }
 
         [HttpDelete("{id}")] // Delete by id
