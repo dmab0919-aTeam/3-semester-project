@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,17 +24,26 @@ namespace NordicBio.DesktopClient
         public MainWindow()
         {
             InitializeComponent();
-            
-            /*string sTest = "<html>hallo this is a html-String</html>";
 
-            ctlBrowser.NavigateToString(sTest);*/
+            try
+            {
+                Ping myPing = new Ping();
+                PingReply reply = myPing.Send("google.com", 1000);
             
-            //string applicationDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-            //string myFile = Path.Combine(applicationDirectory, "Sample.html");
-            //ctlBrowser.Source("http://localhost:8080/");
-            //ctlBrowser.Url = new Uri("file:///" + myFile);
-
-            ctlBrowser.Navigate("http://localhost:8080");
+                if (reply != null)
+                {
+                    ctlBrowser.Navigate("http://localhost:8080");
+                }
+                else
+                {
+                    //todo handle network error
+                }
+            }
+            catch (Exception e)
+            {
+                //ctlBrowser.Navigate("https://google.com");
+                Console.WriteLine(e);
+            }
         }
     }
 }
