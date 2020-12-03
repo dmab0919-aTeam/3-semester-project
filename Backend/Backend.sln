@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dbupdater", "Nord
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dal", "NordicBio.dal\NordicBio.dal.csproj", "{113FC5AB-01ED-4E22-9035-F5B54DAC7972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NordicBio.DesktopApp", "WpfApp1\NordicBio.DesktopApp.csproj", "{EB22D4CC-8B36-4C7B-B1BF-64E383DDCA62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.DesktopApp", "NordicBio.DesktopApp\NordicBio.DesktopApp.csproj", "{95EB01BB-C10E-46EA-A859-F394FE1C9FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113FC5AB-01ED-4E22-9035-F5B54DAC7972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB22D4CC-8B36-4C7B-B1BF-64E383DDCA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB22D4CC-8B36-4C7B-B1BF-64E383DDCA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB22D4CC-8B36-4C7B-B1BF-64E383DDCA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB22D4CC-8B36-4C7B-B1BF-64E383DDCA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EB01BB-C10E-46EA-A859-F394FE1C9FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EB01BB-C10E-46EA-A859-F394FE1C9FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EB01BB-C10E-46EA-A859-F394FE1C9FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EB01BB-C10E-46EA-A859-F394FE1C9FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
