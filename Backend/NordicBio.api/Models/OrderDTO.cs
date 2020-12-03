@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace NordicBio.model
 {
     public class OrderDTO
     {
-        public int OrderNumber { get; set; }
+        public int ShowingID { get; set; }
+        public int UserID { get; set; }
         public double TotalPrice { get; set; }
+        public List<SeatDTO> Seats { get; set; }
 
-        public OrderDTO(int orderNumber)
+        public OrderDTO()
         {
-            OrderNumber = orderNumber;
+            
         }
 
     }
