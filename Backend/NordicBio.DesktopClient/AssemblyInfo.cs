@@ -1,3 +1,4 @@
+using Microsoft.SharePoint.Client;
 using System.Windows;
 
 [assembly: ThemeInfo(
