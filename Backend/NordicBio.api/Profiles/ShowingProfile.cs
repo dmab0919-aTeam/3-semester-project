@@ -9,6 +9,7 @@ namespace NordicBio.api.Profiles
         public ShowingProfile()
         {
             CreateMap<Showing, ShowingDTO>();
+            CreateMap<ShowingDTO, Showing>();
         }
     }
 }

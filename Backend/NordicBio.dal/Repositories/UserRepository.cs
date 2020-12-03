@@ -66,9 +66,33 @@ namespace NordicBio.dal
             throw new NotImplementedException();
         }
 
-        public Task<int> Add(User entity)
+        public async Task<int> Add(User entity)
         {
-            throw new NotImplementedException();
+            var parameters = new
+            {
+                Firstname = entity.FirstName,
+                Lastname = entity.LastName,
+                Email = entity.Email,
+                Phonenumber = entity.PhoneNumber,
+                Salt = entity.Salt,
+                Password = entity.Password,
+                Isadmin = entity.IsAdmin
+            };
+            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @Isadmin)";
+
+            using (SqlConnection con = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var res = await con.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+            }
         }
 
         public Task<int> Delete(int id)

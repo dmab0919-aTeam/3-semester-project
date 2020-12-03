@@ -9,6 +9,7 @@ namespace NordicBio.api.Profiles
         public SeatProfile()
         {
             CreateMap<Seat, SeatDTO>();
+            CreateMap<SeatDTO, Seat>();
         }
     }
 }
