@@ -32,6 +32,8 @@ namespace NordicBio.DesktopClient
             //string myFile = Path.Combine(applicationDirectory, "Sample.html");
             //ctlBrowser.Source("http://localhost:8080/");
             //ctlBrowser.Url = new Uri("file:///" + myFile);
+
+            ctlBrowser.Navigate("http://localhost:8080");
         }
     }
 }

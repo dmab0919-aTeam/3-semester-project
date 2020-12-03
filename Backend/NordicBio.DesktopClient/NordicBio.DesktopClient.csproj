@@ -7,14 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="NewDirectory1" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="dist\index.html" />
-      <Content Include="dist\index.html">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
 </Project>
