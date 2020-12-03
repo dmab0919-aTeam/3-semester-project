@@ -1,13 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>netcoreapp3.1-windows</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
-
-    <ItemGroup>
-      <None Remove="dist\index.html" />
-    </ItemGroup>
-
 </Project>
