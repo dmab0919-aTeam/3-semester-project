@@ -11,6 +11,7 @@
     <None Remove="Scripts\Script0001 - Setup Database.sql" />
     <None Remove="Scripts\Script0002 - Drop old tables.sql" />
     <None Remove="Scripts\Script0003 - Recreate New Tables.sql" />
+    <None Remove="Scripts\Script0004 - Alter User.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <EmbeddedResource Include="Scripts\Script0001 - Setup Database.sql" />
     <EmbeddedResource Include="Scripts\Script0002 - Drop old tables.sql" />
     <EmbeddedResource Include="Scripts\Script0003 - Recreate New Tables.sql" />
+    <EmbeddedResource Include="Scripts\Script0004 - Alter User.sql" />
   </ItemGroup>
 
   <ItemGroup>

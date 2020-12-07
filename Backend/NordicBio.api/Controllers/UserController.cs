@@ -24,7 +24,42 @@ namespace NordicBio.api.Controllers
         }
 
         #region - USER SECTION -
+       
+        #endregion
+
+        #region - Admin Section -
+
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string email)
+        {
+            var data = await _unitOfWork.Users.Delete(email);
+            if(data > 0)
+            {
+                return Ok("User was deleted");
+            }
+            return BadRequest("Sorry.. User was not deleted");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminPost([FromBody] UserDTO userDTO)
+        {
+            userDTO.Salt = Encrypt.Salt();
+            userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
+            userDTO.UserRole = "Admin";
+
+            User userdata = _mapper.Map<User>(userDTO);
+            var data = await _unitOfWork.Users.Add(userdata);
+            if (data == 0)
+            {
+                return BadRequest("Sorry.. User was not created");
+            }
+            return Ok("Admin succesfully created");
+        }
+
         [HttpGet] // Get all users
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var data = await _unitOfWork.Users.GetAll();
@@ -37,6 +72,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpGet("{id}")] // Get by id
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _unitOfWork.Users.GetByID(id);
@@ -46,40 +82,6 @@ namespace NordicBio.api.Controllers
                 return NotFound("Sorry.. We found no user by that id");
             }
             return Ok(userdata);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserDTO userDTO)
-        {
-            userDTO.Salt = Encrypt.Salt();
-            userDTO.Password = Encrypt.HashPassword(Encrypt.ComputeSha256Hash(userDTO.Password), userDTO.Salt);
-            userDTO.IsAdmin = false;
-            User userdata = _mapper.Map<User>(userDTO);
-            var data = await _unitOfWork.Users.Add(userdata);
-            if (data == 0)
-            {
-                return BadRequest("Sorry.. User was not created");
-            }
-            return Ok(data);
-        }
-        #endregion
-
-        #region - Admin Section -
-        [HttpPost("admin")]
-        [Authorize]
-        public async Task<IActionResult> AdminPost([FromBody] UserDTO userDTO)
-        {
-            userDTO.Salt = Encrypt.Salt();
-            userDTO.Password = Encrypt.HashPassword(Encrypt.ComputeSha256Hash(userDTO.Password), userDTO.Salt);
-            userDTO.IsAdmin = true;
-
-            User userdata = _mapper.Map<User>(userDTO);
-            var data = await _unitOfWork.Users.Add(userdata);
-            if (data == 0)
-            {
-                return BadRequest("Sorry.. User was not created");
-            }
-            return Ok(data);
         }
         #endregion
     }
