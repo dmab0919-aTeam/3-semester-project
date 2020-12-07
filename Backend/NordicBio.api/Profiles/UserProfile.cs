@@ -9,6 +9,7 @@ namespace NordicBio.api.Profiles
         public UserProfile()
         {
             CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace NordicBio.api.Profiles
         public MovieProfile()
         {
             CreateMap<Movie, MovieDTO>();
+            CreateMap<MovieDTO, Movie>();
         }
     }
 }

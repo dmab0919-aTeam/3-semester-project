@@ -65,7 +65,7 @@ namespace NordicBio.api.Controllers
         #endregion
 
         #region - Admin Section -
-        [HttpPost]
+        [HttpPost("admin")]
         [Authorize]
         public async Task<IActionResult> AdminPost([FromBody] UserDTO userDTO)
         {
