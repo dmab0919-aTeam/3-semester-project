@@ -51,13 +51,20 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatDTO seatDTO)
+        public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatreservationDTO)
         {
-            Seat seat = _mapper.Map<Seat>(seatDTO);
-
-
-            var data = await _unitOfWork.Seats.Add(seat);
-            return Ok(data);
+           
+            if(seatreservationDTO.selectedseats.Count > 0)
+            {
+                foreach (var seatDTO in seatreservationDTO.selectedseats)
+                {
+                    seatDTO.ShowingID = seatreservationDTO.ShowingID;
+                    seatDTO.UserID = seatreservationDTO.UserID;
+                    await _unitOfWork.Seats.Add(this._mapper.Map<Seat>(seatDTO));
+                }
+                return Ok("Reservation was made");
+            }
+            return BadRequest("Sorry.. Seats could not be reserverd");
         }
         #endregion
         #region - ADMIN SECTION -

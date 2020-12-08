@@ -12,6 +12,7 @@
     <None Remove="Scripts\Script0002 - Drop old tables.sql" />
     <None Remove="Scripts\Script0003 - Recreate New Tables.sql" />
     <None Remove="Scripts\Script0004 - Alter User.sql" />
+    <None Remove="Scripts\Script0005 - Alter Seats.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="Scripts\Script0002 - Drop old tables.sql" />
     <EmbeddedResource Include="Scripts\Script0003 - Recreate New Tables.sql" />
     <EmbeddedResource Include="Scripts\Script0004 - Alter User.sql" />
+    <EmbeddedResource Include="Scripts\Script0005 - Alter Seats.sql" />
   </ItemGroup>
 
   <ItemGroup>

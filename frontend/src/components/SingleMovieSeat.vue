@@ -21,7 +21,7 @@
             <br><br><br><br><br>
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
 
-            <button @click.prevent="this.continue()">Continue</button>
+            <button @click.prevent="continuesd()">Continue</button>
           </div>
         </div>
       </div>
@@ -70,8 +70,14 @@
                         console.log(err)
                     });
             },
-            continue() {
-              //ToDo add logic for new page with payment...
+            continuesd() {
+              axios.post(`seat`, {
+                seatreservationDTO: {
+                  seats : this.data.selectedSeats,
+                  userId : 1,
+                  showingId : 1
+                }
+              })
             }
         },
 

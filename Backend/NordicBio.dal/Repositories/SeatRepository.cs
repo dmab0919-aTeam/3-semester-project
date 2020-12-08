@@ -24,12 +24,17 @@ namespace NordicBio.dal
         public async Task<int> Add(Seat entity)
         {
             int res;
-            string sql = "INSERT INTO Seats (Row, Number, OrderID) VALUES (@Row, @Number, @OrderID)";
+            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID, ReserveTime) " +
+                "VALUES (@Row, @Number, @ShowingID, @OrderID, @State, @UserID, @ReserveTime)";
             var parameters = new
             {
                 Row = entity.Row,
                 Number = entity.Number,
-                OrderID = entity.OrderID
+                ShowingID = entity.ShowingID,
+                OrderID = 1,
+                State = "Reserved",
+                UserID = entity.UserID,
+                ReserveTime = DateTime.Now.ToString()
             };
 
             using (SqlConnection con = new SqlConnection(_constring))
@@ -38,6 +43,7 @@ namespace NordicBio.dal
                 return res;
             }
         }
+
 
         public Task<int> Delete(int id)
         {
