@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <Grid>
-        <WebBrowser Grid.Row="0" x:Name="ctlBrowser" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-
+        <Label Visibility="Hidden" IsEnabled="False" x:Name="Label" Grid.Row="0" HorizontalAlignment="Left">
+            Lortet virker ikke, prøv igen senere! (smiler)
+        </Label>
+        <WebBrowser Grid.Row="1" x:Name="ctlBrowser" Visibility="Visible" IsEnabled="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
     </Grid>
 </Window>
