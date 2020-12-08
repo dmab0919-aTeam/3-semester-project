@@ -16,25 +16,45 @@ namespace NordicBio.NUnitTest.Controllers
         public void RegisterNewUser(HttpStatusCode expectedHttpStatusCode, string firstName, string lastName, string email, string phoneNumber, string password)
         {
             // arrange
-            RestRequest request = new RestRequest($"{_controller}/{"register"}", Method.POST);
-            request.AddHeader("Accept", "application/json");
-            request.Parameters.Clear();
+            string jsonbody =
+                "{" +
+                    "\"firstName\": " + "\"" + firstName + "\"," +
+                    "\"lastName\": " + "\"" + lastName + "\"," +
+                    "\"email\": " + "\"" + email + "\"," +
+                    "\"phoneNumber\": " + "\"" + phoneNumber + "\"," +
+                    "\"password\": " + "\"" + password + "\"" +
+                "}";
 
-            var body = new
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                Password = password
-            };
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            // create request
+            RestRequest request = new RestRequest($"{_controller}/{"register"}", Method.POST);
+
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+            request.AddJsonBody(jsonbody);
 
             // act
             IRestResponse response = _client.Execute(request);
 
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(expectedHttpStatusCode));
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            var sql = "DELETE FROM Users WHERE FirstName = 'Test'";
+
+            using (SqlConnection con = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var res = await con.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+            }
         }
     }
 }
