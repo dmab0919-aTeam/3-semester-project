@@ -24,38 +24,6 @@ namespace NordicBio.dal
             return _constring;
         }
 
-        public bool CreateUser(User user)
-        {
-            bool res;
-            var parameters = new
-            {
-                Firstname = user.FirstName,
-                Lastname = user.LastName,
-                Email = user.Email,
-                Phonenumber = user.PhoneNumber,
-                Salt = user.Salt,
-                Password = user.Password,
-                Isadmin = user.IsAdmin
-            };
-            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @Isadmin)";
-
-            using (SqlConnection con = new SqlConnection(_constring))
-            {
-                try
-                {
-                    con.QuerySingleOrDefault(sql, parameters);
-                    res = true;
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-
-            }
-
-            return res;
-        }
-
         public Task<User> GetByID(int id)
         {
             throw new NotImplementedException();
@@ -76,9 +44,9 @@ namespace NordicBio.dal
                 Phonenumber = entity.PhoneNumber,
                 Salt = entity.Salt,
                 Password = entity.Password,
-                Isadmin = entity.IsAdmin
+                UserRole = entity.UserRole
             };
-            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, IsAdmin) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @Isadmin)";
+            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -115,6 +83,25 @@ namespace NordicBio.dal
                 try
                 {
                     var result = await connection.QuerySingleOrDefaultAsync<User>(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("brugeren findes ikke");
+                }
+            }
+        }
+
+        public async Task<int> Delete(string email)
+        {
+            var sql = "DELETE FROM Users WHERE Email = @UserEmail";
+            var parameters = new { UserEmail = email };
+
+            using (SqlConnection connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.ExecuteAsync(sql, parameters);
                     return result;
                 }
                 catch (Exception)
