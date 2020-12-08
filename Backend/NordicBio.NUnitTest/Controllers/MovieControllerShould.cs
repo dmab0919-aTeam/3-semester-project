@@ -87,7 +87,5 @@ namespace NordicBio.NUnitTest
             // assert
             Assert.That(json.SelectToken("id").ToString(), Is.EqualTo(id.ToString()));
         }
-
-        // INSERT MOVIE AND CHECK INSERTION
     }
 }

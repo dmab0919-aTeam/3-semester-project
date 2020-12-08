@@ -1,6 +1,9 @@
-﻿using NordicBio.NUnitTest.TestData;
+﻿using Newtonsoft.Json;
+using NordicBio.dal.Entities;
+using NordicBio.NUnitTest.TestData;
 using NUnit.Framework;
 using RestSharp;
+using System.Collections.Generic;
 using System.Net;
 
 namespace NordicBio.NUnitTest
@@ -46,16 +49,18 @@ namespace NordicBio.NUnitTest
         [Test]
         [Category("Http Response")]
         [TestCaseSource(typeof(TestData_SeatController), "Check_HttpStatusCode_OK")]
-        public void ReturnHttpStatusCode(string id, HttpStatusCode expectedHttpStatusCode)
+        public void ReturnAllSeatsFromShowing(string id, HttpStatusCode expectedHttpStatusCode)
         {
             // arrange
             RestRequest request = new RestRequest($"{_controller}/{id}", Method.GET);
 
             // act
             IRestResponse response = _client.Execute(request);
+            var jsonResponse = JsonConvert.DeserializeObject<List<Seat>>(response.Content);
 
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(expectedHttpStatusCode));
+            Assert.That(jsonResponse, Is.Not.Empty);
         }
     }
 }
