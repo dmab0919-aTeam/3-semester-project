@@ -32,6 +32,7 @@ namespace NordicBio.NUnitTest
 
         // RETURN THE DATA FORMAT OF JSON
         [Test]
+        [Category("ContentType/Json")]
         [TestCaseSource(typeof(CentralizedData), "Check_JsonFormat")]
         public void ContentTypeTest(string contentType)
         {

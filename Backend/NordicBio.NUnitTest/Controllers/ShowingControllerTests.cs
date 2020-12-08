@@ -1,6 +1,4 @@
-﻿using Dapper;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using NordicBio.dal.Entities;
 using NordicBio.NUnitTest.TestData;
 using NUnit.Framework;
@@ -35,6 +33,7 @@ namespace NordicBio.NUnitTest
 
         // RETURN THE DATA FORMAT OF JSON
         [Test]
+        [Category("ContentType/Json")]
         [TestCaseSource(typeof(CentralizedData), "Check_JsonFormat")]
         public void ReturnJsonOnGet(string contentType)
         {

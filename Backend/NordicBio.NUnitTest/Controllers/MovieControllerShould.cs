@@ -44,6 +44,7 @@ namespace NordicBio.NUnitTest
 
         // RETURN THE DATA FORMAT OF JSON
         [Test]
+        [Category("ContentType/Json")]
         [TestCaseSource(typeof(CentralizedData), "Check_JsonFormat")]
         public void ReturnJsonOnGet(string contentType)
         {
@@ -59,6 +60,7 @@ namespace NordicBio.NUnitTest
 
         // RETURN THE DATA FORMAT OF JSON
         [Test]
+        [Category("ContentType/Json")]
         [TestCaseSource(typeof(CentralizedData), "Check_JsonFormat")]
         public void ReturnJsonOnGetById(string contentType)
         {
@@ -74,6 +76,7 @@ namespace NordicBio.NUnitTest
 
         // RETURN THE RIGHT MOVIE ID
         [Test]
+        [Category("Movies By Id")]
         [TestCaseSource(typeof(TestData_MovieController), "Check_MultiIdCorrect")]
         public void ReturnMovieId(string id)
         {
