@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NordicBio.DesktopClient
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,15 +24,26 @@ namespace NordicBio.DesktopClient
         public MainWindow()
         {
             InitializeComponent();
-            
-            /*string sTest = "<html>hallo this is a html-String</html>";
 
-            ctlBrowser.NavigateToString(sTest);*/
-            
-            //string applicationDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-            //string myFile = Path.Combine(applicationDirectory, "Sample.html");
-            //ctlBrowser.Source("http://localhost:8080/");
-            //ctlBrowser.Url = new Uri("file:///" + myFile);
+            try
+            {
+                Ping myPing = new Ping();
+                PingReply reply = myPing.Send("google.com", 1000);
+
+                if (reply != null)
+                {
+                    ctlBrowser.Navigate("http://localhost:8080");
+                }
+                else
+                {
+                    //todo handle network error
+                }
+            }
+            catch (Exception e)
+            {
+                //ctlBrowser.Navigate("https://google.com");
+                Console.WriteLine(e);
+            }
         }
     }
 }

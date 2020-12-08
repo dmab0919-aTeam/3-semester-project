@@ -6,13 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace NordicBio.DesktopClient
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
-        
     }
 }
