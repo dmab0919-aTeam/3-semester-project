@@ -5,7 +5,6 @@ namespace NordicBio.dal.Service
 {
     class UnitOfWork : IUnitOfWork
     {
-
         public IMovieRepository Movies { get; }
 
         public IOrderRepository Orders { get; }

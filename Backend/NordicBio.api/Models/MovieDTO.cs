@@ -9,6 +9,11 @@
         public string PosterPath { get; set; }
         public string Description { get; set; }
 
+
+        public MovieDTO()
+        {
+
+        }
         public MovieDTO(int id, string title, string releaseDate, double voteAverage, string posterPath, string description)
         {
             Id = id;

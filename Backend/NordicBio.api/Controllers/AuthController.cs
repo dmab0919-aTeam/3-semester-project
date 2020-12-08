@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NordicBio.api.Validation;
 using NordicBio.dal.Entities;
@@ -10,107 +11,77 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers
 {
-    class Token
-    {
-        public string Key { get; set; }
-    }
-
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AuthController(IUnitOfWork unitOfWork)
+        public AuthController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
+            this._mapper = mapper;
         }
 
         [HttpPost]
         [Route("login")]
-        public ActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            //Alle parametre bliver sendt med i en ValidateString klasse med den passende regex og en fejl besked
-            List<ValidateString> validations = new List<ValidateString>()
-            {
-                new ValidateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "Email is not valid"),
-                new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
-            };
-
+            List<ValidateString> validations = UserValidation.ValidateLogin(email, password);
+           
             //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne
             if (InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
             }
 
-            //Useren bliver fundet i DB
-            var data = _unitOfWork.Users.GetByEmail(email);
-            UserDTO user = new UserDTO
-            {
-                Password = data.Result.Password,
-                Salt = data.Result.Salt
-            };
+            //Useren bliver fundet i DB, og mappet til userDTO
+            var data = await _unitOfWork.Users.GetByEmail(email);
+            UserDTO user = this._mapper.Map<UserDTO>(data);
 
             if (user != null)
             {
                 //Userens password bliver hashet med salt, hvorefter det tjekkes om det stemmer overens med det der står i databasen.
                 if (user.Password.Equals(Encrypt.HashPassword(user.Salt, password)))
                 {
-                    Token t = new Token();
-                    t.Key = GenerateJSONWebToken(user.Email);
-                    var tokenString = JsonConvert.SerializeObject(t, Formatting.Indented);
+                    var tokenString = JsonConvert.SerializeObject(new Token(user), Formatting.Indented);
                     return Ok(tokenString);
                 }
                 else
                 {
-                    return NotFound("Email and password does not match");
+                    return BadRequest("Email and password does not match");
                 }
             }
             else
             {
-                return NotFound("User not found");
+                return BadRequest("User not found");
             }
         }
 
         [HttpPost]
         [Route("register")]
-        public ActionResult Register(
-            string firstname,
-            string lastname,
-            string email,
-            string phonenumber,
-            string password
-            )
+        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
-            //Alle parametre bliver sendt med i en ValidateString klasse med den passende regex og en fejl besked 
-            List<ValidateString> validations = new List<ValidateString>()
-            {
-                new ValidateString(firstname,  "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "Firstname is not valid"),
-                new ValidateString(lastname, "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "Lastname is not valid"),
-                new ValidateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", "Email is not valid"),
-                new ValidateString(phonenumber, "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", "Phonenumber is not valid"),
-                new ValidateString(password, "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", "Password must contain at least 8 characters, one number and one letter")
-            };
+            List<ValidateString> validations = UserValidation.ValidateUser(userDTO);
 
-            //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne.
+            //User bliver valideret, og hvis listen af fejl beskeder er over 0, returneres et badrequest med alle fejl beskederne.
             if (InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
             }
 
+            userDTO.UserRole = "User";
+            userDTO.Salt = Encrypt.Salt();
+            userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
 
-            string salt = Encrypt.Salt();
-            string hashedPassword = Encrypt.HashPassword(salt, password);
+            var createRequest = await _unitOfWork.Users.Add(this._mapper.Map<User>(userDTO));
 
-            User user = new User(firstname, lastname, email, phonenumber, salt, hashedPassword);
-
-            var createRequest = _unitOfWork.Users.Add(user);
-
-
-            if (createRequest.Result > 0)
+            if (createRequest > 0)
             {
                 return Ok("User successfully created");
             }
@@ -118,27 +89,6 @@ namespace NordicBio.api.Controllers
             {
                 return BadRequest("User was not created");
             }
-        }
-
-        private string GenerateJSONWebToken(string email)
-        {
-            var claims = new[]
-            {
-                new Claim("email", email)
-            };
-
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MynameisJamesBond007"));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: "A-Team",
-                audience: "A-Team",
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: credentials,
-                claims: claims
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

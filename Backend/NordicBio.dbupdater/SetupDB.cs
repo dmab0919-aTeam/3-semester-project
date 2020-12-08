@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace NordicBio.dbSetup
 {
@@ -39,7 +40,21 @@ namespace NordicBio.dbSetup
 
                     });
                 }
+                connection.Close();
             }
+        }
+
+        public void AddDummyData()
+        {
+            string sqlConnectionString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
+
+            FileInfo file = new FileInfo("./Scripts/DummyData.sql");
+            string script = file.OpenText().ReadToEnd();
+
+            SqlConnection conn = new SqlConnection(sqlConnectionString);
+            conn.Open();
+            conn.Execute(script);
+            conn.Close();
         }
     }
 }
