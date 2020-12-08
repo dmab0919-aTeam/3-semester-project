@@ -29,7 +29,7 @@ namespace NordicBio.api.Controllers
             var data = await _unitOfWork.Seats.GetAll();
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
-            if (seatdata == null)
+            if (seatdata.Count == 0)
             {
                 return NotFound("Sorry.. We found no seats");
             }
@@ -43,7 +43,7 @@ namespace NordicBio.api.Controllers
             var data = await _unitOfWork.Seats.GetAllById(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
-            if (seatdata == null)
+            if (seatdata.Count == 0)
             {
                 return NotFound("Sorry.. We found no seats");
             }
