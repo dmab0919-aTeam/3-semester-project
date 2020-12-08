@@ -46,6 +46,7 @@ namespace NordicBio.dbupdater
 
             SetupDB s = new SetupDB();
             s.Setup();
+            s.AddDummyData();
 
             return 0;
         }

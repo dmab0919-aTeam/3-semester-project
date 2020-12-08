@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NordicBio.dal", "NordicBio.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NordicBio.NUnitTest", "NordicBio.NUnitTest\NordicBio.NUnitTest.csproj", "{2ABA4F2B-8F4C-43D3-B572-7F1A5418ED8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NordicBio.DesktopClient", "NordicBio.DesktopClient\NordicBio.DesktopClient.csproj", "{BC4D272D-BC3E-430F-81A9-4DF19D154EE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2ABA4F2B-8F4C-43D3-B572-7F1A5418ED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ABA4F2B-8F4C-43D3-B572-7F1A5418ED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ABA4F2B-8F4C-43D3-B572-7F1A5418ED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4D272D-BC3E-430F-81A9-4DF19D154EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4D272D-BC3E-430F-81A9-4DF19D154EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4D272D-BC3E-430F-81A9-4DF19D154EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4D272D-BC3E-430F-81A9-4DF19D154EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

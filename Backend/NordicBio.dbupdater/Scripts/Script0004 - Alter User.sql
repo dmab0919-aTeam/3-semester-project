@@ -1,0 +1,5 @@
+﻿ALTER TABLE Users
+DROP COLUMN IsAdmin;
+
+ALTER TABLE Users
+ADD UserRole varchar(5) NOT NULL;

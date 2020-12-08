@@ -9,6 +9,7 @@ namespace NordicBio.api.Profiles
         public OrderProfile()
         {
             CreateMap<Order, OrderDTO>();
+            CreateMap<OrderDTO, Order>();
         }
     }
 }
