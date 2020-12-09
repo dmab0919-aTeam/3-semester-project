@@ -25,7 +25,7 @@ export default {
     background: rgb(14, 14, 14);
     color: white;
     width: 100%;
-    position: absolute;
+    margin-top: 5em;
 
     text-align: center;
     font-size: 12px;
