@@ -106,6 +106,7 @@
           this.data.description = this.$route.params.description;
           this.fetchSingleMovie();
           this.fetchShowings();
+
       }
       }
 </script>

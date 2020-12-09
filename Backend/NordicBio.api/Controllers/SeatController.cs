@@ -40,15 +40,15 @@ namespace NordicBio.api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            //TODO check for reserved seats der er ældre end 10 minuter.
-            await _unitOfWork.Seats.
+            //delete reserved seats der er ældre end 10 minuter.
+            await _unitOfWork.Seats.DeleteOldSeats(id);
 
             var data = await _unitOfWork.Seats.GetAllById(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
             {
-                return NotFound("Sorry.. We found no seats");
+                return BadRequest("Sorry.. We found no seats");
             }
             return Ok(seatdata);
         }

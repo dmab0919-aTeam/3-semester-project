@@ -24,8 +24,8 @@ namespace NordicBio.dal
         public async Task<int> Add(Seat entity)
         {
             int res;
-            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID, ReserveTime) " +
-                "VALUES (@Row, @Number, @ShowingID, @OrderID, @State, @UserID, @ReserveTime)";
+            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID) " +
+                "VALUES (@Row, @Number, @ShowingID, @OrderID, @State, @UserID)";
             var parameters = new
             {
                 Row = entity.Row,
@@ -34,7 +34,6 @@ namespace NordicBio.dal
                 OrderID = entity.OrderID,
                 State = "Reserved",
                 UserID = entity.UserID,
-                ReserveTime = DateTime.Now.ToString()
             };
 
             using (SqlConnection con = new SqlConnection(_constring))
@@ -48,6 +47,33 @@ namespace NordicBio.dal
         public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> DeleteOldSeats(int id)
+        {
+            int res;
+            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
+                "AND ShowingID = @ShowingID " +
+                "AND State = @Reserved";
+            var parameters = new
+            {
+                ShowingID = id,
+                Reserved = "Reserved"
+            };
+
+            using(var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    res = await connection.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
 
         public async Task<IEnumerable<Seat>> GetAll()

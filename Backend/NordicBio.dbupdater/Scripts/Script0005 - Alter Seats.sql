@@ -2,4 +2,4 @@
 ADD [State] varchar(10) NOT NULL;
 
 ALTER TABLE Seats
-ADD ReserveTime varchar(30) NOT NULL;
+ADD ReserveTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;

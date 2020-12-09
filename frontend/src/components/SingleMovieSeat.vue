@@ -84,6 +84,7 @@
         created() {
           this.fetchSingleMovie();
           this.data.showingId = 1 * this.$route.params.showingid
+          
       }
       }
 </script>
