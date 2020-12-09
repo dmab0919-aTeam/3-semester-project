@@ -1,39 +1,43 @@
 ﻿<template>
-  <div class="movie-card">
-    <div class="container">
-      <div class="showing-container">
-        <div class="container">
+  <div class="container">
+      <h1>Login or Register</h1>
+      <p>If you don't have an account then, create an new by register. Else just login and continue to payment.</p>
+      <div class="login-form">
           <form class="form-login" @submit.prevent="login">
-            <h1>Login</h1>
+            <h2>Login</h2>
             <label for="email">Email:</label><br>
             <input id="login.email" required v-model="email" type="text" placeholder="Enter Email"/>
             <br>
             <label for="email">Password:</label><br>
             <input id="login.password" required v-model="password" type="password" placeholder="Enter Password"/>
+            <br>
             <button type="submit">Login</button><br>
           </form>
-        </div>
       </div>
-    </div>
-    <div class="container">
-      <div class="form-container">
+
+      <div class="register-form">
         <form class="form" @submit.prevent="register">
+          <br><br>
+          <h2>Register</h2>
           <label>First name:</label>
-          <input id="firstname" v-model="firstname" type="text"><br>
+          <br>
+          <input id="firstname" v-model="firstname" type="text" placeholder="Enter First Name"><br>
           <label>Last name:</label>
-          <input id="lastname" v-model="lastname" type="text"><br>
+          <br>
+          <input id="lastname" v-model="lastname" type="text" placeholder="Enter Last Name"><br>
           <label>Email:</label>
-          <input id="email" v-model="regemail" type="email"><br>
+          <br>
+          <input id="email" v-model="regemail" type="email" placeholder="Enter Email"><br>
           <label>Phone number:</label>
-          <input id="phonenumber" v-model="phone" type="text"><br>
+          <br>
+          <input id="phonenumber" v-model="phone" type="text" placeholder="Enter Phone Number"><br>
           <label>Password:</label>
-          <input id="password" v-model="regpassword" type="password"><br>
+          <br>
+          <input id="password" v-model="regpassword" type="password" placeholder="Enter an password"><br>
           <button type="submit">Register</button><br>
-          
         </form>
       </div>
     </div>
-  </div> <!-- end movie-card -->
 </template>
 
 <script>
@@ -107,7 +111,33 @@ export default {
   font-family: sans-serif;
 }
 
-.movie-card {
+input {
+  width: 20em;
+  height: 2em;
+  margin-bottom: 2em;
+  border: none;
+  border-bottom: 2px solid black;
+}
+input:focus {
+  background-color: black;
+  color: white;
+  border-color: white
+}
+
+button {
+  width: 30%;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: all ease-in 0.8s;
+}
+
+ button:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.container {
   font: 18px/26px "Lato", Arial, sans-serif;
   color: black;
   background-color: rgb(243, 243, 243);
@@ -115,45 +145,14 @@ export default {
   margin: 2em;
   padding: 2em;
   border-radius: 10px;
+  text-align: center;
 }
 
-.image-container {
-  height: 25em;
-  width: 15em;
-  padding-top: 1em;
-  margin: 1em;
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
+.login-form, .register-form {
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
   max-height: 100%;
-  box-shadow: 10px 10px 8px grey;
 }
 
-.details {
-  text-align: center;
-}
-
-.column2 {
-  padding: 2em;
-}
-
-
-.container {
-  display: flex;
-}
-
-.voteaverage {
-  font-size: 18px;
-  border: 2px solid grey;
-  text-align: center;
-  padding: 2px;
-  border-radius: 5px;
-}
-
-.showings {
-  float: left;
-  position: relative;
-}
 </style>
