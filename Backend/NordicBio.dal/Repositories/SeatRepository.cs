@@ -20,7 +20,6 @@ namespace NordicBio.dal
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-
         public async Task<int> Add(Seat entity)
         {
             int res;
@@ -38,12 +37,6 @@ namespace NordicBio.dal
                 return res;
             }
         }
-
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Seat>> GetAll()
         {
             string sql = "SELECT * FROM [Seats]";
@@ -61,7 +54,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<IEnumerable<Seat>> GetAllById(int id)
         {
             var sql = "SELECT * FROM [Seats] WHERE ShowingID = @Id";
@@ -81,12 +73,18 @@ namespace NordicBio.dal
             }
         }
 
+        // NOT IMPLEMENTET
+
         public Task<Seat> GetByID(int id)
         {
             throw new NotImplementedException();
         }
 
         public Task<int> Update(Seat entity)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
         }

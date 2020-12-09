@@ -22,13 +22,11 @@ namespace NordicBio.dal
             this._constring = _configuration.GetConnectionString("constring");
         }
 
-
         // Get all showings on a movie by movie_id
         public async Task<IEnumerable<Showing>> GetShowingsByID(int id)
         {
             var parameters = new { Id = id };
             string sql = "SELECT * FROM Showings WHERE MovieID = @Id";
-
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -43,13 +41,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
-
-        public Task<Showing> GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Showing>> GetAll()
         {
             string sql = "SELECT * FROM Showings";
@@ -68,7 +59,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<int> Add(Showing entity)
         {
             var parameters = new
@@ -81,7 +71,6 @@ namespace NordicBio.dal
             var sql = "INSERT INTO Showings " +
                 "(Price, ShowingTime, HallNumber, MovieID) " +
                 "VALUES (@Price, @ShowingTime, @HallNumber, @MovieID);";
-
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -97,12 +86,18 @@ namespace NordicBio.dal
             }
         }
 
+        // NOT IMPLEMENTET
+
         public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
         public Task<int> Update(Showing entity)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<Showing> GetByID(int id)
         {
             throw new NotImplementedException();
         }

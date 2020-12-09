@@ -10,26 +10,15 @@ using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class UserRepository : IUserRepository, IRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _constring;
-
         public UserRepository(IConfiguration configuration)
         {
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-        public string FetchConnection()
-        {
-            return _constring;
-        }
-
-        public Task<User> GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<User>> GetAll()
         {
             var sql = "SELECT * FROM [Users]";
@@ -47,7 +36,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<int> Add(User entity)
         {
             var parameters = new
@@ -76,17 +64,6 @@ namespace NordicBio.dal
 
             }
         }
-
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User> GetByEmail(string email)
         {
             var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
@@ -105,7 +82,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<int> Delete(string email)
         {
             var sql = "DELETE FROM Users WHERE Email = @UserEmail";
@@ -123,6 +99,21 @@ namespace NordicBio.dal
                     throw new Exception("brugeren findes ikke");
                 }
             }
+        }
+
+        // NOT IMPLEMENTET
+
+        public Task<User> GetByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> Update(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

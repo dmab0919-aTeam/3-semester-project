@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace NordicBio.api.Controllers
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
         public ShowingController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
@@ -54,9 +54,18 @@ namespace NordicBio.api.Controllers
         #region - ADMIN SECTION -
         // TODO: admin create showings
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] ShowingDTO showingDTO)
         {
-
+            if (showingDTO != null)
+            {
+                Showing showing = _mapper.Map<Showing>(showingDTO);
+                var data = await _unitOfWork.Showings.Add(showing);
+                return Ok(data);
+            }
+            else
+            {
+                return BadRequest("Sorry.. The movie was not updated");
+            }
         }
         #endregion
     }

@@ -21,6 +21,7 @@ namespace NordicBio.NUnitTest.TestData
             {
                 yield return new TestCaseData("-15", HttpStatusCode.NotFound);
                 yield return new TestCaseData("0", HttpStatusCode.NotFound);
+                yield return new TestCaseData("21", HttpStatusCode.NotFound);
                 yield return new TestCaseData("999", HttpStatusCode.NotFound);
             }
         }
