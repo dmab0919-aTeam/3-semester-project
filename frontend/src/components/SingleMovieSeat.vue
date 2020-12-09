@@ -17,7 +17,7 @@
 
           </div>
           <div class="btn">
-            <button class="continue-btn" @click.prevent="this.continue()">Continue</button>
+            <button class="continue-btn" @click.prevent="gotoorder()">Continue</button>
           </div>
           <div class="btn">
             <button class="back-btn" @click="$router.go(-1)">Back</button>
@@ -70,7 +70,7 @@
                         console.log(err)
                     });
             },
-            continueee() {
+            gotoorder() {
               this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
             }
         },
