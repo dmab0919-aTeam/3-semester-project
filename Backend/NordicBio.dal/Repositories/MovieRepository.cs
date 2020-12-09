@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class MovieRepository : IMovieRepository, IRepository
+    public class MovieRepository : IMovieRepository
 
     {
         private readonly IConfiguration _configuration;
@@ -21,7 +21,6 @@ namespace NordicBio.dal
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-
         public async Task<int> Add(Movie entity)
         {
             var sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
@@ -41,7 +40,6 @@ namespace NordicBio.dal
                 return result;
             }
         }
-
         public async Task<int> Delete(int id)
         {
             var sql = "DELETE FROM [Movies] WHERE [id] = @Id";
@@ -59,12 +57,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
-        public string FetchConnection()
-        {
-            return _constring;
-        }
-
         public async Task<IEnumerable<Movie>> GetAll()
         {
             var sql = "SELECT * FROM [Movies]";
@@ -82,7 +74,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<Movie> GetByID(int id)
         {
             var sql = "SELECT * FROM Movies WHERE id = @Id";
@@ -100,7 +91,6 @@ namespace NordicBio.dal
                 }
             }
         }
-
         public async Task<int> Update(Movie entity)
         {
             var sql = "UPDATE [Movies] SET Title = @Title, ReleaseDate = @ReleaseDate, " +

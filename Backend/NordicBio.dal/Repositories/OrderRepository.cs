@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class OrderRepository : IOrderRepository, IRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _constring;
-
         public OrderRepository(IConfiguration configuration)
         {
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-        
+
         public Task<Order> GetByID(int id)
         {
             throw new System.NotImplementedException();
@@ -47,17 +46,14 @@ namespace NordicBio.dal
             }
         }
 
+        // NOT IMPLEMENTET
+
         public Task<int> Delete(int id)
         {
             throw new System.NotImplementedException();
         }
 
         public Task<int> Update(Order entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string FetchConnection()
         {
             throw new System.NotImplementedException();
         }

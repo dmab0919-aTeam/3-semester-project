@@ -8,10 +8,5 @@
         public IShowingRepository Showings { get; }
         public ITicketRepository Tickets { get; }
         public IUserRepository Users { get; }
-        public void BeginTransaction();
-
-        public void CommitTransaction();
-        public void RollBackTransaction();
-
     }
 }
