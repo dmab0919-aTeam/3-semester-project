@@ -40,6 +40,9 @@ namespace NordicBio.api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
+            //TODO check for reserved seats der er ældre end 10 minuter.
+            await _unitOfWork.Seats.
+
             var data = await _unitOfWork.Seats.GetAllById(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
@@ -53,16 +56,18 @@ namespace NordicBio.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatreservationDTO)
         {
-           
-            if(seatreservationDTO.selectedseats.Count > 0)
+           if(seatreservationDTO != null)
             {
-                foreach (var seatDTO in seatreservationDTO.selectedseats)
+                if (seatreservationDTO.selectedseats.Count > 0)
                 {
-                    seatDTO.ShowingID = seatreservationDTO.ShowingID;
-                    seatDTO.UserID = seatreservationDTO.UserID;
-                    await _unitOfWork.Seats.Add(this._mapper.Map<Seat>(seatDTO));
+                    foreach (var seatDTO in seatreservationDTO.selectedseats)
+                    {
+                        seatDTO.ShowingID = seatreservationDTO.ShowingID;
+                        seatDTO.UserID = seatreservationDTO.UserID;
+                        await _unitOfWork.Seats.Add(this._mapper.Map<Seat>(seatDTO));
+                    }
+                    return Ok("Reservation was made");
                 }
-                return Ok("Reservation was made");
             }
             return BadRequest("Sorry.. Seats could not be reserverd");
         }

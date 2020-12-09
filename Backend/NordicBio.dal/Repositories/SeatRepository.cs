@@ -31,7 +31,7 @@ namespace NordicBio.dal
                 Row = entity.Row,
                 Number = entity.Number,
                 ShowingID = entity.ShowingID,
-                OrderID = 1,
+                OrderID = entity.OrderID,
                 State = "Reserved",
                 UserID = entity.UserID,
                 ReserveTime = DateTime.Now.ToString()

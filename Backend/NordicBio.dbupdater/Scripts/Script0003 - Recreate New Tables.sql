@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[Seats] (
 	[Row] int NOT NULL,
 	[Number] int NOT NULL,
 	[ShowingID] int NOT NULL,
-	[OrderID] int,
+	[OrderID] int NULL,
 	[UserID] int NOT NULL,
 	PRIMARY KEY([Row], Number, ShowingID),
 	FOREIGN KEY (ShowingID) REFERENCES [dbo].[Showings] (Id),
