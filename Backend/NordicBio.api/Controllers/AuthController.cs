@@ -67,13 +67,13 @@ namespace NordicBio.api.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
-            List<ValidateString> validations = UserValidation.ValidateUser(userDTO);
+            //List<ValidateString> validations = UserValidation.ValidateUser(userDTO);
 
             //User bliver valideret, og hvis listen af fejl beskeder er over 0, returneres et badrequest med alle fejl beskederne.
-            if (InputValidator.StringInputValidation(validations).Count > 0)
+            /*if (InputValidator.StringInputValidation(validations).Count > 0)
             {
                 return BadRequest(InputValidator.StringInputValidation(validations));
-            }
+            }*/
 
             userDTO.UserRole = "User";
             userDTO.Salt = Encrypt.Salt();
