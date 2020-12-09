@@ -5,6 +5,7 @@ using NordicBio.dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NordicBio.dal
@@ -29,9 +30,22 @@ namespace NordicBio.dal
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM [Users]";
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QueryAsync<User>(sql);
+                    return result.ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public async Task<int> Add(User entity)
