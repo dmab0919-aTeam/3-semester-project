@@ -6,6 +6,7 @@ const singleMovie = () => import('../components/singleMovie.vue')
 const singleMovieSeat = () => import('../components/SingleMovieSeat.vue')
 const registerpage = () => import('../layouts/registerpage.vue')
 const adminPanel = () => import('../layouts/adminPanel')
+const movieOrdering = () => import('../components/SingleMovieOrdering.vue')
 
 const routes = [
       {
@@ -29,6 +30,11 @@ const routes = [
       name: 'singleMovieSeat',
       component: singleMovieSeat
   },
+    {
+        path: '/movieordering/:id/:showingid',
+        name: 'singleMovieOrdering',
+        component: movieOrdering
+    },
       {
          path: '/register',
          name: 'register',

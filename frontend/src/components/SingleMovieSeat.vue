@@ -14,12 +14,14 @@
         <div class="showing-container">
           <div class="showings">
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
+
           </div>
           <div class="btn">
             <button class="continue-btn" @click.prevent="this.continue()">Continue</button>
           </div>
           <div class="btn">
             <button class="back-btn" @click="$router.go(-1)">Back</button>
+
           </div>
         </div>
       </div>
@@ -68,8 +70,8 @@
                         console.log(err)
                     });
             },
-            continue() {
-              //ToDo add logic for new page with payment...
+            continueee() {
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
             }
         },
 
