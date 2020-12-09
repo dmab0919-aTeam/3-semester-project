@@ -8,6 +8,8 @@ using NordicBio.model;
 
 namespace NordicBio.api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     
     public class OrderController : ControllerBase
     {

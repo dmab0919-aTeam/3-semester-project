@@ -95,7 +95,7 @@ export default {
   },
 
   created() {
-    this.data.showingId = 1 * this.$route.params.showingid
+    this.showingId = 1 * this.$route.params.showingid
   }
 }
 </script>
