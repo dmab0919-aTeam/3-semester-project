@@ -21,7 +21,7 @@
             <br><br><br><br><br>
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
 
-            <button @click.prevent="this.continue()">Continue</button>
+            <button @click.prevent="continueee()">Continue</button>
           </div>
         </div>
       </div>
@@ -70,8 +70,8 @@
                         console.log(err)
                     });
             },
-            continue() {
-              //ToDo add logic for new page with payment...
+            continueee() {
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
             }
         },
 
