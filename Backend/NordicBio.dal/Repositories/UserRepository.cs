@@ -19,7 +19,7 @@ namespace NordicBio.dal
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
             var sql = "SELECT * FROM [Users]";
 
@@ -36,7 +36,7 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<int> Add(User entity)
+        public async Task<int> AddAsync(User entity)
         {
             var parameters = new
             {
@@ -48,7 +48,7 @@ namespace NordicBio.dal
                 Password = entity.Password,
                 UserRole = entity.UserRole
             };
-            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
+            var sql = "Insert into [Users] (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -64,9 +64,9 @@ namespace NordicBio.dal
 
             }
         }
-        public async Task<User> GetByEmail(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
+            var sql = "SELECT * FROM [Users] WHERE [Email] = @UserEmail";
             var parameters = new { UserEmail = email };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -82,9 +82,9 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<int> Delete(string email)
+        public async Task<int> DeleteAsync(string email)
         {
-            var sql = "DELETE FROM Users WHERE Email = @UserEmail";
+            var sql = "DELETE FROM [Users] WHERE [Email] = @UserEmail";
             var parameters = new { UserEmail = email };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -103,15 +103,15 @@ namespace NordicBio.dal
 
         // NOT IMPLEMENTET
 
-        public Task<User> GetByID(int id)
+        public Task<User> GetByIDAsync(int id)
         {
             throw new NotImplementedException();
         }
-        public Task<int> Delete(int id)
+        public Task<int> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
-        public Task<int> Update(User entity)
+        public Task<int> UpdateAsync(User entity)
         {
             throw new NotImplementedException();
         }

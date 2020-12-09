@@ -21,7 +21,5 @@ namespace NordicBio.model
             HallNumber = hallNumber;
             MovieID = movieID;
         }
-
-
     }
 }

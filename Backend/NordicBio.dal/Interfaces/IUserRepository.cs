@@ -5,7 +5,7 @@ namespace NordicBio.dal.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetByEmail(string email);
-        Task<int> Delete(string email);
+        Task<User> GetByEmailAsync(string email);
+        Task<int> DeleteAsync(string email);
     }
 }

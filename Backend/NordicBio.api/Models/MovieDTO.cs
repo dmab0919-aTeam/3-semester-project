@@ -9,7 +9,6 @@
         public string PosterPath { get; set; }
         public string Description { get; set; }
 
-
         public MovieDTO()
         {
 

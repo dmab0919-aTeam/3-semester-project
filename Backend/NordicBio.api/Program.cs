@@ -14,7 +14,6 @@ namespace NordicBio.api
             builder.SetBasePath(Directory.GetCurrentDirectory());
             builder.AddJsonFile("appsettings.json");
             builder.Build();
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -23,6 +22,5 @@ namespace NordicBio.api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
     }
 }

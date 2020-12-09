@@ -21,7 +21,5 @@ namespace NordicBio.dal.Entities
             HallNumber = hallNumber;
             MovieID = movieID;
         }
-
-
     }
 }

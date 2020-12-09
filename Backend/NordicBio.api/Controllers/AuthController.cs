@@ -39,7 +39,7 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB, og mappet til userDTO
-            var data = await _unitOfWork.Users.GetByEmail(email);
+            var data = await _unitOfWork.Users.GetByEmailAsync(email);
             UserDTO user = this._mapper.Map<UserDTO>(data);
 
             if (user != null)
@@ -77,7 +77,7 @@ namespace NordicBio.api.Controllers
             userDTO.Salt = Encrypt.Salt();
             userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
 
-            var createRequest = await _unitOfWork.Users.Add(this._mapper.Map<User>(userDTO));
+            var createRequest = await _unitOfWork.Users.AddAsync(this._mapper.Map<User>(userDTO));
 
             if (createRequest > 0)
             {

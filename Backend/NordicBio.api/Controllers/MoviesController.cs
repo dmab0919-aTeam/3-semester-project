@@ -28,7 +28,7 @@ namespace NordicBio.api.Controllers
         [HttpGet] // Get all
         public async Task<IActionResult> Get()
         {
-            var data = await _unitOfWork.Movies.GetAll();
+            var data = await _unitOfWork.Movies.GetAllAsync();
             List<MovieDTO> moviedata = _mapper.Map<List<MovieDTO>>(data);
 
             if (moviedata == null)
@@ -43,7 +43,7 @@ namespace NordicBio.api.Controllers
         [HttpGet("{id}")] // Get by id
         public async Task<IActionResult> GetById(int id)
         {
-            var data = await _unitOfWork.Movies.GetByID(id);
+            var data = await _unitOfWork.Movies.GetByIDAsync(id);
             MovieDTO moviedata = _mapper.Map<MovieDTO>(data);
 
             if (moviedata == null)
@@ -63,7 +63,7 @@ namespace NordicBio.api.Controllers
             if (movieDTO != null)
             {
                 Movie movie = _mapper.Map<Movie>(movieDTO);
-                var data = await _unitOfWork.Movies.Add(movie);
+                var data = await _unitOfWork.Movies.AddAsync(movie);
                 return Ok(data);
             }
             else
@@ -78,7 +78,7 @@ namespace NordicBio.api.Controllers
             if (movieDTO != null)
             {
                 Movie movie = _mapper.Map<Movie>(movieDTO);
-                var data = await _unitOfWork.Movies.Update(movie);
+                var data = await _unitOfWork.Movies.UpdateAsync(movie);
                 return Ok(data);
             }
             else
@@ -90,7 +90,7 @@ namespace NordicBio.api.Controllers
         [HttpDelete("{id}")] // Delete by id
         public async Task<IActionResult> Delete(int id)
         {
-            var data = await _unitOfWork.Movies.Delete(id);
+            var data = await _unitOfWork.Movies.DeleteAsync(id);
 
             if (data == 0)
             {

@@ -28,7 +28,7 @@ namespace NordicBio.api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data = await _unitOfWork.Showings.GetAll();
+            var data = await _unitOfWork.Showings.GetAllAsync();
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
             if (showingdata == null)
             {
@@ -41,7 +41,7 @@ namespace NordicBio.api.Controllers
         [HttpGet("movie/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _unitOfWork.Showings.GetShowingsByID(id);
+            var data = await _unitOfWork.Showings.GetShowingsByIDAsync(id);
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
             if (showingdata == null)
             {
@@ -59,7 +59,7 @@ namespace NordicBio.api.Controllers
             if (showingDTO != null)
             {
                 Showing showing = _mapper.Map<Showing>(showingDTO);
-                var data = await _unitOfWork.Showings.Add(showing);
+                var data = await _unitOfWork.Showings.AddAsync(showing);
                 return Ok(data);
             }
             else

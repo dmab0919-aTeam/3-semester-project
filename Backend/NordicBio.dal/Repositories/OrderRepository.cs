@@ -18,20 +18,13 @@ namespace NordicBio.dal
             this._constring = _configuration.GetConnectionString("constring");
         }
 
-        public Task<Order> GetByID(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Order>> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<int> Add(Order entity)
+        public async Task<int> AddAsync(Order entity)
         {
             int res;
-            string sql = "INSERT INTO Orders (TotalPrice, UserID, ShowingID) OUTPUT INSERTED.Id VALUES (@TotalPrice, @UserID, @ShowingID)";
+            string sql = "INSERT INTO [Orders] " +
+                "(TotalPrice, UserID, ShowingID) " +
+                "OUTPUT INSERTED.Id VALUES " +
+                "(@TotalPrice, @UserID, @ShowingID)";
             var parameters = new
             {
                 TotalPrice = entity.TotalPrice,
@@ -48,12 +41,21 @@ namespace NordicBio.dal
 
         // NOT IMPLEMENTET
 
-        public Task<int> Delete(int id)
+        public Task<int> DeleteAsync(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<int> Update(Order entity)
+        public Task<int> UpdateAsync(Order entity)
+        {
+            throw new System.NotImplementedException();
+        }
+        public Task<Order> GetByIDAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<Order>> GetAllAsync()
         {
             throw new System.NotImplementedException();
         }

@@ -24,7 +24,7 @@ namespace NordicBio.api.Controllers
         }
 
         #region - USER SECTION -
-       
+
         #endregion
 
         #region - Admin Section -
@@ -33,8 +33,8 @@ namespace NordicBio.api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string email)
         {
-            var data = await _unitOfWork.Users.Delete(email);
-            if(data > 0)
+            var data = await _unitOfWork.Users.DeleteAsync(email);
+            if (data > 0)
             {
                 return Ok("User was deleted");
             }
@@ -50,7 +50,7 @@ namespace NordicBio.api.Controllers
             userDTO.UserRole = "Admin";
 
             User userdata = _mapper.Map<User>(userDTO);
-            var data = await _unitOfWork.Users.Add(userdata);
+            var data = await _unitOfWork.Users.AddAsync(userdata);
             if (data == 0)
             {
                 return BadRequest("Sorry.. User was not created");
@@ -62,7 +62,7 @@ namespace NordicBio.api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
-            var data = await _unitOfWork.Users.GetAll();
+            var data = await _unitOfWork.Users.GetAllAsync();
             List<UserDTO> userdata = _mapper.Map<List<UserDTO>>(data);
             if (userdata == null)
             {
@@ -75,7 +75,7 @@ namespace NordicBio.api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
-            var data = await _unitOfWork.Users.GetByID(id);
+            var data = await _unitOfWork.Users.GetByIDAsync(id);
             UserDTO userdata = _mapper.Map<UserDTO>(data);
             if (userdata == null)
             {
