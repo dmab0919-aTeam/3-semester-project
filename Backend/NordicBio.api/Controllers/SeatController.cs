@@ -26,7 +26,7 @@ namespace NordicBio.api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var data = await _unitOfWork.Seats.GetAll();
+            var data = await _unitOfWork.Seats.GetAllAsync();
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
@@ -40,7 +40,7 @@ namespace NordicBio.api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            var data = await _unitOfWork.Seats.GetAllById(id);
+            var data = await _unitOfWork.Seats.GetAllByIdAsync(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
@@ -56,7 +56,7 @@ namespace NordicBio.api.Controllers
             Seat seat = _mapper.Map<Seat>(seatDTO);
 
 
-            var data = await _unitOfWork.Seats.Add(seat);
+            var data = await _unitOfWork.Seats.AddAsync(seat);
             return Ok(data);
         }
         #endregion

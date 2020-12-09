@@ -21,7 +21,7 @@ namespace NordicBio.dal
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-        public async Task<int> Add(Movie entity)
+        public async Task<int> AddAsync(Movie entity)
         {
             var sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
                         "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
@@ -40,7 +40,7 @@ namespace NordicBio.dal
                 return result;
             }
         }
-        public async Task<int> Delete(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             var sql = "DELETE FROM [Movies] WHERE [id] = @Id";
             var parameters = new { Id = id };
@@ -57,7 +57,7 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<IEnumerable<Movie>> GetAll()
+        public async Task<IEnumerable<Movie>> GetAllAsync()
         {
             var sql = "SELECT * FROM [Movies]";
 
@@ -74,9 +74,9 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<Movie> GetByID(int id)
+        public async Task<Movie> GetByIDAsync(int id)
         {
-            var sql = "SELECT * FROM Movies WHERE id = @Id";
+            var sql = "SELECT * FROM [Movies] WHERE [id] = @Id";
             var parameters = new { Id = id };
             using (var connection = new SqlConnection(_constring))
             {
@@ -91,7 +91,7 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<int> Update(Movie entity)
+        public async Task<int> UpdateAsync(Movie entity)
         {
             var sql = "UPDATE [Movies] SET Title = @Title, ReleaseDate = @ReleaseDate, " +
                             "VoteAverage = @VoteAverage, PosterPath = @PosterPath, BackdropPath = @BackdropPath, Description = @Description  " +

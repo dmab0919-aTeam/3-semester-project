@@ -1,40 +1,39 @@
 <template>
-  <div class="movie-card">
-      <div class="details">
-        <h1>Title: {{ this.data.title }}</h1>
-      </div> <!-- end details -->
-      
-      <div class="column2">
-        <strong>Description:</strong> <p>{{ this.data.description }}</p>
-      </div> <!-- end column2 -->
+    <div class="movie-card">
+        <div class="details">
+          <h1>Title: {{ this.data.title }}</h1>
+        </div> <!-- end details -->
+        
+        <div class="column2">
+          <strong>Description:</strong> <p>{{ this.data.description }}</p>
+        </div> <!-- end column2 -->
 
-      <div class="container">
-        <div class="image-container">
-          <div class="image">
-            <img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" />
-            <div class="voteaverage">{{ this.data.vote_avarage }} Vote Average</div>
+        <div class="container">
+          <div class="image-container">
+            <div class="image">
+              <img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" />
+              <div class="voteaverage">{{ this.data.vote_avarage }} Vote Average</div>
+            </div>
+          </div>
+
+          <div class="showing-container">
+            <div class="showings">
+              <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
+              <p>Choose a showing for this movie: {{ this.data.title }} </p>
+              <label>
+                <select class="dropdown-menu" v-model="data.selected_showing">
+                  <option v-for="(item, key) in this.data.showings" v-bind:key="key" :value="item.id">
+                    <a>Seat Price {{ item.price }} DKK</a>
+                    {{ item.showingTime }}
+                  </option>
+                </select>
+              </label>
+              <button class="continue-btn" @click.prevent="selectshowing()">Continue</button>
+              <button class="back-btn" @click="$router.go(-1)">Back</button>
+            </div>
           </div>
         </div>
-
-        <div class="showing-container">
-          <div class="showings">
-            <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
-            <p>Choose a showing for this movie: {{ this.data.title }} </p>
-            <label>
-              <select v-model="data.selected_showing">
-                <option v-for="(item, key) in this.data.showings" v-bind:key="key" :value="item.id">
-                  <a>Seat Price {{ item.price }} DKK</a>
-                  {{ item.showingTime }}
-                </option>
-              </select>
-            </label>
-            <br><br><br><br><br>
-
-            <button @click.prevent="selectshowing()">Continue</button>
-          </div>
-        </div>
-      </div>
-  </div> <!-- end movie-card -->
+    </div> <!-- end movie-card -->
 </template>
 
 <script>
@@ -58,8 +57,8 @@
                     id: '',
                     showings: []
                 },
-            }
-        },
+            }   
+        }, 
 
         methods: {
             fetchSingleMovie() {
@@ -121,17 +120,14 @@
   font: 18px/26px "Lato", Arial, sans-serif;
   color: black;
   background-color: rgb(243, 243, 243);
-  min-height: 90vh;
-  margin: 2em;
-  padding: 2em;
+  min-height: 60vh;
+  margin-left: 10em;
+  margin-right: 10em;
+  padding: 1em;
   border-radius: 10px;
 }
 
 .image-container {
-  height: 25em;
-  width: 15em;
-  padding-top: 1em;
-  margin: 1em;
   cursor: pointer;
 }
 
@@ -147,11 +143,16 @@ img {
 
 .column2 {
   padding: 2em;
+  width: 50%;
+  float: left;
 }
 
 
 .container {
   display: flex;
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
 }
 
 .voteaverage {
@@ -160,10 +161,17 @@ img {
   text-align: center;
   padding: 2px;
   border-radius: 5px;
+  margin-top: 1em;
 }
 
 .showings {
   float: left;
   position: relative;
 }
+
+.continue-btn{
+  width: 50%;
+  margin-top: 1em;
+}
+
 </style>

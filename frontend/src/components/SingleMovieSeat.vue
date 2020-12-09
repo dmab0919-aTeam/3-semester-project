@@ -1,27 +1,27 @@
 <template>
   <div class="movie-card">
       <div class="details">
-        <h1>Title: {{ this.data.title }}</h1>
+        <h1>{{ this.data.title }}</h1>
       </div> <!-- end details -->
       
-      <div class="column2">
-        <strong>Description:</strong> <p>{{ this.data.description }}</p>
-      </div> <!-- end column2 -->
-
       <div class="container">
         <div class="image-container">
           <div class="image">
             <img :src="'https://image.tmdb.org/t/p/w500' + this.data.poster_path" alt="cover" class="cover" />
-            <div class="voteaverage">{{ this.data.vote_avarage }} Vote Average</div>
           </div>
         </div>
 
         <div class="showing-container">
           <div class="showings">
-            <br><br><br><br><br>
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
 
-            <button @click.prevent="continueee()">Continue</button>
+          </div>
+          <div class="btn">
+            <button class="continue-btn" @click.prevent="gotoorder()">Continue</button>
+          </div>
+          <div class="btn">
+            <button class="back-btn" @click="$router.go(-1)">Back</button>
+
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
                         console.log(err)
                     });
             },
-            continueee() {
+            gotoorder() {
               this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
             }
         },
@@ -93,18 +93,16 @@
   font: 18px/26px "Lato", Arial, sans-serif;
   color: black;
   background-color: rgb(243, 243, 243);
-  min-height: 90vh;
-  margin: 2em;
-  padding: 2em;
+  min-height: 60vh;
+  margin-left: 10em;
+  margin-right: 10em;
+  padding: 1em;
   border-radius: 10px;
 }
 
 .image-container {
-  height: 25em;
-  width: 15em;
-  padding-top: 1em;
-  margin: 1em;
   cursor: pointer;
+  border: 2px solid yellow;
 }
 
 img { 
@@ -117,13 +115,11 @@ img {
   text-align: center;
 }
 
-.column2 {
-  padding: 2em;
-}
-
-
 .container {
   display: flex;
+  text-align: center;
+  width: 100%;
+  
 }
 
 .voteaverage {
@@ -132,10 +128,25 @@ img {
   text-align: center;
   padding: 2px;
   border-radius: 5px;
+  margin-top: 1em;
 }
 
 .showings {
-  float: left;
   position: relative;
+  
+  max-height: 100%;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 7em;
+  margin-bottom: 1em;
 }
+
+.showing-container {
+  width: 100%;
+  max-height: 100%;
+}
+.continue-btn, .back-btn{
+  width: 50%;
+}
+
 </style>
