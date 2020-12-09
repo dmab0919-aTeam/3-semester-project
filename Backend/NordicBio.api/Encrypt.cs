@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NordicBio.api
 {
@@ -36,12 +33,11 @@ namespace NordicBio.api
             // Add random sleep or slow hasing b-crypt
             string letter4 = password.Substring(4, 1);
             int length = password.Length;
-            
+
             string saltedPassword = password + letter4 + length + salt;
 
             return ComputeSha256Hash(saltedPassword);
         }
-
         public static string Salt()
         {
             return Guid.NewGuid().ToString("N").Substring(0, 20);
