@@ -303,29 +303,29 @@ VALUES (99, 2);
 
 -- Showing 1 --
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (1, 1, 1, 1, 'Bought', 1, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (1, 1, 1, 1, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (2, 2, 1, 1, 'Bought', 1, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (2, 2, 1, 1, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (3, 3, 1, 2, 'Bought', 1, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (3, 3, 1, 2, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (4, 4, 1, 2, 'Bought', 1, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (4, 4, 1, 2, 'Bought', '2020-12-8 11:24:20');
 
 -- Showing 2 --
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (6, 6, 2, 1, 'Bought', 2, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (6, 6, 2, 1, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (7, 7, 2, 1, 'Bought', 2, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (7, 7, 2, 1, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (8, 8, 2, 2, 'Bought', 2, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (8, 8, 2, 2, 'Bought', '2020-12-8 11:24:20');
 
-INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], [UserID], ReserveTime)
-VALUES (9, 9, 2, 2, 'Bought', 2, '2020-12-8 11:24:20');
+INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], ReserveTime)
+VALUES (9, 9, 2, 2, 'Bought', '2020-12-8 11:24:20');
 

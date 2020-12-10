@@ -69,15 +69,17 @@
                     });
             },
             gotoorder() {
-              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
-            }
-        },
-
+              //this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
+              this.reserveSeats();
+            },
+            reserveSeats() {
+            },
         created() {
           this.fetchSingleMovie();
           this.data.showingId = 1 * this.$route.params.showingid
           
       }
+        }
       }
 </script>
 

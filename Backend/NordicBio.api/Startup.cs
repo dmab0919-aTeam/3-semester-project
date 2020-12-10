@@ -29,7 +29,8 @@ namespace NordicBio.api
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+
 
             services.AddAuthentication(options =>
             {

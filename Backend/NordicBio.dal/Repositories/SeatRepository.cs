@@ -23,16 +23,14 @@ namespace NordicBio.dal
         public async Task<int> AddAsync(Seat entity)
         {
             int res;
-            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID) " +
-                "VALUES (@Row, @Number, @ShowingID, @OrderID, @State, @UserID)";
+            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State]) " +
+                "VALUES (@Row, @Number, @ShowingID, @State)";
             var parameters = new
             {
                 Row = entity.Row,
                 Number = entity.Number,
                 ShowingID = entity.ShowingID,
-                OrderID = entity.OrderID,
-                State = "Reserved",
-                UserID = entity.UserID,
+                State = "Reserved"
             };
 
             using (SqlConnection con = new SqlConnection(_constring))
@@ -41,7 +39,7 @@ namespace NordicBio.dal
                 return res;
             }
         }
-        
+
         public async Task<int> DeleteOldSeatsAsync(int id)
         {
             int res;
@@ -54,7 +52,7 @@ namespace NordicBio.dal
                 Reserved = "Reserved"
             };
 
-            using(var connection = new SqlConnection(_constring))
+            using (var connection = new SqlConnection(_constring))
             {
                 try
                 {

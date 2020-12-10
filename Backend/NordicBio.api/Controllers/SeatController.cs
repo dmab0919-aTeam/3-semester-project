@@ -43,7 +43,7 @@ namespace NordicBio.api.Controllers
             //delete reserved seats der er ældre end 10 minuter.
             await _unitOfWork.Seats.DeleteOldSeatsAsync(id);
 
-            var data = await _unitOfWork.Seats.GetAllByIdAsync(id)
+            var data = await _unitOfWork.Seats.GetAllByIdAsync(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
@@ -54,21 +54,25 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatreservationDTO)
+        public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatReservationDTO)
         {
-           if(seatreservationDTO != null)
+
+            if (seatReservationDTO.selectedseats != null)
             {
-                if (seatreservationDTO.selectedseats.Count > 0)
+                if (seatReservationDTO.selectedseats.Count > 0)
                 {
-                    foreach (var seatDTO in seatreservationDTO.selectedseats)
+                    foreach (var seatDTO in seatReservationDTO.selectedseats)
                     {
-                        seatDTO.ShowingID = seatreservationDTO.ShowingID;
-                        seatDTO.UserID = seatreservationDTO.UserID;
+                        seatDTO.ShowingID = seatReservationDTO.ShowingID;
+                        System.Console.WriteLine("Trying ");
                         await _unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seatDTO));
                     }
                     return Ok("Reservation was made");
                 }
             }
+            System.Console.WriteLine(seatReservationDTO.ToString());
+            System.Console.WriteLine(seatReservationDTO.ShowingID);
+            System.Console.WriteLine("hej");
             return BadRequest("Sorry.. Seats could not be reserverd");
         }
         #endregion
