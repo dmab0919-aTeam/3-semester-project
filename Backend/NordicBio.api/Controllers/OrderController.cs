@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
@@ -8,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers
 {
-
+    [Route("api/[controller]")]
+    [ApiController]
+    
     public class OrderController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
