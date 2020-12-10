@@ -13,10 +13,10 @@
 
         <div class="showing-container">
           <div class="showings">
-            <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="this.data.showingId"/> 
+            <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="1 * this.$route.params.showingid"/> 
           </div>
           <div class="btn">
-            <button class="continue-btn" @click.prevent="gotoorder()">Continue</button>
+            <button class="continue-btn" @click.prevent="reserveSeats()">Continue</button>
           </div>
           <div class="btn">
             <button class="back-btn" @click="$router.go(-1)">Back</button>
@@ -69,16 +69,24 @@
                     });
             },
             gotoorder() {
-              //this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: this.data.showingId} })
-              this.reserveSeats();
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid)} })
             },
             reserveSeats() {
+              axios.post('seat', {
+                  showingId: 1 * this.$route.params.showingid,
+                  selectedseats: this.data.selectedSeats
+              }).then(response => {
+                if (response.status === 200) {
+                  this.gotoorder()
+                }
+              }).catch(err => {
+                console.log(err)
+              })
             },
         created() {
-          this.fetchSingleMovie();
-          this.data.showingId = 1 * this.$route.params.showingid
-          
-      }
+            this.fetchSingleMovie();
+            this.data.showingId = 1 * this.$route.params.showingid
+         }
         }
       }
 </script>

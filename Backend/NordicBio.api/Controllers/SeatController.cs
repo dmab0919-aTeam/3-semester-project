@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
@@ -56,6 +57,10 @@ namespace NordicBio.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatReservationDTO)
         {
+            
+           // Console.WriteLine(seatReservationDTO.selectedseats.Count);
+            
+            System.Console.WriteLine("hej");
 
             if (seatReservationDTO.selectedseats != null)
             {

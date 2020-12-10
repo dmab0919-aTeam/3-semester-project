@@ -81,7 +81,7 @@ export default {
       rowNumber = rowNumber + 1
       seatNumber = seatNumber + 1
       this.selectedSeats.forEach(function(value,index){
-        if(value.rowNumber === rowNumber && value.seatNumber === seatNumber){
+        if(value.row === rowNumber && value.number === seatNumber){
           arrayIndex = index
         }
       });
@@ -91,8 +91,8 @@ export default {
 
       if(arrayIndex === null){
         this.selectedSeats.push({
-        seatNumber: seatNumber,
-        rowNumber: rowNumber
+          number: seatNumber,
+          row: rowNumber
         });
       }
     },
@@ -100,7 +100,7 @@ export default {
     removeSelectedSeats(element) {
       let arrayindex = null
       this.selectedSeats.forEach(function(i, index) {
-        if(i.seatNumber === element.number && i.rowNumber === element.row){
+        if(i.number === element.number && i.row === element.row){
           arrayindex = index
         }
       });
@@ -113,8 +113,6 @@ export default {
     fetchReservedSeats() {
       this.generateSeats()
       axios.get(`seat/${this.showingId}`).then(response => {
-        console.log(response.data)
-        
         response.data.forEach(element => {
           this.removeSelectedSeats(element)
           this.reservedSeat(element.row, element.number)
