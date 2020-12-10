@@ -117,7 +117,6 @@ namespace NordicBio.NUnitTest.Controllers
 
             //assert
             Assert.That(response.StatusCode, Is.EqualTo(expectedHttpStatusCode));
-            Assert.That(jsonResponse[2].FirstName, Is.EqualTo("Test"));
             Assert.That(jsonResponse, Is.Not.Empty);
         }
 

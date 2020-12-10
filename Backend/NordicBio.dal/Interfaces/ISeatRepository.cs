@@ -6,6 +6,7 @@ namespace NordicBio.dal.Interfaces
 {
     public interface ISeatRepository : IGenericRepository<Seat>
     {
+        Task<int> DeleteOldSeatsAsync(int id);
         Task<IEnumerable<Seat>> GetAllByIdAsync(int id);
     }
 }

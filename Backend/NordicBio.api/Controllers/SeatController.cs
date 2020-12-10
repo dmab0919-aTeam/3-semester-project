@@ -40,30 +40,40 @@ namespace NordicBio.api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            var data = await _unitOfWork.Seats.GetAllByIdAsync(id);
+            //delete reserved seats der er ældre end 10 minuter.
+            await _unitOfWork.Seats.DeleteOldSeatsAsync(id);
+
+            var data = await _unitOfWork.Seats.GetAllByIdAsync(id)
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
             {
-                return NotFound("Sorry.. We found no seats");
+                return BadRequest("Sorry.. We found no seats");
             }
             return Ok(seatdata);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatDTO seatDTO)
+        public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatreservationDTO)
         {
-            Seat seat = _mapper.Map<Seat>(seatDTO);
-
-
-            var data = await _unitOfWork.Seats.AddAsync(seat);
-            return Ok(data);
+           if(seatreservationDTO != null)
+            {
+                if (seatreservationDTO.selectedseats.Count > 0)
+                {
+                    foreach (var seatDTO in seatreservationDTO.selectedseats)
+                    {
+                        seatDTO.ShowingID = seatreservationDTO.ShowingID;
+                        seatDTO.UserID = seatreservationDTO.UserID;
+                        await _unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seatDTO));
+                    }
+                    return Ok("Reservation was made");
+                }
+            }
+            return BadRequest("Sorry.. Seats could not be reserverd");
         }
         #endregion
         #region - ADMIN SECTION -
 
         #endregion
-
-
     }
 }
