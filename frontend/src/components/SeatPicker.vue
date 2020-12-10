@@ -96,12 +96,27 @@ export default {
         });
       }
     },
+
+    removeSelectedSeats(element) {
+      let arrayindex = null
+      this.selectedSeats.forEach(function(i, index) {
+        if(i.seatNumber === element.number && i.rowNumber === element.row){
+          arrayindex = index
+        }
+      });
+      if(arrayindex != null){
+        this.selectedSeats.splice(arrayindex, 1)
+      }
+
+    },
     
     fetchReservedSeats() {
+      this.generateSeats()
       axios.get(`seat/${this.showingId}`).then(response => {
         console.log(response.data)
         
         response.data.forEach(element => {
+          this.removeSelectedSeats(element)
           this.reservedSeat(element.row, element.number)
         });
       }).catch(err => {
@@ -113,6 +128,7 @@ export default {
   created() {
     this.generateSeats()
     this.fetchReservedSeats()
+    this.interval = setInterval(() => this.fetchReservedSeats(), 10000)
   }
 }
 </script>

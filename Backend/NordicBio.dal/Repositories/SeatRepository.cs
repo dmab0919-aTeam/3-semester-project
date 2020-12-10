@@ -23,18 +23,49 @@ namespace NordicBio.dal
         public async Task<int> AddAsync(Seat entity)
         {
             int res;
-            string sql = "INSERT INTO [Seats] (Row, Number, OrderID) VALUES (@Row, @Number, @OrderID)";
+            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID) " +
+                "VALUES (@Row, @Number, @ShowingID, @OrderID, @State, @UserID)";
             var parameters = new
             {
                 Row = entity.Row,
                 Number = entity.Number,
-                OrderID = entity.OrderID
+                ShowingID = entity.ShowingID,
+                OrderID = entity.OrderID,
+                State = "Reserved",
+                UserID = entity.UserID,
             };
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
                 res = await con.ExecuteAsync(sql, parameters);
                 return res;
+            }
+        }
+        
+        public async Task<int> DeleteOldSeatsAsync(int id)
+        {
+            int res;
+            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
+                "AND ShowingID = @ShowingID " +
+                "AND State = @Reserved";
+            var parameters = new
+            {
+                ShowingID = id,
+                Reserved = "Reserved"
+            };
+
+            using(var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    res = await connection.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
         }
         public async Task<IEnumerable<Seat>> GetAllAsync()
