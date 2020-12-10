@@ -37,7 +37,7 @@ namespace NordicBio.api.Validation
                 signingCredentials: credentials,
                 claims: claims
                 );
-
+            
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

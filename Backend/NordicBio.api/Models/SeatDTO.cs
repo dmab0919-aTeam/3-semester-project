@@ -9,7 +9,6 @@ namespace NordicBio.model
         public int ShowingID { get; set; }
         public int OrderID { get; set; }
         public string State { get; set; }
-        public int UserID { get; set; }
         public string ReserveTime { get; set; }
 
         public SeatDTO()
