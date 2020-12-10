@@ -5,36 +5,38 @@ using NordicBio.dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NordicBio.dal
 {
-    public class UserRepository : IUserRepository, IRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _constring;
-
         public UserRepository(IConfiguration configuration)
         {
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-        public string FetchConnection()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return _constring;
-        }
+            var sql = "SELECT * FROM [Users]";
 
-        public Task<User> GetByID(int id)
-        {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QueryAsync<User>(sql);
+                    return result.ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
-
-        public Task<IEnumerable<User>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> Add(User entity)
+        public async Task<int> AddAsync(User entity)
         {
             var parameters = new
             {
@@ -46,7 +48,7 @@ namespace NordicBio.dal
                 Password = entity.Password,
                 UserRole = entity.UserRole
             };
-            var sql = "Insert into Users (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
+            var sql = "Insert into [Users] (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -62,20 +64,9 @@ namespace NordicBio.dal
 
             }
         }
-
-        public Task<int> Delete(int id)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<User> GetByEmail(string email)
-        {
-            var sql = "SELECT * FROM Users WHERE Email = @UserEmail";
+            var sql = "SELECT * FROM [Users] WHERE [Email] = @UserEmail";
             var parameters = new { UserEmail = email };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -91,10 +82,9 @@ namespace NordicBio.dal
                 }
             }
         }
-
-        public async Task<int> Delete(string email)
+        public async Task<int> DeleteAsync(string email)
         {
-            var sql = "DELETE FROM Users WHERE Email = @UserEmail";
+            var sql = "DELETE FROM [Users] WHERE [Email] = @UserEmail";
             var parameters = new { UserEmail = email };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -109,6 +99,21 @@ namespace NordicBio.dal
                     throw new Exception("brugeren findes ikke");
                 }
             }
+        }
+
+        // NOT IMPLEMENTET
+
+        public Task<User> GetByIDAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> UpdateAsync(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

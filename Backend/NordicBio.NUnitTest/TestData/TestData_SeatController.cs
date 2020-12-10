@@ -10,8 +10,8 @@ namespace NordicBio.NUnitTest.TestData
         {
             get
             {
+                yield return new TestCaseData("1", HttpStatusCode.OK);
                 yield return new TestCaseData("2", HttpStatusCode.OK);
-                yield return new TestCaseData("4", HttpStatusCode.OK);
             }
         }
     }

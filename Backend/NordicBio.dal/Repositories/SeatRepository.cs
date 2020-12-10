@@ -20,8 +20,7 @@ namespace NordicBio.dal
             this._configuration = configuration;
             this._constring = _configuration.GetConnectionString("constring");
         }
-
-        public async Task<int> Add(Seat entity)
+        public async Task<int> AddAsync(Seat entity)
         {
             int res;
             string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UserID) " +
@@ -42,14 +41,8 @@ namespace NordicBio.dal
                 return res;
             }
         }
-
-
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> DeleteOldSeats(int id)
+        
+        public async Task<int> DeleteOldSeatsAsync(int id)
         {
             int res;
             string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
@@ -75,8 +68,7 @@ namespace NordicBio.dal
                 }
             }
         }
-
-        public async Task<IEnumerable<Seat>> GetAll()
+        public async Task<IEnumerable<Seat>> GetAllAsync()
         {
             string sql = "SELECT * FROM [Seats]";
 
@@ -93,10 +85,9 @@ namespace NordicBio.dal
                 }
             }
         }
-
-        public async Task<IEnumerable<Seat>> GetAllById(int id)
+        public async Task<IEnumerable<Seat>> GetAllByIdAsync(int id)
         {
-            var sql = "SELECT * FROM [Seats] WHERE ShowingID = @Id";
+            var sql = "SELECT * FROM [Seats] WHERE [ShowingID] = @Id";
             var parameters = new { Id = id };
 
             using (var connection = new SqlConnection(_constring))
@@ -113,12 +104,18 @@ namespace NordicBio.dal
             }
         }
 
-        public Task<Seat> GetByID(int id)
+        // NOT IMPLEMENTET
+
+        public Task<Seat> GetByIDAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(Seat entity)
+        public Task<int> UpdateAsync(Seat entity)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }

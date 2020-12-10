@@ -28,20 +28,21 @@ namespace WpfApp1
             try
             {
                 Ping myPing = new Ping();
-                PingReply reply = myPing.Send("google.com", 1000);
+                PingReply reply = myPing.Send("164.68.106.245", 1000);
 
-                if (reply != null)
+                if (reply.Status == IPStatus.Success)
                 {
-                    ctlBrowser.Navigate("http://localhost:8080");
-                }
-                else
+                    ctlBrowser.Navigate("http://164.68.106.245");
+                } else
                 {
-                    //todo handle network error
+                    ctlBrowser.IsEnabled = false;
+                    ctlBrowser.Visibility = Visibility.Hidden;
+                    Label.IsEnabled = true;
+                    Label.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception e)
             {
-                //ctlBrowser.Navigate("https://google.com");
                 Console.WriteLine(e);
             }
         }

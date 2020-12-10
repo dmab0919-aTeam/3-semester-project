@@ -22,13 +22,11 @@ namespace NordicBio.dal
             this._constring = _configuration.GetConnectionString("constring");
         }
 
-
         // Get all showings on a movie by movie_id
-        public async Task<IEnumerable<Showing>> GetShowingsByID(int id)
+        public async Task<IEnumerable<Showing>> GetShowingsByIDAsync(int id)
         {
             var parameters = new { Id = id };
-            string sql = "SELECT * FROM Showings WHERE MovieID = @Id";
-
+            string sql = "SELECT * FROM [Showings] WHERE [MovieID] = @Id";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -43,16 +41,9 @@ namespace NordicBio.dal
                 }
             }
         }
-
-
-        public Task<Showing> GetByID(int id)
+        public async Task<IEnumerable<Showing>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Showing>> GetAll()
-        {
-            string sql = "SELECT * FROM Showings";
+            string sql = "SELECT * FROM [Showings]";
 
 
             using (var connection = new SqlConnection(_constring))
@@ -68,8 +59,7 @@ namespace NordicBio.dal
                 }
             }
         }
-
-        public async Task<int> Add(Showing entity)
+        public async Task<int> AddAsync(Showing entity)
         {
             var parameters = new
             {
@@ -78,10 +68,9 @@ namespace NordicBio.dal
                 HallNumber = entity.HallNumber,
                 MovieID = entity.MovieID
             };
-            var sql = "INSERT INTO Showings " +
+            var sql = "INSERT INTO [Showings] " +
                 "(Price, ShowingTime, HallNumber, MovieID) " +
                 "VALUES (@Price, @ShowingTime, @HallNumber, @MovieID);";
-
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -97,12 +86,18 @@ namespace NordicBio.dal
             }
         }
 
-        public Task<int> Delete(int id)
+        // NOT IMPLEMENTET
+
+        public Task<int> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(Showing entity)
+        public Task<int> UpdateAsync(Showing entity)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<Showing> GetByIDAsync(int id)
         {
             throw new NotImplementedException();
         }

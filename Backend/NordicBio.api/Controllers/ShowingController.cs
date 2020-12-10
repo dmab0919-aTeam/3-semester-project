@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace NordicBio.api.Controllers
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
         public ShowingController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
@@ -28,7 +28,7 @@ namespace NordicBio.api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data = await _unitOfWork.Showings.GetAll();
+            var data = await _unitOfWork.Showings.GetAllAsync();
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
             if (showingdata == null)
             {
@@ -41,7 +41,7 @@ namespace NordicBio.api.Controllers
         [HttpGet("movie/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _unitOfWork.Showings.GetShowingsByID(id);
+            var data = await _unitOfWork.Showings.GetShowingsByIDAsync(id);
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
             if (showingdata == null)
             {
@@ -54,9 +54,18 @@ namespace NordicBio.api.Controllers
         #region - ADMIN SECTION -
         // TODO: admin create showings
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] ShowingDTO showingDTO)
         {
-
+            if (showingDTO != null)
+            {
+                Showing showing = _mapper.Map<Showing>(showingDTO);
+                var data = await _unitOfWork.Showings.AddAsync(showing);
+                return Ok(data);
+            }
+            else
+            {
+                return BadRequest("Sorry.. The movie was not updated");
+            }
         }
         #endregion
     }

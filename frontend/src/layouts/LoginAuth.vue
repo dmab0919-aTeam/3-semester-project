@@ -13,7 +13,6 @@
             > 
                 <button>Back</button>
             </router-link>
-            
         </form>
     </div>
 </template>
@@ -87,6 +86,7 @@
         padding-left: 4em;
         padding-right: 4em;
         border-radius: 5px;
+        cursor: pointer;
     }
 
     .container{

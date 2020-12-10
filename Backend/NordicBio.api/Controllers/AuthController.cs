@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NordicBio.api.Validation;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NordicBio.api.Controllers
@@ -30,10 +25,13 @@ namespace NordicBio.api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody] Login login)
         {
+            string email = login.email;
+            string password = login.password;
+
             List<ValidateString> validations = UserValidation.ValidateLogin(email, password);
-           
+
             //Parametrene bliver valideret, og hvis listen af fejl beskeder er over null, returneres et badrequest med alle beskederne
             if (InputValidator.StringInputValidation(validations).Count > 0)
             {
@@ -41,7 +39,7 @@ namespace NordicBio.api.Controllers
             }
 
             //Useren bliver fundet i DB, og mappet til userDTO
-            var data = await _unitOfWork.Users.GetByEmail(email);
+            var data = await _unitOfWork.Users.GetByEmailAsync(email);
             UserDTO user = this._mapper.Map<UserDTO>(data);
 
             if (user != null)
@@ -79,7 +77,7 @@ namespace NordicBio.api.Controllers
             userDTO.Salt = Encrypt.Salt();
             userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
 
-            var createRequest = await _unitOfWork.Users.Add(this._mapper.Map<User>(userDTO));
+            var createRequest = await _unitOfWork.Users.AddAsync(this._mapper.Map<User>(userDTO));
 
             if (createRequest > 0)
             {

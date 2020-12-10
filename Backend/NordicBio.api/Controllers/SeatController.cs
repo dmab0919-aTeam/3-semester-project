@@ -26,7 +26,7 @@ namespace NordicBio.api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var data = await _unitOfWork.Seats.GetAll();
+            var data = await _unitOfWork.Seats.GetAllAsync();
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
@@ -41,9 +41,9 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetByID(int id)
         {
             //delete reserved seats der er ældre end 10 minuter.
-            await _unitOfWork.Seats.DeleteOldSeats(id);
+            await _unitOfWork.Seats.DeleteOldSeatsAsync(id);
 
-            var data = await _unitOfWork.Seats.GetAllById(id);
+            var data = await _unitOfWork.Seats.GetAllByIdAsync(id)
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
 
             if (seatdata.Count == 0)
@@ -64,7 +64,7 @@ namespace NordicBio.api.Controllers
                     {
                         seatDTO.ShowingID = seatreservationDTO.ShowingID;
                         seatDTO.UserID = seatreservationDTO.UserID;
-                        await _unitOfWork.Seats.Add(this._mapper.Map<Seat>(seatDTO));
+                        await _unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seatDTO));
                     }
                     return Ok("Reservation was made");
                 }
@@ -75,7 +75,5 @@ namespace NordicBio.api.Controllers
         #region - ADMIN SECTION -
 
         #endregion
-
-
     }
 }
