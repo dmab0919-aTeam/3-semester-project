@@ -26,7 +26,8 @@ namespace NordicBio.dal
         public async Task<IEnumerable<Showing>> GetShowingsByIDAsync(int id)
         {
             var parameters = new { Id = id };
-            string sql = "SELECT * FROM [Showings] WHERE [MovieID] = @Id";
+            string sql = "SELECT * FROM [Showings] WHERE [MovieID] = @Id " +
+                "ORDER BY [id]";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -43,8 +44,8 @@ namespace NordicBio.dal
         }
         public async Task<IEnumerable<Showing>> GetAllAsync()
         {
-            string sql = "SELECT * FROM [Showings]";
-
+            string sql = "SELECT * FROM [Showings]" +
+                "ORDER BY [ShowingTime]";
 
             using (var connection = new SqlConnection(_constring))
             {

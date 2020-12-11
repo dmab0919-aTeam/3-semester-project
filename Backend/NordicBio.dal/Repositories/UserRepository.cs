@@ -21,7 +21,8 @@ namespace NordicBio.dal
         }
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            var sql = "SELECT [FirstName], [LastName] ,[Email], [PhoneNumber], [UserRole], [Password] FROM [Users]";
+            var sql = "SELECT [FirstName], [LastName] ,[Email], [PhoneNumber], [UserRole], [Password] FROM [Users]" +
+                "ORDER BY [id]";
 
             using (var connection = new SqlConnection(_constring))
             {
