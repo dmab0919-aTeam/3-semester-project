@@ -69,7 +69,7 @@
                     });
             },
             gotoorder() {
-              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid)} })
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: JSON.stringify(this.data.selectedSeats)} })
             },
             reserveSeats() {
               axios.post('seat', {

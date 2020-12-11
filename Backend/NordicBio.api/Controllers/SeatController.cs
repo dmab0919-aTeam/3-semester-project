@@ -57,11 +57,6 @@ namespace NordicBio.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatReservationDTO)
         {
-            
-           // Console.WriteLine(seatReservationDTO.selectedseats.Count);
-            
-            System.Console.WriteLine("hej");
-
             if (seatReservationDTO.selectedseats != null)
             {
                 if (seatReservationDTO.selectedseats.Count > 0)
@@ -69,15 +64,11 @@ namespace NordicBio.api.Controllers
                     foreach (var seatDTO in seatReservationDTO.selectedseats)
                     {
                         seatDTO.ShowingID = seatReservationDTO.ShowingID;
-                        System.Console.WriteLine("Trying ");
                         await _unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seatDTO));
                     }
                     return Ok("Reservation was made");
                 }
             }
-            System.Console.WriteLine(seatReservationDTO.ToString());
-            System.Console.WriteLine(seatReservationDTO.ShowingID);
-            System.Console.WriteLine("hej");
             return BadRequest("Sorry.. Seats could not be reserverd");
         }
         #endregion

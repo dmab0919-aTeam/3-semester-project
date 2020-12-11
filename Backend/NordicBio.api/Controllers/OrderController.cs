@@ -26,7 +26,7 @@ namespace NordicBio.api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderDTO orderDTO)
         {
             int OrderID = await this._unitOfWork.Orders.AddAsync(this._mapper.Map<Order>(orderDTO));
