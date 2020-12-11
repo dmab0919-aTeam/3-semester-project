@@ -2,7 +2,9 @@
 	[Id] int PRIMARY KEY identity(1,1),
 	[TotalPrice] float NOT NULL,
 	[UserID] int NOT NULL,
+	[ShowingID] int NOT NULL,
 	FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] (Id),
+	FOREIGN KEY ([ShowingID]) REFERENCES [dbo].[Showings] (Id)
 )
 
 CREATE TABLE [dbo].[Seats] (

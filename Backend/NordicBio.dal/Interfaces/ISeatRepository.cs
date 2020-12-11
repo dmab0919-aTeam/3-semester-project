@@ -8,5 +8,6 @@ namespace NordicBio.dal.Interfaces
     {
         Task<int> DeleteOldSeatsAsync(int id);
         Task<IEnumerable<Seat>> GetAllByIdAsync(int id);
+        Task<int> BuySeatAsync(Seat entity);
     }
 }
