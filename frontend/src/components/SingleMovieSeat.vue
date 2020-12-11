@@ -71,8 +71,8 @@
                     });
             },
             gotoorder() {
-                this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid)} })
-              },
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: JSON.stringify(this.data.selectedSeats)} })
+            },
             reserveSeats() {
               if(this.data.selectedSeats.length === 0){
                 this.data.errorMessage = "You need to vælge nogle seats";
