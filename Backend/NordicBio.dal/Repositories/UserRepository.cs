@@ -21,7 +21,7 @@ namespace NordicBio.dal
         }
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            var sql = "SELECT * FROM [Users]";
+            var sql = "SELECT [FirstName], [LastName] ,[Email], [PhoneNumber], [UserRole], [Password] FROM [Users]";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -48,7 +48,10 @@ namespace NordicBio.dal
                 Password = entity.Password,
                 UserRole = entity.UserRole
             };
-            var sql = "Insert into [Users] (FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) Values (@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
+            var sql = "Insert into [Users] " +
+                "(FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) " +
+                "Values " +
+                "(@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -82,10 +85,10 @@ namespace NordicBio.dal
                 }
             }
         }
-        public async Task<int> DeleteAsync(string email)
+        public async Task<int> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM [Users] WHERE [Email] = @UserEmail";
-            var parameters = new { UserEmail = email };
+            var sql = "DELETE FROM [Users] WHERE [id] = @userid";
+            var parameters = new { userid = id };
 
             using (SqlConnection connection = new SqlConnection(_constring))
             {
@@ -107,11 +110,12 @@ namespace NordicBio.dal
         {
             throw new NotImplementedException();
         }
-        public Task<int> DeleteAsync(int id)
+        public Task<int> UpdateAsync(User entity)
         {
             throw new NotImplementedException();
         }
-        public Task<int> UpdateAsync(User entity)
+
+        public Task<int> DeleteAsync(string email)
         {
             throw new NotImplementedException();
         }
