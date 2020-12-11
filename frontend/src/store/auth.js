@@ -4,6 +4,7 @@ export default {
     state: {
         status: "",
         token: localStorage.getItem("token") || "",
+        userId: localStorage.getItem("token") || "",
         user: {}
     },
     mutations: {
@@ -35,6 +36,8 @@ export default {
                         const token = response.data.Key,
                             user = response.data.user;
                         localStorage.setItem("token", token);
+                        console.log(response.data.userId)
+                        localStorage.setItem("userId", response.data.userId);
                         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                         commit("auth_success", token, user);
                         resolve(response);

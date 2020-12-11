@@ -1,4 +1,6 @@
 ﻿using NordicBio.dal.Entities;
+using System.Threading.Tasks;
+
 
 namespace NordicBio.dal.Interfaces
 {

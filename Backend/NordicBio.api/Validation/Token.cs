@@ -15,10 +15,13 @@ namespace NordicBio.api.Validation
         public Token(UserDTO userDTO)
         {
             Key = GenerateJSONWebToken(userDTO);
+            userId = userDTO.id;
+
         }
+        
+        public int userId { get; set; }
 
         public string Key { get; set; }
-        public int UserID { get; set; }
 
         public string GenerateJSONWebToken(UserDTO userDTO)
         {
