@@ -51,8 +51,15 @@ namespace NordicBio.dal
         public async Task<int> BuySeatAsync(Seat entity)
         {
             int res;
-            string sql = "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
-                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved'";
+            string sql = "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved') " +
+                "BEGIN " +
+                "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
+                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' " +
+                "END " +
+                "ELSE " +
+                "BEGIN " +
+                "INSERT INTO[dbo].[Seats] (Row, Number, ShowingID, OrderID, [State]) VALUES (@Row, @Number, @ShowingID, @OrderID, 'Bought') " +
+                "END";
             var parameters = new
             {
                 OrderID = entity.OrderID,
