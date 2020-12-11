@@ -61,8 +61,8 @@ export default {
       }
   },
   methods: {
-    ProcessOrder() {
-      
+    PayOrder() {
+      this.$router.push({ name: 'payment', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: this.$route.params.seats} })
     },
     login() {
       const email = this.email;
@@ -70,7 +70,7 @@ export default {
       
       this.$store.dispatch('login', { email, password })
           .then(() => {
-            this.ProcessOrder();
+            this.PayOrder();
           }).catch(() => {
         console.log('Noget gik galt!')
       });
@@ -88,7 +88,7 @@ export default {
         const password = this.regpassword;
         this.$store.dispatch('login', { email, password })
             .then(() => {
-              this.ProcessOrder();
+              this.PayOrder();
             }).catch(() => {
           console.log('Noget gik galt!')
         });

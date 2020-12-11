@@ -15,6 +15,5 @@ namespace NordicBio.model
         {
             
         }
-
     }
 }
