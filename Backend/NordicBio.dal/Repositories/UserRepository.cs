@@ -111,9 +111,39 @@ namespace NordicBio.dal
         {
             throw new NotImplementedException();
         }
-        public Task<int> UpdateAsync(User entity)
+
+        public async Task<int> UpdateAsync(User entity)
         {
-            throw new NotImplementedException();
+            var sql = "UPDATE [Users] SET " +
+                        "[FirstName] = @FirstName, " +
+                        "[LastName] = @LastName, " +
+                        "[Email] = @Email, " +
+                        "[PhoneNumber] = @PhoneNumber, " +
+                        "[UserRole] = @UserRole " +
+                       "WHERE [id] = @id";
+
+            var parameters = new
+            {
+                Firstname = entity.FirstName,
+                Lastname = entity.LastName,
+                Email = entity.Email,
+                Phonenumber = entity.PhoneNumber,
+                UserRole = entity.UserRole,
+                id = entity.id
+            };
+
+            using (SqlConnection connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.ExecuteAsync(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Denne showing findes ikke");
+                }
+            }
         }
 
         public Task<int> DeleteAsync(string email)

@@ -24,15 +24,26 @@
                 <button v-if="!createOrUpdateShowing" @click.prevent="wipeShowingObject">Cancel</button><br>
                 </form>
             </div>
-             <div class="list-container">
-                <h3>Showings:</h3>
-                <ul class="showing-list">
-                    <li class="list-item" v-for="(item, key) in this.showings" v-bind:key="key">
-                      {{ item.id }} {{ item.hallNumber }} {{ item.movieID }} {{ item.price }} {{ item.showingTime }}
-                        <button class="list-button" @click.prevent="updateShowing(item.id, item.price, item.showingTime, item.hallNumber, item.movieID)">Update</button>
-                        <button class="list-button" @click.prevent="deleteShowing(item.id)">Delete</button>
-                    </li>   
-                </ul>
+
+            <div class="table-container">
+                <table class="table" v-for="(item, key) in this.showings" v-bind:key="key">
+                    <tr>
+                        <th>Id:</th>
+                        <th>HallNumber:</th>
+                        <th>MovieID</th>
+                        <th>Price:</th>
+                        <th>ShowingTime:</th>
+                    </tr>
+                    <tr class="table-item">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.hallNumber }}</td>
+                        <td>{{ item.movieID }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.showingTime }}</td>
+                        <td><button class="list-button" @click.prevent="updateShowing(item.id, item.price, item.showingTime, item.hallNumber, item.movieID)">Update</button></td>
+                        <td><button class="list-button" @click.prevent="deleteShowing(item.id)">Delete</button></td>
+                    </tr>
+                </table>
             </div>
             <div class="user-form">
                 <form class="form" @submit.prevent="createUser">
@@ -63,15 +74,27 @@
                   <button v-if="!createOrUpdateUser" @click.prevent="wipeUserObject">Cancel</button><br>
                 </form>
             </div>
-            <div class="list-container">
-                <h3>Users:</h3>
-                <ul class="user-list">
-                  <li class="list-item" v-for="(item, key) in this.users" v-bind:key="key">
-                    {{ item.id }} {{ item.firstName }} {{ item.lastName }} {{ item.email }} {{ item.phoneNumber }} {{ item.userRole }}
-                        <button class="list-button" @click.prevent="updateUser(id, item.firstName, item.lastName, item.email, item.phoneNumber, item.userRole)">Update</button>
-                    <button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button>
-                    </li>
-                </ul>
+            <div class="table-container">
+                <table class="table" v-for="(item, key) in this.users" v-bind:key="key">
+                    <tr>
+                        <th>Id:</th>
+                        <th>First Name:</th>
+                        <th>Last Name:</th>
+                        <th>Email:</th>
+                        <th>Phone Number:</th>
+                        <th>User Role:</th>
+                    </tr>
+                    <tr class="table-item">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.firstName }}</td>
+                        <td>{{ item.lastName }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.phoneNumber }}</td>
+                        <td>{{ item.userRole }}</td>
+                        <td><button class="list-button" @click.prevent="updateUser(item.id, item.firstName, item.lastName, item.email, item.phoneNumber, item.userRole)">Update</button></td>
+                        <td><button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -89,6 +112,7 @@ export default {
       showings: [],
       users: [],
       user: {
+        Id: '',
         FirstName: '',
         LastName: '',
         Email: '',
@@ -262,10 +286,8 @@ input {
 
 .list-button {
     float: right;
-    padding-left: 2em;
-    padding-right: 2em;
-    margin-right: .5em;
     cursor: pointer;
+    width: 100%;
 }
 .container {
     background-color: white;
@@ -286,6 +308,7 @@ input {
     width: 100%;
     height: 100%;
 }
+
 .showing-form, .user-form {
     float: left;
     margin: 1%;
@@ -297,7 +320,7 @@ input {
     width: 20%;
 }
 
-.list-container {
+.table-container {
     float: left;
     overflow: auto;
     height: 60%;
@@ -307,23 +330,15 @@ input {
     border: 2px solid grey;
 }
 
-.showing-list, .user-list{
-  margin:0;
-  list-style: none;
-  padding: .5em;
-  text-indent:10px;
-  max-width: 100%;
-  max-height: 85%;
-  height: 85%;
-  border: 1px solid black;
-}
-.list-item{
-  line-height:25px;
-  border-bottom: 1px solid;
+.table {
+    margin: .1em;
+    width: 100%;
+    text-align: left;
 }
 
-li:nth-child(even){
-  background:#ccc;
+.table-item {
+    background-color: rgb(223, 223, 223);
 }
+
 
 </style>

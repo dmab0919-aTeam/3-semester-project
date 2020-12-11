@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NordicBio.api.Validation;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
@@ -82,6 +83,34 @@ namespace NordicBio.api.Controllers
             }
             return Ok(userdata);
         }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateAsync([FromBody] UserDTO userDTO)
+        {
+            List<ValidateString> validations = UserValidation.UpdateUser(userDTO);
+
+            //User bliver valideret, og hvis listen af fejl beskeder er over 0, returneres et badrequest med alle fejl beskederne.
+            if (InputValidator.StringInputValidation(validations).Count > 0)
+            {
+                return BadRequest(InputValidator.StringInputValidation(validations));
+            }
+
+            var createRequest = await _unitOfWork.Users.UpdateAsync(this._mapper.Map<User>(userDTO));
+
+            if (createRequest > 0)
+            {
+                return Ok("User successfully updated");
+            }
+            else
+            {
+                return BadRequest("User was not updated");
+            }
+        }
+
+
+
+
         #endregion
     }
 }

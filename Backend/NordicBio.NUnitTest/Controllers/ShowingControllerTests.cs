@@ -13,7 +13,7 @@ namespace NordicBio.NUnitTest
         RestClient _client = new RestClient("http://localhost:5000/api");
         string _controller = "showing";
 
-        [Test]
+        [Test, Ignore("needs admin token")]
         [Category("Showings")]
         [TestCaseSource(typeof(CentralizedData), "Check_HttpStatusCode_OK")]
         public void GetAllShowings(HttpStatusCode expectedHttpStatusCode)
@@ -32,7 +32,7 @@ namespace NordicBio.NUnitTest
         }
 
         // RETURN THE DATA FORMAT OF JSON
-        [Test]
+        [Test, Ignore("needs admin token")]
         [Category("ContentType/Json")]
         [TestCaseSource(typeof(CentralizedData), "Check_JsonFormat")]
         public void ReturnJsonOnGet(string contentType)

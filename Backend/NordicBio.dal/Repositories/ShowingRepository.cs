@@ -111,11 +111,11 @@ namespace NordicBio.dal
         public async Task<int> UpdateAsync(Showing entity)
         {
             var sql = "UPDATE [Showings] SET " +
-                        "[Price] = @Price" +
-                        "[ShowingTime] = @ShowingTime" +
-                        "[HallNumber] = @HallNumber" +
-                        "[MovieID] = @MovieID" +
-                       "WHERE [ShoingId] = @id";
+                        "[Price] = @Price, " +
+                        "[ShowingTime] = @ShowingTime, " +
+                        "[HallNumber] = @HallNumber, " +
+                        "[MovieID] = @MovieID " +
+                       "WHERE [Showings].Id = @Id";
 
             var parameters = new
             {
@@ -123,8 +123,13 @@ namespace NordicBio.dal
                 ShowingTime = entity.ShowingTime,
                 HallNumber = entity.HallNumber,
                 MovieID = entity.MovieID,
-                id = entity.Id
+                Id = entity.Id
             };
+
+            Console.WriteLine(entity.Id);
+            Console.WriteLine(entity.Price);
+            Console.WriteLine(entity.MovieID);
+            Console.WriteLine(entity.ShowingTime);
 
             using (SqlConnection connection = new SqlConnection(_constring))
             {
@@ -133,8 +138,10 @@ namespace NordicBio.dal
                     var result = await connection.ExecuteAsync(sql, parameters);
                     return result;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
                     throw new Exception("Denne showing findes ikke");
                 }
             }
