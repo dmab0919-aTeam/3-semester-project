@@ -88,9 +88,23 @@ namespace NordicBio.dal
 
         // NOT IMPLEMENTET
 
-        public Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var sql = "DELETE FROM [Showings] WHERE [Id] = @ShowingID";
+            var parameters = new { ShowingID = id };
+
+            using (SqlConnection connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.ExecuteAsync(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Denne showing findes ikke");
+                }
+            }
         }
 
         public Task<int> UpdateAsync(Showing entity)
