@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
@@ -58,6 +59,7 @@ namespace NordicBio.api.Controllers
         #region - ADMIN SECTION -
 
         [HttpPost] // Post
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post(MovieDTO movieDTO)
         {
             if (movieDTO != null)
@@ -73,6 +75,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPut] // Update
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(MovieDTO movieDTO)
         {
             if (movieDTO != null)
@@ -88,6 +91,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpDelete("{id}")] // Delete by id
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var data = await _unitOfWork.Movies.DeleteAsync(id);

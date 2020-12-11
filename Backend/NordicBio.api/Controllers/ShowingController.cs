@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
@@ -54,6 +55,7 @@ namespace NordicBio.api.Controllers
         #region - ADMIN SECTION -
         // TODO: admin create showings
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] ShowingDTO showingDTO)
         {
             if (showingDTO != null)
@@ -66,6 +68,20 @@ namespace NordicBio.api.Controllers
             {
                 return BadRequest("Sorry.. The movie was not updated");
             }
+        }
+
+        // GET: api/<ShowingController>
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAsAdmin()
+        {
+            var data = await _unitOfWork.Showings.GetAllAsync();
+            List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
+            if (showingdata == null)
+            {
+                return NotFound("Sorry.. we found no showings");
+            }
+            return Ok(showingdata);
         }
         #endregion
     }
