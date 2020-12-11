@@ -86,6 +86,24 @@ namespace NordicBio.api.Controllers
             return BadRequest("Sorry.. Showing was not deleted");
         }
 
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update([FromBody] ShowingDTO showingDTO)
+        {
+            if (showingDTO != null)
+            {
+                Showing showing = _mapper.Map<Showing>(showingDTO);
+                var data = await _unitOfWork.Showings.UpdateAsync(showing);
+                return Ok(data);
+            }
+            else
+            {
+                return BadRequest("Sorry.. The movie was not updated");
+            }
+
+        }
+
         #endregion
     }
 }

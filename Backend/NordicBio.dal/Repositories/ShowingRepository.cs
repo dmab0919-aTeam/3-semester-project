@@ -108,9 +108,36 @@ namespace NordicBio.dal
             }
         }
 
-        public Task<int> UpdateAsync(Showing entity)
+        public async Task<int> UpdateAsync(Showing entity)
         {
-            throw new NotImplementedException();
+            var sql = "UPDATE [Showings] SET " +
+                        "[Price] = @Price" +
+                        "[ShowingTime] = @ShowingTime" +
+                        "[HallNumber] = @HallNumber" +
+                        "[MovieID] = @MovieID" +
+                       "WHERE [ShoingId] = @id";
+
+            var parameters = new
+            {
+                Price = entity.Price,
+                ShowingTime = entity.ShowingTime,
+                HallNumber = entity.HallNumber,
+                MovieID = entity.MovieID,
+                id = entity.Id
+            };
+
+            using (SqlConnection connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.ExecuteAsync(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Denne showing findes ikke");
+                }
+            }
         }
         public Task<Showing> GetByIDAsync(int id)
         {
