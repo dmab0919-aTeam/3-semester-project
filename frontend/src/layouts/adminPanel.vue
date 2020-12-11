@@ -6,22 +6,19 @@
 
         <div class="create-container">
             <div class="showing-form">
-                <form class="form" @submit.prevent="createshowing">
+                <form class="form" @submit.prevent="createShowing">
                 <h3>Create Showing</h3>
                 <label>Price:</label><br>
-                <input id="price" v-model="firstname" type="number" placeholder="Enter Price"><br>
+                <input id="price" v-model="showing.Price" type="number" placeholder="Enter Price"><br>
                 
                 <label>Date:</label><br>
-                <input id="date" v-model="lastname" type="date" placeholder=""><br>
-                
-                <label>Time:</label><br>
-                <input id="time" v-model="regemail" type="time" placeholder=""><br>
+                <input id="datetime" v-model="showing.ShowingTime" type="datetime" placeholder=""><br>
                 
                 <label>Hallnumber:</label><br>
-                <input id="hallnumber" v-model="phone" type="number" placeholder="Enter Number"><br>
+                <input id="hallnumber" v-model="showing.HallNumber" type="number" placeholder="Enter Number"><br>
                 
                 <label>Movie Id:</label><br>
-                <input id="movieid" v-model="regpassword" type="number" placeholder="Enter valid id"><br>
+                <input id="movieid" v-model="showing.MovieID" type="number" placeholder="Enter valid id"><br>
                 <button type="submit">Create</button><br>
                 </form>
             </div>
@@ -36,22 +33,22 @@
                 </ul>
             </div>
             <div class="user-form">
-                <form class="form" @submit.prevent="createuser">
+                <form class="form" @submit.prevent="createUser">
                 <h3>Create User</h3>
                 <label>First name:</label><br>
-                <input id="firstname" v-model="firstname" type="text" placeholder="Enter First Name"><br>
+                <input id="firstname" v-model="user.FirstName" type="text" placeholder="Enter First Name"><br>
                 
                 <label>Last name:</label><br>
-                <input id="lastname" v-model="lastname" type="text" placeholder="Enter Last Name"><br>
+                <input id="lastname" v-model="user.LastName" type="text" placeholder="Enter Last Name"><br>
                 
                 <label>Email:</label><br>
-                <input id="email" v-model="regemail" type="email" placeholder="Enter Email"><br>
+                <input id="email" v-model="user.Email" type="email" placeholder="Enter Email"><br>
                 
                 <label>Phone number:</label><br>
-                <input id="phonenumber" v-model="phone" type="text" placeholder="Enter Phone Number"><br>
+                <input id="phonenumber" v-model="user.PhoneNumber" type="text" placeholder="Enter Phone Number"><br>
                 
                 <label>Password:</label><br>
-                <input id="password" v-model="regpassword" type="password" placeholder="Enter an password"><br>
+                <input id="password" v-model="user.Password" type="password" placeholder="Enter an password"><br>
                 <button type="submit">Create</button>
                 </form>
             </div>
@@ -77,7 +74,21 @@ export default {
   data() {
     return {
       showings: [],
-      users: []
+      users: [],
+      user: {
+        FirstName: '',
+        LastName: '',
+        Email: '',
+        PhoneNumber: '',
+        Password: '',
+        UserRole: 'Admin'
+      },
+      showing: {
+        Price: '',
+        ShowingTime: '',
+        HallNumber: '',
+        MovieID: ''
+      }
     }
   },
   methods: {
@@ -103,6 +114,34 @@ export default {
       axios.delete(`user/${id}`).then(response => {
         this.fetchAllUsers()
         console.log(response) //ToDo der skal ske noget her! 
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    createUser() {
+      axios.post('user', {
+        FirstName: this.user.FirstName,
+        LastName: this.user.LastName,
+        Email: this.user.Email,
+        PhoneNumber: this.user.PhoneNumber,
+        Password: this.user.Password,
+        UserRole: this.user.UserRole,
+      }).then(response => {
+        this.fetchAllUsers()
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    createShowing() {
+      axios.post('showing', {
+        Price: this.showing.Price,
+        ShowingTime: this.showing.ShowingTime,
+        HallNumber: this.showing.HallNumber,
+        MovieID: this.showing.MovieID,
+      }).then(response => {
+        this.fetchAllShowing()
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })
