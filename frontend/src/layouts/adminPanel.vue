@@ -12,7 +12,7 @@
                 <input id="price" v-model="showing.Price" type="number" placeholder="Enter Price"><br>
                 
                 <label>Date:</label><br>
-                <input id="datetime" v-model="showing.ShowingTime" type="datetime" placeholder=""><br>
+                <input id="datetime" v-model="showing.ShowingTime" type="datetime-local" placeholder=""><br>
                 
                 <label>Hallnumber:</label><br>
                 <input id="hallnumber" v-model="showing.HallNumber" type="number" placeholder="Enter Number"><br>
@@ -48,7 +48,7 @@
                 <input id="phonenumber" v-model="user.PhoneNumber" type="text" placeholder="Enter Phone Number"><br>
                 
                 <label>Role:</label><br>
-                <input type="text" name="role" list="roles">
+                <input type="text" name="role" v-model="user.UserRole" list="roles">
                     <datalist id="roles">
                         <option value="Admin"></option>
                         <option value="User"></option>
@@ -88,7 +88,7 @@ export default {
         Email: '',
         PhoneNumber: '',
         Password: '',
-        UserRole: 'Admin'
+        UserRole: ''
       },
       showing: {
         Price: '',
@@ -134,6 +134,12 @@ export default {
         Password: this.user.Password,
         UserRole: this.user.UserRole,
       }).then(response => {
+        this.user.FirstName = null
+        this.user.LastName = null
+        this.user.Email = null
+        this.user.PhoneNumber = null
+        this.user.Password = null
+        this.user.UserRole = null
         this.fetchAllUsers()
         console.log(response)
       }).catch(error => {
@@ -147,6 +153,10 @@ export default {
         HallNumber: this.showing.HallNumber,
         MovieID: this.showing.MovieID,
       }).then(response => {
+        this.showing.Price = null
+        this.showing.MovieID = null
+        this.showing.HallNumber = null
+        this.showing.ShowingTime = null
         this.fetchAllShowing()
         console.log(response)
       }).catch(error => {
