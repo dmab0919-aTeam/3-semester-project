@@ -47,7 +47,6 @@ namespace NordicBio.api.Controllers
         {
             userDTO.Salt = Encrypt.Salt();
             userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
-            userDTO.UserRole = "Admin";
 
             User userdata = _mapper.Map<User>(userDTO);
             var data = await _unitOfWork.Users.AddAsync(userdata);
