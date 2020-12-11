@@ -74,7 +74,7 @@ namespace NordicBio.api.Controllers
             return Ok(showingdata);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
