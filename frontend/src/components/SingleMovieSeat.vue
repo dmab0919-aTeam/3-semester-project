@@ -12,6 +12,7 @@
         </div>
 
         <div class="showing-container">
+          <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
           <div class="showings">
             <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="1 * this.$route.params.showingid"/> 
           </div>
@@ -64,6 +65,7 @@
                         this.data.backdrop_path = response.data.backdropPath;
                         this.data.description = response.data.description;
                         this.data.id = response.data.id;
+                        console.log("hello motherfucker")
                     }).catch(err => {
                         console.log(err)
                     });
@@ -72,22 +74,30 @@
               this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: JSON.stringify(this.data.selectedSeats)} })
             },
             reserveSeats() {
-              axios.post('seat', {
+              if(this.data.selectedSeats.length === 0){
+                this.data.errorMessage = "You need to vælge nogle seats";
+                this.data.hasError = true;
+              } else{
+                this.data.hasError = false;
+                this.data.errorMessage = "";
+                axios.post('seat', {
                   showingId: 1 * this.$route.params.showingid,
                   selectedseats: this.data.selectedSeats
-              }).then(response => {
-                if (response.status === 200) {
-                  this.gotoorder()
-                }
-              }).catch(err => {
+                  }).then(response => {
+                  if (response.status === 200) {
+                    this.gotoorder()
+                  }
+                }).catch(err => {
                 console.log(err)
-              })
-            },
+                })
+            }},
+        
+        },
         created() {
+            console.log("hej med dig")
             this.fetchSingleMovie();
             this.data.showingId = 1 * this.$route.params.showingid
          }
-        }
       }
 </script>
 
