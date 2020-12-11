@@ -28,9 +28,10 @@
              <div class="list-container">
                 <h3>Showings:</h3>
                 <ul class="showing-list">
-                    <li class="list-item">insert showing here 
+                    <li class="list-item" v-for="(item, key) in this.showings" v-bind:key="key">
+                      {{ item.id }} {{ item.hallNumber }} {{ item.movieID }} {{ item.price }} {{ item.showingTime }}
                         <button class="list-button">Update</button>
-                        <button class="list-button">Delete</button>
+                        <button class="list-button" @click.prevent="deleteShowing(item.id)">Delete</button>
                     </li>   
                 </ul>
             </div>
@@ -64,9 +65,10 @@
             <div class="list-container">
                 <h3>Users:</h3>
                 <ul class="user-list">
-                    <li class="list-item">insert showing here
+                  <li class="list-item" v-for="(item, key) in this.users" v-bind:key="key">
+                    {{ item.id }} {{ item.firstName }} {{ item.lastName }} {{ item.email }} {{ item.phoneNumber }} {{ item.userRole }}
                         <button class="list-button">Update</button>
-                        <button class="list-button">Delete</button>
+                    <button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button>
                     </li>
                 </ul>
             </div>
@@ -75,8 +77,48 @@
 </template>
 
 <script>
-export default {
+import axios from "axios";
 
+export default {
+  name: 'AdminPanel',
+  data() {
+    return {
+      showings: [],
+      users: []
+    }
+  },
+  methods: {
+    fetchAllShowing() {
+      axios.get('showing').then(response => {
+        this.showings = response.data
+      })
+    },
+    fetchAllUsers() {
+      axios.get('user').then(response => {
+        this.users = response.data
+      })
+    },
+    deleteShowing(id) {
+      axios.delete(`showing/${id}`).then(response => {
+        this.fetchAllShowing()
+        console.log(response) //ToDo der skal ske noget her! 
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    deleteUser(id) {
+      axios.delete(`user/${id}`).then(response => {
+        this.fetchAllUsers()
+        console.log(response) //ToDo der skal ske noget her! 
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  },
+  created() {
+    this.fetchAllShowing()
+    this.fetchAllUsers()
+  }
 }
 </script>
 
