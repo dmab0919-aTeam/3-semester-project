@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 
 namespace NordicBio.api.Controllers
 {
@@ -36,8 +35,10 @@ namespace NordicBio.api.Controllers
             {
                 foreach (var seat in orderDTO.Seats)
                 {
+                    seat.ShowingID = orderDTO.ShowingID;
                     seat.OrderID = OrderID;
-                    int status = await this._unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seat));
+                    System.Console.WriteLine(seat.ShowingID + " " + OrderID);
+                    int status = await this._unitOfWork.Seats.BuySeatAsync(this._mapper.Map<Seat>(seat));
                     if (status == 0)
                     {
                         skd.Add(status);

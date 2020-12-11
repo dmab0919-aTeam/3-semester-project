@@ -35,8 +35,44 @@ namespace NordicBio.dal
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                res = await con.ExecuteAsync(sql, parameters);
-                return res;
+                try
+                {
+                    res = await con.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public async Task<int> BuySeatAsync(Seat entity)
+        {
+            int res;
+            string sql = "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
+                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved'";
+            var parameters = new
+            {
+                OrderID = entity.OrderID,
+                Row = entity.Row,
+                Number = entity.Number,
+                ShowingID = entity.ShowingID
+            };
+
+            using(SqlConnection con = new SqlConnection(_constring))
+            {
+                try
+                {
+                    res = await con.ExecuteAsync(sql, parameters);
+                    return res;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
         }
 
@@ -117,5 +153,7 @@ namespace NordicBio.dal
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

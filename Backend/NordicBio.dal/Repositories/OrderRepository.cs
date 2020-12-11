@@ -34,7 +34,7 @@ namespace NordicBio.dal
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                res = await con.ExecuteAsync(sql, parameters);
+                res = await con.QuerySingleOrDefaultAsync<int>(sql, parameters);
                 return res;
             }
         }

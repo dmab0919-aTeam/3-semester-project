@@ -267,35 +267,35 @@ VALUES ('admin3', 'chiefone', 'admin@1234.dk', '13371337','38b4ef976f74053506d1a
 --Order creation--
 
 -- User 1 --
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (200, 1);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (200, 1, 1);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (200, 1);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (200, 1, 2);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (300, 1);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (300, 1, 3);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (400, 1);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (400, 1, 4);
 
 
 
 -- User 2 --
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (200, 2);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (200, 2, 1);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (300, 2);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (300, 2, 2);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (400, 2);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (400, 2, 3);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (200, 2);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (200, 2, 4);
 
-INSERT INTO [dbo].[Orders] (TotalPrice, UserID) 
-VALUES (99, 2);
+INSERT INTO [dbo].[Orders] (TotalPrice, UserID, ShowingID) 
+VALUES (99, 2, 5);
 
 
 
