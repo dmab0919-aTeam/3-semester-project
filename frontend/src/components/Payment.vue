@@ -52,7 +52,7 @@ export default {
     ProcessPayment() {
         axios.post('order', {
           ShowingID: (1 * this.$route.params.showingid),
-          UserID: 69,
+          UserID:  localStorage.getItem("userId"),
           seats: JSON.parse(this.$route.params.seats)
         }).then(response => {
           console.log(response)
