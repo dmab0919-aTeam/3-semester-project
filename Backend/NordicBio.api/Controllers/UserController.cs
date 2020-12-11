@@ -29,11 +29,11 @@ namespace NordicBio.api.Controllers
 
         #region - Admin Section -
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(string email)
+        public async Task<IActionResult> Delete(int id)
         {
-            var data = await _unitOfWork.Users.DeleteAsync(email);
+            var data = await _unitOfWork.Users.DeleteAsync(id);
             if (data > 0)
             {
                 return Ok("User was deleted");

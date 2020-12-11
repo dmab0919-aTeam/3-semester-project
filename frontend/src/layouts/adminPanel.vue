@@ -49,6 +49,13 @@
                 <label>Phone number:</label><br>
                 <input id="phonenumber" v-model="phone" type="text" placeholder="Enter Phone Number"><br>
                 
+                <label>Role:</label><br>
+                <input type="text" name="role" list="roles">
+                    <datalist id="roles">
+                        <option value="Admin"></option>
+                        <option value="User"></option>
+                    </datalist>
+
                 <label>Password:</label><br>
                 <input id="password" v-model="regpassword" type="password" placeholder="Enter an password"><br>
                 <button type="submit">Create</button>
@@ -126,14 +133,14 @@ input {
     border: 2px solid grey;
     border-radius: 5px;
     height: 60%;
-    overflow: scroll;
+    overflow: auto;
     width: 20%;
 }
 
 .list-container {
     float: left;
+    overflow: auto;
     height: 60%;
-    overflow: scroll;
     margin: 1%;
     padding: .5em;
     width: 70%;
@@ -142,12 +149,12 @@ input {
 
 .showing-list, .user-list{
   margin:0;
-  overflow:auto;
+  list-style: none;
   padding: .5em;
   text-indent:10px;
   max-width: 100%;
-  max-height: 340px;
-  height: 340px;
+  max-height: 85%;
+  height: 85%;
   border: 1px solid black;
 }
 .list-item{
