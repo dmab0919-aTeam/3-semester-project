@@ -6,7 +6,7 @@
 
         <div class="create-container">
             <div class="showing-form">
-                <form class="form" @submit.prevent="createShowing">
+                <form class="form">
                 <h3>Create Showing</h3>
                 <label>Price:</label><br>
                 <input id="price" v-model="showing.Price" type="number" placeholder="Enter Price"><br>
@@ -19,7 +19,9 @@
                 
                 <label>Movie Id:</label><br>
                 <input id="movieid" v-model="showing.MovieID" type="number" placeholder="Enter valid id"><br>
-                <button type="submit">Create</button><br>
+                <button v-if="createOrUpdateShowing" @click.prevent="createShowing">Create</button><br>
+                <button v-if="!createOrUpdateShowing" @click.prevent="putShowing">Update</button><br>
+                <button v-if="!createOrUpdateShowing" @click.prevent="wipeShowingObject">Cancel</button><br>
                 </form>
             </div>
              <div class="list-container">
@@ -27,7 +29,7 @@
                 <ul class="showing-list">
                     <li class="list-item" v-for="(item, key) in this.showings" v-bind:key="key">
                       {{ item.id }} {{ item.hallNumber }} {{ item.movieID }} {{ item.price }} {{ item.showingTime }}
-                        <button class="list-button">Update</button>
+                        <button class="list-button" @click.prevent="updateShowing(item.id, item.price, item.showingTime, item.hallNumber, item.movieID)">Update</button>
                         <button class="list-button" @click.prevent="deleteShowing(item.id)">Delete</button>
                     </li>   
                 </ul>
@@ -56,7 +58,9 @@
 
                 <label>Password:</label><br>
                 <input id="password" v-model="user.Password" type="password" placeholder="Enter an password"><br>
-                <button type="submit">Create</button>
+                  <button v-if="createOrUpdateUser" @click.prevent="createUser">Create</button><br>
+                  <button v-if="!createOrUpdateUser" @click.prevent="putUser">Update</button><br>
+                  <button v-if="!createOrUpdateUser" @click.prevent="wipeUserObject">Cancel</button><br>
                 </form>
             </div>
             <div class="list-container">
@@ -64,7 +68,7 @@
                 <ul class="user-list">
                   <li class="list-item" v-for="(item, key) in this.users" v-bind:key="key">
                     {{ item.id }} {{ item.firstName }} {{ item.lastName }} {{ item.email }} {{ item.phoneNumber }} {{ item.userRole }}
-                        <button class="list-button">Update</button>
+                        <button class="list-button" @click.prevent="updateUser(id, item.firstName, item.lastName, item.email, item.phoneNumber, item.userRole)">Update</button>
                     <button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button>
                     </li>
                 </ul>
@@ -80,6 +84,8 @@ export default {
   name: 'AdminPanel',
   data() {
     return {
+      createOrUpdateShowing: true,
+      createOrUpdateUser: true,
       showings: [],
       users: [],
       user: {
@@ -91,6 +97,7 @@ export default {
         UserRole: ''
       },
       showing: {
+        id: '',
         Price: '',
         ShowingTime: '',
         HallNumber: '',
@@ -153,16 +160,78 @@ export default {
         HallNumber: this.showing.HallNumber,
         MovieID: this.showing.MovieID,
       }).then(response => {
-        this.showing.Price = null
-        this.showing.MovieID = null
-        this.showing.HallNumber = null
-        this.showing.ShowingTime = null
+        this.wipeShowingObject()
         this.fetchAllShowing()
         console.log(response)
       }).catch(error => {
         console.log(error)
       })
-    }
+    },
+    updateShowing(id, Price, ShowingTime, HallNumber, MovieID) {
+      this.createOrUpdateShowing = false
+      this.showing.id = id
+      this.showing.Price = Price
+      this.showing.ShowingTime = ShowingTime
+      this.showing.HallNumber = HallNumber
+      this.showing.MovieID = MovieID
+    },
+    putShowing() {
+      axios.put('showing', {
+        id: this.showing.id,
+        Price: this.showing.Price,
+        ShowingTime: this.showing.ShowingTime,
+        HallNumber: this.showing.HallNumber,
+        MovieID: this.showing.MovieID,
+      }).then(response => {
+        this.wipeShowingObject()
+        this.fetchAllShowing()
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    wipeShowingObject() {
+      this.showing.Price = null
+      this.showing.MovieID = null
+      this.showing.HallNumber = null
+      this.showing.ShowingTime = null
+      this.createOrUpdateShowing = true
+    },
+    wipeUserObject() {
+      this.user.id = null
+      this.user.FirstName = null
+      this.user.LastName = null
+      this.user.Email = null
+      this.user.PhoneNumber = null
+      this.user.Password = null
+      this.user.UserRole = null
+      this.createOrUpdateUser = true
+    },
+    updateUser(id, FirstName, LastName, Email, PhoneNumber, UserRole) {
+      this.user.id = id
+      this.user.FirstName = FirstName
+      this.user.LastName = LastName
+      this.user.Email = Email
+      this.user.PhoneNumber = PhoneNumber
+      this.user.UserRole = UserRole
+      this.createOrUpdateUser = false
+    },
+    putUser() {
+      axios.put('user', {
+        id: this.user.id,
+        FirstName: this.user.FirstName,
+        LastName: this.user.LastName,
+        Email: this.user.Email,
+        PhoneNumber: this.user.PhoneNumber,
+        UserRole: this.user.UserRole,
+      }).then(response => {
+        this.wipeUserObject()
+        this.fetchAllUsers()
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
   },
   created() {
     this.fetchAllShowing()
