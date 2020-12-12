@@ -49,6 +49,7 @@ export default {
     return {
       data: {
           seatdata: null,  
+          counter: ''
       }
     }
   },
@@ -128,7 +129,11 @@ export default {
   created() {
     this.generateSeats()
     this.fetchReservedSeats()
-    this.internal = setInterval(() => this.fetchReservedSeats(), 10000)
+    this.data.counter = setInterval(() => this.fetchReservedSeats(), 10000)
+  },
+
+  beforeDestroy() {
+    clearInterval(this.data.counter)
   }
 }
 </script>
