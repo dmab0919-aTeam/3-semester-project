@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       data: {
-          seatdata: null          
+          seatdata: null,  
       }
     }
   },
@@ -113,20 +113,22 @@ export default {
     fetchReservedSeats() {
       this.generateSeats()
       axios.get(`seat/${this.showingId}`).then(response => {
-        response.data.forEach(element => {
+        if(Array.isArray(response.data)){
+          response.data.forEach(element => {
           this.removeSelectedSeats(element)
           this.reservedSeat(element.row, element.number)
         });
+        }
       }).catch(err => {
         console.log(err)
       });
-    }
+    },
   },
 
   created() {
     this.generateSeats()
     this.fetchReservedSeats()
-    this.interval = setInterval(() => this.fetchReservedSeats(), 10000)
+    this.internal = setInterval(() => this.fetchReservedSeats(), 10000)
   }
 }
 </script>

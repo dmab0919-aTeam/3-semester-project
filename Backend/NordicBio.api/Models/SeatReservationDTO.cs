@@ -10,5 +10,6 @@ namespace NordicBio.model
     {
         public List<SeatDTO> selectedseats { get; set; }
         public int ShowingID { get; set; }
+        public string UUID { get; set; }
     }
 }

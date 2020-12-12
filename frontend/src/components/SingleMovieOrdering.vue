@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     PayOrder() {
-      this.$router.push({ name: 'payment', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: this.$route.params.seats} })
+      this.$router.push({ name: 'payment', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: this.$route.params.seats, key: this.$route.params.key} })
     },
     login() {
       const email = this.email;
@@ -100,6 +100,7 @@ export default {
 
   created() {
     this.showingId = 1 * this.$route.params.showingid
+    clearInterval(this.internal)
   }
 }
 </script>

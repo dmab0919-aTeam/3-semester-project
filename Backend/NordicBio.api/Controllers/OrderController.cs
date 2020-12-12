@@ -37,9 +37,9 @@ namespace NordicBio.api.Controllers
                 {
                     seat.ShowingID = orderDTO.ShowingID;
                     seat.OrderID = OrderID;
-                    System.Console.WriteLine(seat.ShowingID + " " + OrderID);
+                    seat.UUID = orderDTO.UUID;
                     int status = await this._unitOfWork.Seats.BuySeatAsync(this._mapper.Map<Seat>(seat));
-                    if (status == 0)
+                    if (status == 0 || status == -1)
                     {
                         skd.Add(status);
                     }

@@ -10,7 +10,7 @@ namespace NordicBio.model
         public int UserID { get; set; }
         public double TotalPrice { get; set; }
         public List<SeatDTO> Seats { get; set; }
-
+        public string UUID { get; set; }
         public OrderDTO()
         {
             
