@@ -14,7 +14,7 @@
         <div class="showing-container">
           <p v-if="data.hasError">{{ this.data.errorMessage }}</p>
           <div class="showings">
-            <seat-picker :selectedSeats="this.data.selectedSeats" :showingId="1 * this.$route.params.showingid"/> 
+            <seat-picker v-if(data.renderComponent) :selectedSeats="this.data.selectedSeats" :showingId="1 * this.$route.params.showingid"/> 
           </div>
           <div class="btn">
             <button class="continue-btn" @click.prevent="reserveSeats()">Continue</button>
@@ -30,6 +30,7 @@
 <script>
     import axios from 'axios';
     import SeatPicker from './SeatPicker.vue'
+    import {uuid} from 'vue-uuid'
  
     export default {
         name: "singleMovieSeat",
@@ -47,7 +48,9 @@
                     backdrop_path: '',
                     description: '',
                     id: '',
-                    showingId: ''
+                    showingId: '',
+                    renderComponent: true,
+                    key: uuid.v1()
                 },
             }
         },
@@ -65,22 +68,22 @@
                         this.data.backdrop_path = response.data.backdropPath;
                         this.data.description = response.data.description;
                         this.data.id = response.data.id;
-                        console.log("hello motherfucker")
                     }).catch(err => {
                         console.log(err)
                     });
             },
             gotoorder() {
-              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: JSON.stringify(this.data.selectedSeats)} })
+              this.$router.push({ name: 'singleMovieOrdering', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), seats: JSON.stringify(this.data.selectedSeats), key: this.data.key} })
             },
             reserveSeats() {
               if(this.data.selectedSeats.length === 0){
                 this.data.errorMessage = "You need to vælge nogle seats";
                 this.data.hasError = true;
               } else{
-                this.data.hasError = false;
                 this.data.errorMessage = "";
+                this.data.hasError = false;
                 axios.post('seat', {
+                  UUID: this.data.key,
                   showingId: 1 * this.$route.params.showingid,
                   selectedseats: this.data.selectedSeats
                   }).then(response => {
@@ -88,15 +91,22 @@
                     this.gotoorder()
                   }
                 }).catch(err => {
-                console.log(err)
+                  this.data.errorMessage = "Could not reserve seats,  check your selections and try again";
+                  this.data.hasError = true;
+                  this.data.renderComponent = false;
+                  this.$nextTick(() => {
+                  // Add the component back in
+                    this.renderComponent = true;
+                  });
+                  console.log(err)
                 })
             }},
         
         },
         created() {
-            console.log("hej med dig")
             this.fetchSingleMovie();
             this.data.showingId = 1 * this.$route.params.showingid
+            clearInterval(this.internal)
          }
       }
 </script>

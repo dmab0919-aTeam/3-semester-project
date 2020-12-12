@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace NordicBio.dal
 {
@@ -32,36 +33,89 @@ namespace NordicBio.dal
                 ShowingID = entity.ShowingID,
                 State = "Reserved"
             };
-
-            using (SqlConnection con = new SqlConnection(_constring))
+            using (TransactionScope ts = new TransactionScope())
             {
-                try
-                {
-                    res = await con.ExecuteAsync(sql, parameters);
-                    return res;
-                }
-                catch (Exception)
+                using (SqlConnection con = new SqlConnection(_constring))
                 {
 
-                    throw;
+                    try
+                    {
+                        res = await con.ExecuteAsync(sql, parameters);
+                        return res;
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
             }
+
+        }
+
+        public async Task<List<int>> AddSeatAsync(List<Seat> entityList)
+        {
+            List<int> res = new List<int>();
+            try
+            {
+                using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    using (SqlConnection con = new SqlConnection(_constring))
+                    {
+                        foreach (var seat in entityList)
+                        {
+                            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State], UUID) " +
+                                    "VALUES (@Row, @Number, @ShowingID, @State, @UUID)";
+                            var parameters = new
+                            {
+                                Row = seat.Row,
+                                Number = seat.Number,
+                                ShowingID = seat.ShowingID,
+                                State = "Reserved",
+                                UUID = seat.UUID
+                            };
+                            res.Add(await con.ExecuteAsync(sql, parameters));
+                        }
+                    }
+                    ts.Complete();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return res;
         }
 
         public async Task<int> BuySeatAsync(Seat entity)
         {
             int res;
-            string sql = "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
-                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved'";
+            string sql = "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID) " +
+                "BEGIN " +
+                "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
+                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID " +
+                "END " +
+                "ELSE " +
+                "BEGIN " +
+                "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved') " +
+                "BEGIN " +
+                "PRINT '' " +
+                "END " +
+                "ELSE " +
+                "BEGIN " +
+                "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UUID) VALUES (@Row, @Number, @ShowingID, @OrderID, 'Bought', @UUID) " +
+                "END " +
+                "END";
             var parameters = new
             {
                 OrderID = entity.OrderID,
                 Row = entity.Row,
                 Number = entity.Number,
-                ShowingID = entity.ShowingID
+                ShowingID = entity.ShowingID,
+                UUID = entity.UUID
             };
 
-            using(SqlConnection con = new SqlConnection(_constring))
+            using (SqlConnection con = new SqlConnection(_constring))
             {
                 try
                 {
@@ -79,7 +133,7 @@ namespace NordicBio.dal
         public async Task<int> DeleteOldSeatsAsync(int id)
         {
             int res;
-            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
+            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-1,GETDATE()) " +
                 "AND ShowingID = @ShowingID " +
                 "AND State = @Reserved";
             var parameters = new
@@ -153,7 +207,5 @@ namespace NordicBio.dal
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }

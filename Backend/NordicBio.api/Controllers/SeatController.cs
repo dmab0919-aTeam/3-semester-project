@@ -49,7 +49,7 @@ namespace NordicBio.api.Controllers
 
             if (seatdata.Count == 0)
             {
-                return BadRequest("Sorry.. We found no seats");
+                return Ok("no seats");
             }
             return Ok(seatdata);
         }
@@ -57,19 +57,28 @@ namespace NordicBio.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatReservationDTO)
         {
-            if (seatReservationDTO.selectedseats != null)
+            try
             {
-                if (seatReservationDTO.selectedseats.Count > 0)
+                if (seatReservationDTO.selectedseats != null)
                 {
-                    foreach (var seatDTO in seatReservationDTO.selectedseats)
+                    if (seatReservationDTO.selectedseats.Count > 0)
                     {
-                        seatDTO.ShowingID = seatReservationDTO.ShowingID;
-                        await _unitOfWork.Seats.AddAsync(this._mapper.Map<Seat>(seatDTO));
+                        foreach (var seatDTO in seatReservationDTO.selectedseats)
+                        {
+                            seatDTO.ShowingID = seatReservationDTO.ShowingID;
+                            seatDTO.UUID = seatReservationDTO.UUID;
+                            //await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatDTO));
+                        }
+                        await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatReservationDTO.selectedseats));
                     }
-                    return Ok("Reservation was made");
                 }
+                return Ok("Reservation was made");
             }
-            return BadRequest("Sorry.. Seats could not be reserverd");
+            catch (Exception)
+            { 
+                return BadRequest("Sorry.. Seats could not be reserverd");
+            }
+            
         }
         #endregion
         #region - ADMIN SECTION -

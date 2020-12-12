@@ -32,12 +32,12 @@ const routes = [
       component: singleMovieSeat
   },
     {
-        path: '/movieordering/:id/:showingid/:seats',
+        path: '/movieordering/:id/:showingid/:seats/:key',
         name: 'singleMovieOrdering',
         component: movieOrdering
     },
     {
-        path: '/payment/:id/:showingid/:seats',
+        path: '/payment/:id/:showingid/:seats/:key',
         name: 'payment',
         component: payment
     },

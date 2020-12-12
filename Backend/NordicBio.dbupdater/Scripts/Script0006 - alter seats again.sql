@@ -1,0 +1,2 @@
+﻿ALTER TABLE Seats
+ADD UUID varchar(128) NOT NULL;

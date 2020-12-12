@@ -10,6 +10,7 @@ namespace NordicBio.dal.Entities
         public int OrderID { get; set; }
         public string State { get; set; }
         public string ReserveTime { get; set; }
+        public string UUID { get; set; }
 
     }
 }
