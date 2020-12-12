@@ -3,20 +3,16 @@
         <div class="header">
             <h1>Welcome to the Admin Panel</h1>
         </div>
-
         <div class="create-container">
             <div class="showing-form">
                 <form class="form">
                 <h3>Create Showing</h3>
                 <label>Price:</label><br>
                 <input id="price" v-model="showing.Price" type="number" placeholder="Enter Price"><br>
-                
                 <label>Date:</label><br>
                 <input id="datetime" v-model="showing.ShowingTime" type="datetime-local" placeholder=""><br>
-                
                 <label>Hallnumber:</label><br>
                 <input id="hallnumber" v-model="showing.HallNumber" type="number" placeholder="Enter Number"><br>
-                
                 <label>Movie Id:</label><br>
                 <input id="movieid" v-model="showing.MovieID" type="number" placeholder="Enter valid id"><br>
                 <button v-if="createOrUpdateShowing" @click.prevent="createShowing">Create</button><br>
@@ -26,7 +22,7 @@
             </div>
 
             <div class="table-container">
-                <table class="table" v-for="(item, key) in this.showings" v-bind:key="key">
+                <table class="table">
                     <tr>
                         <th>Id:</th>
                         <th>HallNumber:</th>
@@ -34,7 +30,7 @@
                         <th>Price:</th>
                         <th>ShowingTime:</th>
                     </tr>
-                    <tr class="table-item">
+                    <tr v-for="(item, key) in this.showings" v-bind:key="key">
                         <td>{{ item.id }}</td>
                         <td>{{ item.hallNumber }}</td>
                         <td>{{ item.movieID }}</td>
@@ -65,7 +61,7 @@
                     <datalist id="roles">
                         <option value="Admin"></option>
                         <option value="User"></option>
-                    </datalist>
+                    </datalist><br>
 
                 <label>Password:</label><br>
                 <input id="password" v-model="user.Password" type="password" placeholder="Enter an password"><br>
@@ -74,25 +70,24 @@
                   <button v-if="!createOrUpdateUser" @click.prevent="wipeUserObject">Cancel</button><br>
                 </form>
             </div>
+
             <div class="table-container">
-                <table class="table" v-for="(item, key) in this.users" v-bind:key="key">
+                <table class="table">
                     <tr>
-                        <th>Id:</th>
-                        <th>First Name:</th>
-                        <th>Last Name:</th>
-                        <th>Email:</th>
-                        <th>Phone Number:</th>
-                        <th>User Role:</th>
+                      <th>Name:</th>
+                      <th>Last Name:</th>
+                      <th>Email:</th>
+                      <th>Phone:</th>
+                      <th>Role:</th>
                     </tr>
-                    <tr class="table-item">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.firstName }}</td>
-                        <td>{{ item.lastName }}</td>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.phoneNumber }}</td>
-                        <td>{{ item.userRole }}</td>
-                        <td><button class="list-button" @click.prevent="updateUser(item.id, item.firstName, item.lastName, item.email, item.phoneNumber, item.userRole)">Update</button></td>
-                        <td><button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button></td>
+                    <tr v-for="(item, key) in this.users" v-bind:key="key">
+                      <td>{{ item.firstName }}</td>
+                      <td>{{ item.lastName }}</td>
+                      <td>{{ item.email }}</td>
+                      <td>{{ item.phoneNumber }}</td>
+                      <td>{{ item.userRole }}</td>
+                      <td><button class="list-button" @click.prevent="updateUser(item.id, item.firstName, item.lastName, item.email, item.phoneNumber, item.userRole)">Update</button></td>
+                      <td><button class="list-button" @click.prevent="deleteUser(item.id)">Delete</button></td>
                     </tr>
                 </table>
             </div>
@@ -265,12 +260,7 @@ export default {
 </script>
 
 <style scoped>
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
+
 html, body {
     height: 100%;
     color: white;
@@ -282,6 +272,14 @@ html, body {
 }
 input {
     margin-bottom: 1em;
+}
+
+tr:nth-child(even){
+  background-color: #f2f2f2;
+  }
+
+tr:hover {
+  background-color: rgb(187, 187, 187);
 }
 
 .list-button {
@@ -296,19 +294,16 @@ input {
     height: 100vh;
     padding: 1em;
 }
-
 .header {
     text-align: center;
     float: left;
     width: 100%;
 }
-
 .create-container {
     float: left;
     width: 100%;
     height: 100%;
 }
-
 .showing-form, .user-form {
     float: left;
     margin: 1%;
@@ -317,28 +312,22 @@ input {
     border-radius: 5px;
     height: 60%;
     overflow: auto;
-    width: 20%;
+    width: 15%;
 }
-
 .table-container {
     float: left;
     overflow: auto;
     height: 60%;
     margin: 1%;
     padding: .5em;
-    width: 70%;
+    width: 75%;
     border: 2px solid grey;
 }
 
-.table {
-    margin: .1em;
-    width: 100%;
-    text-align: left;
+table {
+  text-align: left;
+  table-layout: auto;
+  width: 100%;
 }
-
-.table-item {
-    background-color: rgb(223, 223, 223);
-}
-
 
 </style>
