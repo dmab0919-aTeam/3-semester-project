@@ -1,0 +1,54 @@
+\section{Object Relation Mapper (ORM)}\label{sec:orm}
+En Object Relation Mapper, forkortet ORM, er en programmeringsteknik der bliver brugt til
+at manipulere data fra en database i et objekt-orienteret program. ORM'en er teknisk set en 
+"virtuel database" som programmøren kan benytte i sit eget valgte programmeringssprog. \\
+
+Dette projekt benytter sig af en SQL database. SQL databser er ikke objekt-orienteret, da de
+blot kan gemme variabler som tal og strenge, organiseret i tabeller. Produktet til dette projekt
+er skrevet i C\#, som netop er objekt-orienteret. Dette skaber grundlag for at benytte sig af en
+ORM. 
+
+\subsection{Valg af ORM}
+Projektgruppen har til dette projekt identificeret to mulige valg af ORM: Entity Framework og Dapper.
+Gruppen blev præsenteret for Dapper i forbindelse med undervisningen i teknologi på 3. semester, og fandt Dapper
+nemt at bruge i mindre projekter. Gruppen blev også præsenteret for Entity Framework, som skulle være mere omfattende
+end Dapper, samt indeholder flere funktioner. \\ 
+Gruppen har fundet frem til følgende fordele og ulemper ved henholdsvis brug af Entity Framework og Dapper: \\
+
+% https://entityframework.net/ef-vs-dapper
+\textbf{Entity Framework:}
+\begin{itemize}
+    \item Fordele:
+    \begin{itemize}
+        \item Entity Framework kan erstatte større kodeblokke, som programmøren ellers ville være nodt til at skrive og vedligeholde selv.
+        \item Entity Framework kan autogenere kode.
+        \item Entity Framework benytter én syntax til alle objekter (LINQ), om de er databaser eller ej.
+    \end{itemize}
+    \item Ulemper:
+    \begin{itemize}
+        \item Entity Framework har et højere entry-level end fx Dapper.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Dapper:}
+\begin{itemize}
+    \item Fordele:
+    \begin{itemize}
+        \item Dapper er meget "efficient" og har fået tilnavnet "King of Micro ORM" i forhold til performance.
+        \item Dapper gør det nemt at parametrisere queries.
+        \item Dapper gør det nemt at lave resultater om til objekter.
+    \end{itemize}
+    \item Ulemper:
+    \begin{itemize}
+        \item Dapper kan ikke generere en class model, og kan ikke selv generere queries.
+        \item Dapper kan ikke tracke objekter og deres ændringer.
+    \end{itemize}
+\end{itemize}
+
+Gruppen har på baggrund af ovenstående, vurderet at Dapper egner sig bedst til et mindre projekt som
+dette, da Dapper giver mere kontrol over databasen, og fungerer bedre med "database first" end
+Entity Framework gør. Endvidere, finder gruppen Dapper nemt at benytte i praksis, hvilket kan spare gruppen dyrebar
+tid i projektperioden
+
+\subsection{Brug af Dapper}
+% Kodeeksempler hvor vi bruger Dapper skal præsenteres her
