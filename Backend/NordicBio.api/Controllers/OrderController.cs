@@ -55,7 +55,7 @@ namespace NordicBio.api.Controllers
                 return BadRequest("Sorry.. Something went wrong");
             }
 
-            return Ok("Lortet er gemt");
+            return Ok("Order was succesfully made");
         }
     }
 }
