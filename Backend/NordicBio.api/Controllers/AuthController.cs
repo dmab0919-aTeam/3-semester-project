@@ -25,7 +25,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] Login login)
+        public async Task<IActionResult> LoginAsync([FromBody] Login login)
         {
             string email = login.email;
             string password = login.password;
@@ -63,7 +63,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+        public async Task<IActionResult> RegisterAsync([FromBody] UserDTO userDTO)
         {
             List<ValidateString> validations = UserValidation.ValidateUser(userDTO);
 

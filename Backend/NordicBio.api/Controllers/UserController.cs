@@ -32,7 +32,7 @@ namespace NordicBio.api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var data = await _unitOfWork.Users.DeleteAsync(id);
             if (data > 0)
@@ -44,7 +44,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AdminPost([FromBody] UserDTO userDTO)
+        public async Task<IActionResult> AdminPostAsync([FromBody] UserDTO userDTO)
         {
             userDTO.Salt = Encrypt.Salt();
             userDTO.Password = Encrypt.HashPassword(userDTO.Salt, userDTO.Password);
@@ -60,7 +60,7 @@ namespace NordicBio.api.Controllers
 
         [HttpGet] // Get all users
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             var data = await _unitOfWork.Users.GetAllAsync();
             List<UserDTO> userdata = _mapper.Map<List<UserDTO>>(data);
@@ -73,7 +73,7 @@ namespace NordicBio.api.Controllers
 
         [HttpGet("{id}")] // Get by id
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Users.GetByIDAsync(id);
             UserDTO userdata = _mapper.Map<UserDTO>(data);

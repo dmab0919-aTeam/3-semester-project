@@ -27,7 +27,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] OrderDTO orderDTO)
+        public async Task<IActionResult> PostAsync([FromBody] OrderDTO orderDTO)
         {
             var data = await _unitOfWork.Showings.GetByIDAsync(orderDTO.ShowingID);
             ShowingDTO showing = _mapper.Map<ShowingDTO>(data);
