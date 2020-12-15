@@ -1,0 +1,30 @@
+\section{Stack}
+Dette afsnit har til formål at beskrive systemets opbygning samt beskrive hvilke teknologier som udgør systemet. 
+Systemet er opbygget i en client-server arkitektur, hvor klienten har til formål at agere som applicationens grafiske 
+brugerflade, som kan anvendes af systemets stackeholders. Serveren består et rest Api, som gør det muligt for klienten 
+at kommunikere med databasen gennem serveren, og udføre beregninger som kan blive vist i klienten. Serveren er også 
+ansvarlig for at oprette forbindelse til databasen. Derved er det kun muligt for klienten at tilgå data fra databasen 
+ved at kommunikere gennem serveren.\\
+
+\subsection{Server}
+Serveren består af en DotNet Core Solution som indeholder flere projekter, hvor REST API’et befinder sig i NordicBio.api 
+projektet med typen ”Microsoft.NET.Sdk.Web” som betyder det er beregnet til webapps. 
+NordicBio.api indeholder api routes som kan blive kaldt af klienten, med hensigt på at tilgå data og gemme data fra databasen. 
+Dette kunne fx være at modtage information om hvilke film som er tilgængelig i NordicBio, eller at sende information til 
+NordicBio.api som skal gemmes i databasen.\\
+
+\subsection{Klient}
+Klienten er opbygget i Vue.js som er et open source JavaScript framework, der gør det nemmere at lave grafiske 
+brugerflader til REST API’er. Eftersom Klienten er opbygget i Vue.js kan gui’en bygges i HTML og CSS som kan tilgås 
+gennem en webbrowser. Klienten kan ved hjælp af POST og GET requests modtage og sende data fra serveren, 
+gennem dens api routes.\\
+
+\subsection{Sammenfatning}
+I dette afsnit er der blevet redegjort for hvilke teknologier som bliver inddraget i systemet og dets opbygning. 
+Ved at opdele serveren og klienten ind i flere services kan det være nemmere at vedligeholde eller udskifte teknologier 
+i fremtiden, eftersom de forskellige services kommunikere gennem REST API’et. 
+Dette betyder at Klienten ikke er afhængig af at REST API’et er udviklet i DotNet Core eller andre specifikke sprog så 
+længe det stadig er et REST Api. Det samme gælder for serveren og databasen. Til gengæld kan det være mere uoverskueligt 
+for mindre teams at understøtte flere teknologier i samme kode projekt. 
+
+
