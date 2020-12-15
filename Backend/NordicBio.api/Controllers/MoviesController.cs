@@ -76,7 +76,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPut] // Update
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(MovieDTO movieDTO)
+        public async Task<IActionResult> UpdateAsync(MovieDTO movieDTO)
         {
             if (movieDTO != null)
             {
@@ -92,7 +92,7 @@ namespace NordicBio.api.Controllers
 
         [HttpDelete("{id}")] // Delete by id
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var data = await _unitOfWork.Movies.DeleteAsync(id);
 

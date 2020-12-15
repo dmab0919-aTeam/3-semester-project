@@ -28,7 +28,7 @@ namespace NordicBio.api.Controllers
 
         // GET api/<ShowingController>/5
         [HttpGet("movie/{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             var data = await _unitOfWork.Showings.GetShowingsByIDAsync(id);
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
@@ -46,7 +46,7 @@ namespace NordicBio.api.Controllers
         // TODO: admin create showings
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Post([FromBody] ShowingDTO showingDTO)
+        public async Task<IActionResult> PostAsync([FromBody] ShowingDTO showingDTO)
         {
             if (showingDTO != null)
             {
@@ -63,7 +63,7 @@ namespace NordicBio.api.Controllers
         // GET: api/<ShowingController>
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             var data = await _unitOfWork.Showings.GetAllAsync();
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
@@ -76,7 +76,7 @@ namespace NordicBio.api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var data = await _unitOfWork.Showings.DeleteAsync(id);
             if (data > 0)
@@ -89,7 +89,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromBody] ShowingDTO showingDTO)
+        public async Task<IActionResult> UpdateAsync([FromBody] ShowingDTO showingDTO)
         {
             if (showingDTO != null)
             {

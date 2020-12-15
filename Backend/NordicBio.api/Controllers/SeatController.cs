@@ -25,7 +25,7 @@ namespace NordicBio.api.Controllers
 
         #region - USER SECTION -
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             var data = await _unitOfWork.Seats.GetAllAsync();
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
@@ -39,7 +39,7 @@ namespace NordicBio.api.Controllers
 
         // REQUEST - GET *
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByID(int id)
+        public async Task<IActionResult> GetByIDAsync(int id)
         {
             //delete reserved seats der er ældre end 10 minuter.
             await _unitOfWork.Seats.DeleteOldSeatsAsync(id);
@@ -55,7 +55,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] SeatReservationDTO seatReservationDTO)
+        public async Task<IActionResult> PostAsync([FromBody] SeatReservationDTO seatReservationDTO)
         {
             try
             {
