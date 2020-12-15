@@ -38,7 +38,6 @@ VALUES (100, '2021-01-01 16:00:00', 2, 3);
 INSERT INTO [dbo].[Showings] (Price, ShowingTime, HallNumber, MovieID) 
 VALUES (100, '2021-01-01 18:00:00', 3, 3);
 
-
 --Movie 4--
 INSERT INTO [dbo].[Showings] (Price, ShowingTime, HallNumber, MovieID) 
 VALUES (100, '2021-01-01 12:00:00', 1, 4);

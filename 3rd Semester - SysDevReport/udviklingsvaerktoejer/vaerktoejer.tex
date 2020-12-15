@@ -56,11 +56,11 @@ og med fokus på hvor meget de nåede i sidste sprint.
 \subsubsection{Daily standup meeting}
 Et daily standup meeting et lille “møde” hvor teamet er samlet og besvare 3 spørgsmål. Første spørgsmål er “Hvad gjorde folk i går” 
 altså hvad arbejder de på. Det næste er “Hvad vil du lave i dag?” hvilket giver teamet mulighed for at få en fælles 
-forståelse for hvad alle laver. Til sidst “Er der noget som forhindrer dig i at udføre dit arbejde i dag?”. Det kunne være viden, 
-redskaber eller andet som et medlem mangler for at gøre sit arbejde.
+forståelse for hvad alle laver. Til sidst “Er der noget som forhindrer dig i at udføre dit arbejde i dag?”. 
+Det kunne være viden, redskaber eller andet som et medlem mangler for at gøre sit arbejde.
 
 \subsubsection{Sprint review}
-Et sprint review en “demo” visning af selve systemet for hele teamet samt så mange udefrakommende som muligt. Ofte er kunden også til stede ved dette review.
+Et sprint review er en “demo” visning af selve systemet for hele teamet samt så mange udefrakommende som muligt. Ofte er kunden også til stede ved dette review.
 
 \subsubsection{Sprint retrospective}
 Denne ceremoni handler om indsigt, forbedring og hvordan det sidste sprint har forløbet sig. Her udarbejdes et kort dokument, som kan bruges til næste sprint planning.
@@ -69,24 +69,80 @@ Denne ceremoni handler om indsigt, forbedring og hvordan det sidste sprint har f
 XP er en agil udviklingsmetode, brugt til at fremstille software. Metoden byder på 15 regler som skal følges. XP handler om at arbejde i det ekstreme, 
 hvis noget virker skal man gøre til dets ekstreme mulighed.  \\
 
-XP har 5 kerne værdier; Respect, Communication, Simplicity, Feedback og Courage. Hertil 12 praktikker som skal følges og efterleves til 
-ekstrem hvis metoden skal anvendes korrekt. \\
+XP har 5 kerne værdier; Respect, Communication, Simplicity, Feedback og Courage. Hertil 12 praktikker som 
+skal følges og efterleves til ekstrem hvis metoden skal anvendes korrekt. \\
 
-Scrum er som beskrevet tidligere i afsnittet et framework til udvikling af produkter, ofte software løsninger, hvilket fungerer som en 
-container for mange virksomheder, hvor andre praktikker kan tilføjes til. XP er i den forbindelse en af de praktikker som ofte tilføjes til 
-Scrum eller nogle af dets regler. \\
+Scrum er som beskrevet tidligere i afsnittet et framework til udvikling af produkter, ofte software løsninger, 
+hvilket fungerer som en container for mange virksomheder, hvor andre praktikker kan tilføjes til. XP er i den 
+forbindelse en af de praktikker som ofte tilføjes til Scrum eller nogle af dets regler. \\
 
-Nogle af XP’s regler er svære at overholde og reglerne anses for at være uden undtagelse, altså alle regler og praktikker skal anvendes til 
-det ekstreme. Derimod er nogle af XP’s praktikker en god supplering til Scrum frameworket og det kan hjælpe et nyt, eller uerfaren team til at 
-udvikle sig indenfor det agile univers og Scrum frameworket. \\
+Nogle af XP’s regler er svære at overholde og reglerne anses for at være uden undtagelse, altså alle regler 
+og praktikker skal anvendes til det ekstreme. Derimod er nogle af XP’s praktikker en god supplering til 
+Scrum frameworket og det kan hjælpe et nyt, eller uerfaren team til at udvikle sig indenfor det agile 
+univers og Scrum frameworket. \\
 
 Det kan endvidere udledes at XP og agil udvikling er lidt et paradoksalt fordi et team har et mål om at være helt selv organiserende men får 
 samtidigt at vide at de “skal” havde en bestemt længde arbejdsuge, programmere sammen 2 og 2 og implementere “Test Driven Development”. 
 
 \section{Kanban}\label{sec:kanban}
-Denne udviklings metode er bygget på at visualisere og skabe flow i arbejdet for det given team. Kanban giver mulighed for hurtigt at 
-genprioritere arbejdsopgaver og omstillingspararthed i forbindelse med pludselige ændringer.  \\
+Denne udviklings metode er bygget på at visualisere og skabe flow i arbejdet for det givende team. Kanban giver 
+mulighed for hurtigt at genprioritere arbejdsopgaver og omstillingspararthed i forbindelse med pludselige ændringer. 
+Kanban er en esktrem agil udviklingsmetode, som har færre "regler".\\
 
-Kanban er en agil udviklings metode til en virksomhed eller team, som er ny til agil udvikling.
+Kanban\cite{ScrumArchitecture} bruger i modsætning til Scrum, ikke sprints. Teamet arbejder i et langt kontinuerligt flow, hvor der releases
+når teamet føler de har færdiggjort noget brugbart software. Hvis teamet har brug for at lave nogle ændringer,
+venter de ikke til næste sprint, ligesom i Scrum, men ændre det med det samme. \\
+
+Kanban gør sig speciel ved at have en begrænsning, på hvor meget arbejde der kan være "in-progress" på én gang. 
+Dette sikrer at udviklerteamet færdiggøre de påbegyndte opgaver, inden der startes på noget nyt. 
+I gennem visualiseringen bliver det derfor også nemt for kunden at se hvor langt teamet er kommet og
+hvad der arbejdes på.
 
 \section{Metodevalg}\label{sec:valgafvaektoej}
+Gruppen har valgt at benytte Scrum til dette projekt. Dette er gjort fordi Scrum ligger et godt fundament 
+for software-udvikling generelt. Kundens krav til systemet er ikke altid forudbestemt, og kan ændres hele tiden. 
+Her er det vigtigt at kunne være fleksibel, og have en agil tankegang. \\
+Extreme Programming er også blevet brugt til en vis grad. Gruppen har valgt at implementere nogle få 
+af de 12 praktikker som findes i XP. 
+\begin{enumerate}
+    \item Pair Programming
+    \begin{itemize}
+        \item Har sikret enighed om hvordan koden skal laves, og sikret en højere kvalitet af arbejdet.
+    \end{itemize}
+
+    \item Code Refactoring
+    \begin{itemize}
+        \item Har sørget for at koden har opretholdt en vis standard, og i så høj grad som muligt sørget for ”Low coupling \& High Cohesion”
+    \end{itemize}
+    
+    \item Collective Code Ownership
+    \begin{itemize}
+        \item Alle medlemmer af gruppen ejer koden. Det har været muligt at gennemse og opdatere hinandens kode. 
+        Brugen af Git har hjulpet med dette. 
+    \end{itemize}
+\end{enumerate}
+
+Mere om XP praktikker i kapitel \ref{ch:kvalitetssikring}\\
+
+Det kan være svært for en gruppe studerende, at designe et software-system ned til mindste detalje, 
+tage højde for hver eneste metode, og kortlægge hver enkelte klasse i systemet, inden man begynder at kode. 
+Derfor er det godt at kunne benytte en agil udviklingsmetode, hvor det er muligt for gruppen at ændre kurs og 
+lave nogle ændringer til krav og kode løbende. \\
+En måde hvorpå et team kan finde den rette udviklingsmodel, er vha. et Boehm-Chart (Figur \ref{fig:Boehm}). 
+Denne model gør det muligt at fastlægge hvor agil en gruppe er, og omvendt. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Boehm-chart.png}
+    \caption{Boehm-Chart}
+    \label{fig:Boehm}
+\end{figure}
+
+Den består af 5 forskellige parametre, hvor der tegnes en streg fra hver gren til den næste. 
+Jo tættere resultatet er på midten, desto mere agil er teamet. 
+For gruppens projekt, trækker størrelsen af gruppen og alvorligheden af problemstilling i den agile retning. 
+Et biograf bookings system er ikke en kritisk problemstilling. Derimod hvis projektet har med menneskeliv at gøre, 
+bliver alvorligheden selvfølgelig høj, og det er derfor vigtigt at planlægge et hvert scenarie, 
+hvilket er lig en plandreven udviklingsmetode.\\
+
+Hvis man ser på figuren, ville en agil-udviklingsmodel såsom Scrum passe fint til teamet og projektet. 

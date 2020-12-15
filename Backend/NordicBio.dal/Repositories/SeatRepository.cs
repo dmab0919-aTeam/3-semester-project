@@ -191,6 +191,25 @@ namespace NordicBio.dal
                 }
             }
         }
+        
+        public async Task<IEnumerable<Seat>> GetAllByOrderIdAsync(int id)
+        {
+            var sql = "SELECT * FROM [Seats] WHERE [OrderID] = @Id";
+            var parameters = new { Id = id };
+
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QueryAsync<Seat>(sql, parameters);
+                    return result.ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
 
         // NOT IMPLEMENTET
 

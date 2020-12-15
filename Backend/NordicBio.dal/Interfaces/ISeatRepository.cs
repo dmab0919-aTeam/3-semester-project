@@ -10,5 +10,7 @@ namespace NordicBio.dal.Interfaces
         Task<IEnumerable<Seat>> GetAllByIdAsync(int id);
         Task<int> BuySeatAsync(Seat entity);
         Task<List<int>> AddSeatAsync(List<Seat> entityList);
+
+        Task<IEnumerable<Seat>> GetAllByOrderIdAsync(int id);
     }
 }
