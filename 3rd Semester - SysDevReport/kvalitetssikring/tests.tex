@@ -1,3 +1,29 @@
 \section{Tests}\label{sec:tests}
-Funktionelle test udført at enten kunden, en tester eller en anden udvikler i teamet. Disse tests omhandler det man kalder 
-black-box testing. Det vil sige testeren kender ikke til koden men kun den funktion der skal testes eller det out- og input der skal testes of forventes. 
+Funktionelle tests, altså tests der påviser at funktionaliteten af klienten virker som ønsket, 
+anvendes til at overbevise teamet om, at systemet fungerer som det skal. 
+Denne slags test kaldes for ”Black-Box testing" og kan udføres af teamet, 
+et dedikeret test-team eller i nogle tilfælde kunden som en del af en ”Acceptance-Test”. 
+På den anden side befinder ”White-Box testing", hvilket påviser interne elementer i selve koden. \\
+
+\textbf{Test af klienten} \\
+Gruppen har i projektperioden testet diverse funktionaliteter på klientsiden, 
+men også i selve koden. I backenden er der anvendt noget der hedder NUnit til testning af koden, 
+hvori nogle datasæt er opsat til at teste kald til systemets API.\\
+
+INDSÆT EKSEMPEL FRA DATASÆT\\
+
+Det ses ovenfor, at metoden bliver testet med et negativt, et korrekt og et for højt input. 
+På den måde testes der for succesfulde værdier og korrekte fejlbeskeder. \\
+
+INDSÆT METODE FRA EN TESTKLASSE\\
+
+De forgående data fra figur(DATASÆT) bliver her indsat i de parametre som 
+metoden tager og bliver udført en efter en. 
+Gruppen ser en fordel i at kunne genanvende en metode, 
+frem for at skulle skrive en metode for hvert datasæt. 
+Det giver et overblik og gør det betydeligt nemmere at ændre i data uden at skrive nye metoder eller fjerne dem.\\
+
+INDSÆT BILLEDE AF ALLE TESTS
+
+Systemet bliver testet 28 forskellige måde (SE BILLEDE AF TESTS), hvilket ikke er en ret stor testdækning. 
+Gruppen har fokuseret på at udvise forståelse for tests og testet, ud fra gruppens syn de vigtigste funktionaliteter.    
