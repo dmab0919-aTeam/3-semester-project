@@ -65,6 +65,7 @@ export default {
           UserID:  localStorage.getItem("userId"),
           seats: JSON.parse(this.$route.params.seats)
         }).then(response => {
+          this.$router.push({ name: 'ticket', params: { id: this.$route.params.id, showingid: (1 * this.$route.params.showingid), orderId: response.data} })
           console.log(response)
         }).catch(err => {
             this.data.errorMessage = "You were too slow, someone else took your seats. Press the button to return";

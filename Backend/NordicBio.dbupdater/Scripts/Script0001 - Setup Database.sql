@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[Movies] (
 	[Title] text NOT NULL,
 	[ReleaseDate] varchar(10) NOT NULL,
 	[VoteAverage] float NOT NULL,
-	[PosterPath] varchar(100) NOT NULL,
+	[PosterPath] varchar(100) NULL,
 	[Description] text NOT NULL,
 ); 
 

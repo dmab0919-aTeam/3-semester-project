@@ -146,9 +146,23 @@ namespace NordicBio.dal
                 }
             }
         }
-        public Task<Showing> GetByIDAsync(int id)
+
+        public async Task<Showing> GetByIDAsync(int id)
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM [Showings] WHERE [id] = @Id";
+            var parameters = new { Id = id };
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QuerySingleOrDefaultAsync<Showing>(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Showing Findes ikke");
+                }
+            }
         }
     }
 }

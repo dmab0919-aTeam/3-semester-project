@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,12 @@ namespace NordicBio.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderDTO orderDTO)
         {
+            var data = await _unitOfWork.Showings.GetByIDAsync(orderDTO.ShowingID);
+            ShowingDTO showing = _mapper.Map<ShowingDTO>(data);
+
+            orderDTO.TotalPrice = showing.Price * orderDTO.Seats.Count;
+        
             int OrderID = await this._unitOfWork.Orders.AddAsync(this._mapper.Map<Order>(orderDTO));
-            //ToDo Lave ordre
             List<int> skd = new List<int>();
             if (OrderID != 0)
             {
@@ -55,7 +60,20 @@ namespace NordicBio.api.Controllers
                 return BadRequest("Sorry.. Something went wrong");
             }
 
-            return Ok("Order was succesfully made");
+            return Ok(OrderID);
+        }
+        
+        [HttpGet("{id}")] // Get by id
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _unitOfWork.Orders.GetByIDAsync(id);
+            ShowingDTO Order = _mapper.Map<ShowingDTO>(data);
+
+            if (Order == null)
+            {
+                return NotFound("Sorry.. We found no movie");
+            }
+            return Ok(Order);
         }
     }
 }
