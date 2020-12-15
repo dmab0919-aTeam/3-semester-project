@@ -64,14 +64,14 @@ namespace NordicBio.api.Controllers
         }
         
         [HttpGet("{id}")] // Get by id
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Orders.GetByIDAsync(id);
-            ShowingDTO Order = _mapper.Map<ShowingDTO>(data);
+            OrderDTO Order = _mapper.Map<OrderDTO>(data);
 
             if (Order == null)
             {
-                return NotFound("Sorry.. We found no movie");
+                return BadRequest("Sorry.. We found no order");
             }
             return Ok(Order);
         }

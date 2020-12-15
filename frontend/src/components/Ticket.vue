@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       data: {
-        order: '',
+        totalPrice: '',
         seats: []
       }
 
@@ -23,7 +23,7 @@ export default {
       console.log(this.$route.params.key)
       axios.get(`order/${this.$route.params.showingid}`).then(response => {
         console.log(response)
-        this.order = response.data
+        this.data.totalPrice = response.data.totalPrice
       }).catch(err => {
         this.data.errorMessage = "You were too slow, someone else took your seats. Press the button to return";
         this.data.hasError = true;
@@ -32,7 +32,7 @@ export default {
     },
     fetchseats() {
       console.log(this.$route.params.key)
-      axios.get(`seats/order/${this.$route.params.orderId}`).then(response => {
+      axios.get(`seat/order/${this.$route.params.orderId}`).then(response => {
         console.log(response)
         this.data.seats = response.data
       }).catch(err => {
