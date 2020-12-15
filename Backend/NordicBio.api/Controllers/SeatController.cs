@@ -53,6 +53,19 @@ namespace NordicBio.api.Controllers
             }
             return Ok(seatdata);
         }
+        
+        [HttpGet("order/{id}")]
+        public async Task<IActionResult> GetOrderid(int id)
+        {
+            var data = await _unitOfWork.Seats.GetAllByOrderIdAsync(id);
+            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
+
+            if (seatdata.Count == 0)
+            {
+                return Ok("no seats");
+            }
+            return Ok(seatdata);
+        }
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SeatReservationDTO seatReservationDTO)
@@ -67,7 +80,6 @@ namespace NordicBio.api.Controllers
                         {
                             seatDTO.ShowingID = seatReservationDTO.ShowingID;
                             seatDTO.UUID = seatReservationDTO.UUID;
-                            //await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatDTO));
                         }
                         await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatReservationDTO.selectedseats));
                     }

@@ -6,5 +6,6 @@ namespace NordicBio.dal.Interfaces
 {
     public interface IOrderRepository : IGenericRepository<Order>
     {
+        Task<Order> GetByIDAsync(int id);
     }
 }

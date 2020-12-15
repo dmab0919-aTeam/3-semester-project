@@ -8,6 +8,7 @@ const registerpage = () => import('../layouts/registerpage.vue')
 const adminPanel = () => import('../layouts/adminPanel')
 const movieOrdering = () => import('../components/SingleMovieOrdering.vue')
 const payment = () => import('../components/Payment.vue')
+const ticket = () => import('../components/Ticket.vue')
 
 const routes = [
       {
@@ -40,6 +41,11 @@ const routes = [
         path: '/payment/:id/:showingid/:seats/:key',
         name: 'payment',
         component: payment
+    },
+    {
+        path: '/ticket/:id/:showingid/:orderId',
+        name: 'ticket',
+        component: ticket
     },
       {
          path: '/register',

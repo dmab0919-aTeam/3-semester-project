@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
@@ -50,9 +51,22 @@ namespace NordicBio.dal
         {
             throw new System.NotImplementedException();
         }
-        public Task<Order> GetByIDAsync(int id)
+        public async Task<Order> GetByIDAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var sql = "SELECT * FROM [Orders] WHERE [id] = @Id";
+            var parameters = new { Id = id };
+            using (var connection = new SqlConnection(_constring))
+            {
+                try
+                {
+                    var result = await connection.QuerySingleOrDefaultAsync<Order>(sql, parameters);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Showing Findes ikke");
+                }
+            }
         }
 
         public Task<IEnumerable<Order>> GetAllAsync()
