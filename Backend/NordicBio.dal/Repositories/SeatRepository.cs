@@ -133,7 +133,7 @@ namespace NordicBio.dal
         public async Task<int> DeleteOldSeatsAsync(int id)
         {
             int res;
-            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-1,GETDATE()) " +
+            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
                 "AND ShowingID = @ShowingID " +
                 "AND State = @Reserved";
             var parameters = new
