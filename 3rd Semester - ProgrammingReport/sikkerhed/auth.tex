@@ -22,11 +22,11 @@ I forbindelse med udvikling af api'et, er der forskellige endpoints som har vari
 uhensigtsmæssigt at alle kan kalde endpoints som er dedikeret til administrationspanelet, hvor det blot burde være
 en administrator som kan kalde disse endpoints. Det samme er gældende for de endpoints som omhandler betaling og
 resevation bestilling af biograf sæder. For at løse denne mindre problemstilling, og undgå evt misbrug af disse 
-endpoints, er der blevet implementeret et authentication system som har til formål at beskytte disse endpoints.\\
+endpoints, er der blevet implementeret et authentication system som har til formål at beskytte disse endpoints.
 
-%\lstinputlisting[language = Dotnet Core, caption = Autrorize, label={list:autrorize}]{Code/auth.cs}\\
+\lstinputlisting[language={[Sharp]C}, caption={SKRIV CAPTION HER}, label={list:authorize}]{Code/auth.cs}
 
-Som det fremgår i listing \ref{list:autrorize} bliver disse endpoints beskyttet med [Authorize] som betyder at
+Som det fremgår i listing \ref{list:authorize} bliver disse endpoints beskyttet med [Authorize] som betyder at
 endpointet kun kan blive kaldt hvis man er logget ind i systemet. Udover authorize af endpointsne er de også beskyttet 
 med forskellige typer af roller, Så en user som er logget ind, ikke kan tilgå administrations endpoints.
 Som det fremgår i følgende eksempel: "[Authorize(Roles = "Admin")]" vil dette endpoint kun være tilgængelig
