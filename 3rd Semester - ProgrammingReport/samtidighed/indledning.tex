@@ -1,0 +1,23 @@
+\textbf{Samtidighed / Concurrency}\\
+Håndtering af multiple brugere i et system kræver, 
+at udviklerne tager højde for eventuelle samtidighedsproblemer. 
+I en situation, hvor to brugere ønsker at ændre eller tilføje de samme ressourcer, 
+på samme tid, må kun én lykkedes. 
+Der findes forskellige måder at løse disse problemstillinger på.\\
+
+\textbf{Pessimistisk Samtidighed}\\
+Ved pessimistisk samtidighed låses data som brugeren ønsker at ændre/håndtere. 
+En bruger tilgår data i databasen og en tabel læses, her sættes der en lås på 
+tabellen. Brugeren ændrer data i tabellen, hvilket resulterer i at andre brugere 
+kun har læserettigheder på de låste tabeller. Tabellen låses op når brugeren er 
+færdig med sine ændringer. Pessimistisk låsning bruges med fordel, hvis mængden 
+af data er minimal og opdateres ofte eller indeholder følsomt data.\\ 
+
+\textbf{Optimistisk Samtidighed}\\
+Ved denne tilgang, er udgangspunktet at samtidighedsproblemer sjældent sker. 
+Her låser man ikke tabellerne i databasen, men tilføjer en ekstra kolonne som 
+fx et tidsstemple, dato eller row-version. Det fungerer lidt som først til 
+mølle-princippet. Når brugeren går i gang med at opdatere en tabel, tjekker 
+systemet den ekstra kolonne for at sikre det er den rigtige version. 
+Hvis den samme tabel er blevet opdateret, inden brugeren har færdiggjort 
+transaktionen, får brugeren en fejl, og må prøve igen.\cite{MSOC}

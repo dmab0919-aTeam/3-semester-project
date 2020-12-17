@@ -1,0 +1,113 @@
+\section{Samtidighed Ved Reservation}\label{sec:svr}
+Der opstår udfordringer, hvis to eller flere kunder forsøger at reserver samme 
+sæder til en film. Første udfordring er, at sæderne selvfølgelig kun kan bookes 
+af en kunde. Anden udfordring er at opdatere den visuelle præsentation af 
+reservationer på en ”Showing”. Heraf opstår dette spørgsmål:\\
+
+\textit{Hvad sker der når to brugere prøver at reservere de 
+samme sæder på samme tid?}\\
+
+Uden forbehold ville resultatet være to kunder med billetter til same sæder og 
+film, hvilket ville resultere i nogle forretningsmæssige negativer.\\
+
+\textbf{Løsningen}\\
+Første del af løsningen - At sikre tabellen mod duplikater. ”Seats” tabellen 
+(ref til relationsmodel) har en samlet primary key på Row, Number og ShowingID. 
+Muligheden for at indsætte nye rækker hvor disse 3 kolonner er ens blev heraf 
+fjernet.\\
+
+Anden del af løsningen - I gruppens tilfælde at anvende et ”TransactionScope”. 
+Hermed sikres atomicitet i transaktionen, alt eller intet princip, og sørger for 
+at lave en ”Rollback” på transaktionen skulle den fejle.
+Metoden ”AddSeatAsync” tager en liste af de valgte sæder, itererer igennem 
+listen og indsætter hver enkelt sæde i databasen. Brugeren får en fejl besked, 
+hvis det forsøges at indsætte sæder som allerede eksistere i databasen.\\
+
+Tredje del af løsningen - At implementere en timer i frontenden, som opdaterer 
+de tilgængelige sæder hvert 10. sekund ved at lave et ”Get Request” til api’et 
+som henter de reserverede/købte sæder(link til kodestykke eller billede). 
+På den måde vil brugeren ikke kunne forsøge at bestille sæder som ikke er 
+tilgængelige.\\
+
+\section{Nye udfordringer - Part 1}\label{sec:part1}
+En bruger reserverer et par sæder og undlader at betale således at ordren 
+gennemføres. Tabellen ”Seats” indeholder en kolonne ”State” 
+(ref til relationsmodels), som anvendes til at identificere reserveret eller 
+købte sæder. Brugerens valgte sæders ”State” ændres derfor til ”Reserved” i 
+tabellen. Reservationen af sæder afvikles i forbindelse med at en bruger vælger 
+sæder og trykker på knappen ”Continue”, og købet sker efter brugeren har logget 
+ind og betalt.\\
+
+\textit{Hvad sker der med reserverede sæder, som ikke bliver købt?}\\
+
+\textbf{Løsningen}\\
+Første del af løsningen - At tilføje en ny kolonne i Seats tabellen, ved navn 
+”ReserveTime”. ”ReserveTime” er et tidsstempel på reservationen af valgte sæder. 
+”ReserveTime” kan sammenlignes med row-version, som nævnt tidligere i kapitlet, 
+er en del af optimistisk samtidighed.\\ 
+
+Anden del af løsningen - At give brugeren ti minutter, efter reservationen 
+af valgte sæder, til at bekræfte købet og gennemføre ordren.\\ 
+
+Tredje del af løsningen - At anvende tidsstemplet ”ReserveTime” til at 
+opdatere tabellen ”Seats” når en ny bruger tilgår sæde-selektionen, på samme 
+”Showing”. Metoden ”DeleteOldSeatsAsync()” kaldes og fjerner reservationer 
+ældre end 10 minutter fra databasen, ved at kigge på alle tidsstempler. 
+Timeren i frontenden som opdaterer listen, kalder ligeledes denne metode.\\
+
+(Indsæt querien)\\
+
+Querien ovenfor fjerner alle ”Seats” tilknyttet den bestemte ”Showing”, 
+hvor State er ”Reserved” og som er ældre end ti minutter.\\  
+
+
+\section{Nye udfordringer - Part 2}\label{sec:part1}
+At fjerne reservationer ældre end ti minutter, er med til at skabe nogle 
+nye problemstillinger, som gruppen har været nødsaget til at finde en løsning på.
+
+\begin{enumerate}
+    \item En bruger venter længere end ti minutter med at betale.
+    \item En bruger venter længere end ti minutter med at betale, 
+    hvor reservationen er blevet slettet, i det en anden bruger har 
+    tilgået den samme showing.
+    \item En bruger venter længere end ti minutter med at betale, 
+    hvor reservationen er blevet slettet, i det en anden bruger har 
+    tilgået den samme showing. Den anden bruger vælger de samme sæder 
+    og reservere dem.
+\end{enumerate}
+
+\textbf{Første}\\
+Løsningen til første udfordring - At en bruger skal være inde på 
+reservations siden før listen, bliver opdateret hver tiende sekund. 
+Det vil sige, at hvis en bruger reserverer nogle sæder og venter over ti 
+minutter, men der samtid ikke er nogle nye brugere der besøger reservations 
+siden, vil brugeren stadig kunne købe de valgte sæder. ”State” på de valgte 
+sæder bliver opdateret til ”Bought” i databasen, og kan herefter ikke længere 
+bestilles igennem sæde-selektionen.\\ 
+
+\textbf{Anden}\\
+Løsningen til anden udfordring - At et tjek udføres, om der findes en reservation på de valgte 
+sæder, hvis ikke der gør det, får brugeren lov at købe. På den måde undgås det, 
+at brugeren sendes tilbage til en reservations side, hvor de sæder brugeren 
+forsøgte at købe stadig var ledige.\\
+
+\textbf{Tredje}\\
+Løsningen til tredje udfordring - At tilføje en ekstra kolonne på ”Seats” tabellen, ved navn 
+”UUID” (Universally unique identifier). Denne kolonne har til formål at holde 
+styr på hvem der har reserveret sæderne. Ved brugen af en UUID-kolonne, 
+bliver det altså ikke muligt at købe sæder, som andre har reserveret.\\  
+
+\textbf{One method to rule them all}\\
+Disse tre udfordringer, har gruppen formodet at inddæmme i én metode 
+”BuySeatAsync”, som bliver kaldt når brugeren trykker på ”Pay”. 
+Querien i metoden, indeholder en ”If-Else” kæde. Den tjekker først om der 
+findes nogle sæder i databasen som er reserveret, og som har brugerens UUID, 
+på de valgte pladser. Hvis dette er tilfældet, bliver sædernes State ændret til 
+”Bought”, og brugeren har derved købt sæderne.\\ 
+
+Hvis dette ikke er tilfældet, tjekker querien om der findes nogle reserverede 
+sæder på de valgte pladser, uden at lede efter UUID. Hvis der er reserverede 
+sæder, printer querien en tom ”String”, hvilket returnere -1, som bliver 
+tjekket i API ‘et. Findes sæderne derimod ikke, indsætter den bare nogle nye 
+sæder, som er ”Bought”. 
+
