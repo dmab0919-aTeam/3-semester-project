@@ -42,7 +42,7 @@ namespace NordicBio.api.Controllers
         }
 
         [HttpGet("{id}")] // Get by id
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Movies.GetByIDAsync(id);
             MovieDTO moviedata = _mapper.Map<MovieDTO>(data);
