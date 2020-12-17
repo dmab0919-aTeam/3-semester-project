@@ -1,0 +1,47 @@
+\section{Http}\label{sec:http}
+“Hypertext Transfer Protocol” eller HTTP er en tilstandsløs applikationslags protokol, 
+som bliver anvendt til kommunikation mellem distribuerede systemer. 
+Kommunikationen kan foregå mellem forskellige ”Hosts” og ”Clients”, 
+og understøtter forskellige konfigurationer.\\
+
+Protokollen formoder meget lidt om det bestemte system som kaldes, 
+og holder ikke fast i dets tilstand mellem forskellige kald. 
+Et ”REQUEST” bliver sendt af klienten, modtaget af hosten, 
+et ”RESPONSE” sendt tilbage til klienten og herefter glemmer hosten klienten. \\
+
+”Hypertext Transfer Protocol” er fundamentet for enhver webudvikler 
+og en god forståelse heraf er essentiel. 
+Det antages at langt de fleste brugere af internettet har fået en ”404 page” på et tidspunkt; 
+En HTTP-status kode for ”Not Found”. \\
+
+\textbf{Uniform Ressource Locators:}\\
+Når man kigger på en hjemmeside-adresse, altså dens URL, 
+er der en helt bestemt måde af aflæse den på. 
+Tag dette eksempel: ”http://www.localhost.dk:80/customers”, 
+her ses først ”http”, hvilket er protokollen som anvendes, på den specifikke hjemmeside. \\
+
+Dette præfiks kunne også være ”https”, 
+hvilket betyder at protokollen kører over en ”SSL-forbindelse”, 
+altså en krypteret transmission. 
+Det vil sige kun afsender og modtager kender til de meddelelser der sendes internt. \\
+
+Hernæst ses værten ”www.localhost.dk”, porten ”80” og til sidst ressourcestien ”/customers”. 
+Port 80 er standard port til HTTP, men kan ændres hvis det skulle være nødvendigt. \\
+
+\textbf{Hypertext Transfer Protokol Verbs:} \\
+”Hosten” som ønskes at kommunikere med, bliver identificeret gennem URL’en, 
+men den handling som ønskes udført bliver specificeret gennem nogle verber. 
+Dette system beskæftiger sig med disse: \\
+\begin{enumerate}
+    \item ”GET”: Hente en eksisterende ressource.
+    \item ”POST”: Oprette eller skabe en ny ressource.
+    \item ”PUT”: Opdatere en eksisterende ressource.
+    \item ”DELETE”:  Fjerne eller slette en eksisterende ressource.
+\end{enumerate}
+
+I listing ?? (GetByID MoviesController) ses et eksempel fra koden, 
+med en ”HttpGet” hvor ”requestet” kræver et ”id” i sin body. \\
+
+I listing ?? (PostAsync ShowingController) ses et eksempel fra koden, med en ”HttpPost”, 
+hvor ”requestet” forventer en body og ikke parametre i URL’en. 
+Her ses også brugen af roller til autorisering og afsenderen (læs om det her).

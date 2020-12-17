@@ -24,7 +24,7 @@ en administrator som kan kalde disse endpoints. Det samme er gældende for de en
 resevation bestilling af biograf sæder. For at løse denne mindre problemstilling, og undgå evt misbrug af disse 
 endpoints, er der blevet implementeret et authentication system som har til formål at beskytte disse endpoints.\\
 
-\lstinputlisting[language = Dotnet Core, caption = Autrorize, label={list:autrorize}]{Code/auth.cs}\\
+%\lstinputlisting[language = Dotnet Core, caption = Autrorize, label={list:autrorize}]{Code/auth.cs}\\
 
 Som det fremgår i listing \ref{list:autrorize} bliver disse endpoints beskyttet med [Authorize] som betyder at
 endpointet kun kan blive kaldt hvis man er logget ind i systemet. Udover authorize af endpointsne er de også beskyttet 
