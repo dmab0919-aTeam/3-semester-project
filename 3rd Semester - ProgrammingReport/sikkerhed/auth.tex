@@ -1,4 +1,4 @@
-﻿\section{Authentication}
+﻿\section{Authentication}\label{sec:auth}
 Som mange andre it systemer, har biograf system også behov et login system til dets brugere, og administratorer.
 Dette er blevet implementeret i Api'et, hvor man kan kalde et login endpoint med en email og password. 
 Systemet vil herefter undersøge om der findes en bruger i databasen som matcher de indtastede oplysninger.
@@ -24,7 +24,7 @@ en administrator som kan kalde disse endpoints. Det samme er gældende for de en
 resevation bestilling af biograf sæder. For at løse denne mindre problemstilling, og undgå evt misbrug af disse 
 endpoints, er der blevet implementeret et authentication system som har til formål at beskytte disse endpoints.
 
-\lstinputlisting[language={[Sharp]C}, caption={SKRIV CAPTION HER}, label={list:authorize}]{Code/auth.cs}
+\lstinputlisting[language={[Sharp]C}, caption={SKRIV CAPTION HER}, label={list:authorize}]{Code/auth.txt}
 
 Som det fremgår i listing \ref{list:authorize} bliver disse endpoints beskyttet med [Authorize] som betyder at
 endpointet kun kan blive kaldt hvis man er logget ind i systemet. Udover authorize af endpointsne er de også beskyttet 

@@ -1,0 +1,12 @@
+[HttpGet("{id}")] // Get by id
+public async Task<IActionResult> GetByIdAsync(int id)
+{
+    var data = await _unitOfWork.Movies.GetByIDAsync(id);
+    MovieDTO moviedata = _mapper.Map<MovieDTO>(data);
+
+    if (moviedata == null)
+    {
+        return NotFound("Sorry.. We found no movie");
+    }
+    return Ok(moviedata);
+}

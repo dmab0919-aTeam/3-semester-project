@@ -40,9 +40,13 @@ Dette system beskæftiger sig med disse: \\
     \item ”DELETE”:  Fjerne eller slette en eksisterende ressource.
 \end{enumerate}
 
-I listing ?? (GetByID MoviesController) ses et eksempel fra koden, 
+I listing \ref{list:getbyidasync} (GetByID MoviesController) ses et eksempel fra koden, 
 med en ”HttpGet” hvor ”requestet” kræver et ”id” i sin body. \\
 
-I listing ?? (PostAsync ShowingController) ses et eksempel fra koden, med en ”HttpPost”, 
+\lstinputlisting[language={[Sharp]C}, caption={GetByIDAsync()}, label={list:getbyidasync}]{Code/getbyid.txt}
+
+I listing \ref{list:postshowing} (PostAsync ShowingController) ses et eksempel fra koden, med en ”HttpPost”, 
 hvor ”requestet” forventer en body og ikke parametre i URL’en. 
-Her ses også brugen af roller til autorisering og afsenderen (læs om det her).
+Her ses også brugen af roller til autorisering og afsenderen (Mere om dette i afsnit \ref{sec:auth}).
+
+\lstinputlisting[language={[Sharp]C}, caption={PostAsync()}, label={list:postshowing}]{Code/postshowing.txt}
