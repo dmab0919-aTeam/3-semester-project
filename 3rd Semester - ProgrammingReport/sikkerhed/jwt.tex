@@ -1,1 +1,16 @@
 ﻿\section{JSON Web Token (JWT)}
+Eftersom login systemet foregår over et api, kan det være svært for api serveren, at vide hvilke kald some er autoriseret
+og hvilke kald som ikke er, eftersom api'et er stateless. Derfor anvender biograf systemet JSON Web Token (JWT)
+som bliver generet i login endpointet og sendt med videre i respons svaret til klienten hvis login forsøget er succesfuldt.
+Herefter vil klient fremover inkludere denne token i authorization header, som bliver sendt med i requestene fremover.
+Herefter kan api'et validere JWT tokenen og se om kaldet er autoriseret. JWT har en Time To Live (TTL) som i biograf systemet
+er indstillet til 3 timer. Herefter skal brugeren logge ind igen, og dermed få generet en ny token som så også erstatter den
+gamle JWT i authorization headeren på klientens kald.\\ 
+
+\subsection{generate JWT}
+Genering af JWT er en længere process, hvor man har et seed, som er en unik hashed string. Seeded fungere som en nøgle
+til JWT tokens hvor man i teorien kan lave 'falske' JWT tokens hvis man kender til dette hemmelige seed. I Biograf systemet
+bliver følgende string brugt som seed: "MynameisJamesBond007", dette bliver hermed hashed med HMAC-SHA256 algoritmen, 
+som sørger for at JWT toknen bliver unik. Hertil bliver brugerens email og roller også indsat som et claim, som betyder
+at det er information som man kan få ud fra JWT toknen, så api'et altid kan se hvilken bruger der prøvet at lave et givent
+request.\\

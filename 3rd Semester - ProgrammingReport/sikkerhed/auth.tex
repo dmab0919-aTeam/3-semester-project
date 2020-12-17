@@ -1,5 +1,21 @@
 ﻿\section{Authentication}
+Som mange andre it systemer, har biograf system også behov et login system til dets brugere, og administratorer.
+Dette er blevet implementeret i Api'et, hvor man kan kalde et login endpoint med en email og password. 
+Systemet vil herefter undersøge om der findes en bruger i databasen som matcher de indtastede oplysninger.
+Dog bliver der fortaget flere sikkerhedsforanstaltninger, såsom hasing af passwordet som ligger i databasen,
+for at undgå det står i plaintekst. Dette kan være praktisk i tilfælde af data breach.\\
 
+\subsection{Password hashing \& Salting}
+For at forbygge mod evt misbrug af database leak bliver passwordsne hashet med SHA256 algoritmen for at undgå passwordsne
+bliver fremvist i plain tekst i tilfælde af database leak. Dette bliver gjort ved bruger oprettelse hvor brugerens indtastede 
+password bliver krypteret med SHA256 algoritmen, og derefter gemt i databasen. Derfor skal man også hashe det indtastede 
+passwordet når man logger ind i systemet, eftersom det ikke er muligt at sammenligne et krypteret password, og et ikke krypteret password.
+I tilfælde af database leak, og en 'hacker' potentielt kan stjæle daten, kan det være muligt for vedkommende at indtastede
+de hashede passwords i et rainbow table, som er et arkiv for hashed passwords hvor man kan se den ukrypteret string af hashen.
+For at undgå dette anvender systemet salt, som er en random string der bliver lavet med et 'Globally Unique Identifier' (guid).
+som er et unikt id, der bliver tilføjet til password strengen. Dermed er hashen beskyttet mod rainbow tabel, eftersom hashen 
+bliver unik, efter man tilføjer guid til passwordet. Salten bliver også gemt i databasen, så den kan anvendes til hasning
+når brugern logger ind i systemet.\\
 
 \subsection{Autrorize \& Roles}
 I forbindelse med udvikling af api'et, er der forskellige endpoints som har varierende formål. Fx. Vil det være
@@ -14,4 +30,4 @@ Som det fremgår i listing \ref{list:autrorize} bliver disse endpoints beskyttet
 endpointet kun kan blive kaldt hvis man er logget ind i systemet. Udover authorize af endpointsne er de også beskyttet 
 med forskellige typer af roller, Så en user som er logget ind, ikke kan tilgå administrations endpoints.
 Som det fremgår i følgende eksempel: "[Authorize(Roles = "Admin")]" vil dette endpoint kun være tilgængelig
-for en administrator. Herved opnår vi beskyttelse af de de endpoints som ikke må tilgåes uden authentication. 
+for en administrator. Herved opnår vi beskyttelse af de de endpoints som ikke må tilgåes uden authentication.
