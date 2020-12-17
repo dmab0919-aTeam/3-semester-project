@@ -1,0 +1,28 @@
+public async Task<int> BuySeatAsync(Seat entity)
+{
+    int res;
+    string sql = "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID) " +
+        "BEGIN " +
+        "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
+        "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID " +
+        "END " +
+        "ELSE " +
+        "BEGIN " +
+        "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved') " +
+        "BEGIN " +
+        "PRINT '' " +
+        "END " +
+        "ELSE " +
+        "BEGIN " +
+        "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UUID) VALUES (@Row, @Number, @ShowingID, @OrderID, 'Bought', @UUID) " +
+        "END " +
+        "END";
+    var parameters = new
+    {
+        OrderID = entity.OrderID,
+        Row = entity.Row,
+        Number = entity.Number,
+        ShowingID = entity.ShowingID,
+        UUID = entity.UUID
+    };
+    .....

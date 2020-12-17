@@ -19,20 +19,24 @@ fjernet.\\
 Anden del af løsningen - I gruppens tilfælde at anvende et ”TransactionScope”. 
 Hermed sikres atomicitet i transaktionen, alt eller intet princip, og sørger for 
 at lave en ”Rollback” på transaktionen skulle den fejle.
-Metoden ”AddSeatAsync” tager en liste af de valgte sæder, itererer igennem 
+Metoden ”AddSeatAsync()” (Ses i listing \ref{list:addseatsasync}) tager en liste af de valgte sæder, itererer igennem 
 listen og indsætter hver enkelt sæde i databasen. Brugeren får en fejl besked, 
-hvis det forsøges at indsætte sæder som allerede eksistere i databasen.\\
+hvis det forsøges at indsætte sæder som allerede eksistere i databasen.
+
+\lstinputlisting[language={[Sharp]C}, caption={AddSeatsAsync()}, label={list:addseatsasync}]{Code/addseatsasync.txt}
 
 Tredje del af løsningen - At implementere en timer i frontenden, som opdaterer 
 de tilgængelige sæder hvert 10. sekund ved at lave et ”Get Request” til api’et 
-som henter de reserverede/købte sæder(link til kodestykke eller billede). 
+som henter de reserverede/købte sæder(Metoden i frontenden kan ses i listing \ref{list:fetchseats}). 
 På den måde vil brugeren ikke kunne forsøge at bestille sæder som ikke er 
-tilgængelige.\\
+tilgængelige.
+
+\lstinputlisting[language={[Sharp]C}, caption={fetchReservedSeats()}, label={list:fetchseats}]{Code/fetchreservedseats.txt}
 
 \section{Nye udfordringer - Part 1}\label{sec:part1}
 En bruger reserverer et par sæder og undlader at betale således at ordren 
 gennemføres. Tabellen ”Seats” indeholder en kolonne ”State” 
-(ref til relationsmodels), som anvendes til at identificere reserveret eller 
+(se bilag \ref{app:relationelmodel}), som anvendes til at identificere reserveret eller 
 købte sæder. Brugerens valgte sæders ”State” ændres derfor til ”Reserved” i 
 tabellen. Reservationen af sæder afvikles i forbindelse med at en bruger vælger 
 sæder og trykker på knappen ”Continue”, og købet sker efter brugeren har logget 
@@ -53,11 +57,12 @@ Tredje del af løsningen - At anvende tidsstemplet ”ReserveTime” til at
 opdatere tabellen ”Seats” når en ny bruger tilgår sæde-selektionen, på samme 
 ”Showing”. Metoden ”DeleteOldSeatsAsync()” kaldes og fjerner reservationer 
 ældre end 10 minutter fra databasen, ved at kigge på alle tidsstempler. 
-Timeren i frontenden som opdaterer listen, kalder ligeledes denne metode.\\
+Timeren i frontenden som opdaterer listen, kalder ligeledes denne metode.
+Metoden kan ses i listing \ref{list:deleteoldseats}.
 
-(Indsæt querien)\\
+\lstinputlisting[language={[Sharp]C}, caption={DeleteOldSeatsAsync()}, label={list:deleteoldseats}]{Code/deleteoldseatsasync.txt}
 
-Querien ovenfor fjerner alle ”Seats” tilknyttet den bestemte ”Showing”, 
+Querien i metoden ovenfor fjerner alle ”Seats” tilknyttet den bestemte ”Showing”, 
 hvor State er ”Reserved” og som er ældre end ti minutter.\\  
 
 
@@ -92,22 +97,24 @@ at brugeren sendes tilbage til en reservations side, hvor de sæder brugeren
 forsøgte at købe stadig var ledige.\\
 
 \textbf{Tredje}\\
-Løsningen til tredje udfordring - At tilføje en ekstra kolonne på ”Seats” tabellen, ved navn 
+Løsningen til tredje udfordring - At tilføje en ekstra kolonne på ”Seats” tabellen (se bilag \ref{app:relationelmodel}), ved navn 
 ”UUID” (Universally unique identifier). Denne kolonne har til formål at holde 
 styr på hvem der har reserveret sæderne. Ved brugen af en UUID-kolonne, 
 bliver det altså ikke muligt at købe sæder, som andre har reserveret.\\  
 
 \textbf{One method to rule them all}\\
 Disse tre udfordringer, har gruppen formodet at inddæmme i én metode 
-”BuySeatAsync”, som bliver kaldt når brugeren trykker på ”Pay”. 
+”BuySeatAsync()”, som bliver kaldt når brugeren trykker på ”Pay”. 
 Querien i metoden, indeholder en ”If-Else” kæde. Den tjekker først om der 
 findes nogle sæder i databasen som er reserveret, og som har brugerens UUID, 
 på de valgte pladser. Hvis dette er tilfældet, bliver sædernes State ændret til 
-”Bought”, og brugeren har derved købt sæderne.\\ 
+”Bought”, og brugeren har derved købt sæderne.
+
+\lstinputlisting[language={[Sharp]C}, caption={BuySeatsAsync() - forkortet}, label={list:buyseats}]{Code/buyseatsasync.txt}
 
 Hvis dette ikke er tilfældet, tjekker querien om der findes nogle reserverede 
 sæder på de valgte pladser, uden at lede efter UUID. Hvis der er reserverede 
 sæder, printer querien en tom ”String”, hvilket returnere -1, som bliver 
-tjekket i API ‘et. Findes sæderne derimod ikke, indsætter den bare nogle nye 
-sæder, som er ”Bought”. 
+tjekket i API ‘et, og brugeren får en fejl besked. Findes sæderne derimod ikke, 
+indsætter den bare nogle nye sæder, som er ”Bought”. 
 
