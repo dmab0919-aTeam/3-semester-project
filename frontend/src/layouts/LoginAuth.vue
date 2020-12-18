@@ -32,7 +32,7 @@
 
                 this.$store.dispatch('login', { email, password })
                     .then(() => {
-                        this.$router.push({ name: 'frontpage' }) // TODO: Update route name
+                        this.$router.push({ name: 'adminPanel' }) // TODO: Update route name
                     }).catch(() => {
                         console.log('Noget gik galt!')
                     });

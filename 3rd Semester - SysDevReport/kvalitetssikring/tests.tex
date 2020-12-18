@@ -10,17 +10,40 @@ Gruppen har i projektperioden testet diverse funktionaliteter på klientsiden,
 men også i selve koden. I backenden er der anvendt noget der hedder NUnit til testning af koden, 
 hvori nogle datasæt er opsat til at teste kald til systemets API.\\
 
-INDSÆT EKSEMPEL FRA DATASÆT\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/testmoviedata.PNG}
+    \caption{Test data til test af Movies}
+    \label{fig:testdata}
+\end{figure}
 
-Det ses ovenfor, at metoden bliver testet med et negativt, et korrekt og et for højt input. 
-På den måde testes der for succesfulde værdier og korrekte fejlbeskeder. \\
+Ovenfor ses en række test data til test af movies i databasen. Ved "Check\_HttpStatusCode\_OK" findes det korrekte data,
+som eksistere i databasen. Ved "Check\_HttpStatusCode\_NotFound" findes værdier, som ikke eksitere, og derfor vil give
+en fejl besked. \\
 
-INDSÆT METODE FRA EN TESTKLASSE\\
+I metoden på figur \ref{fig:testeks}, bliver data fra "Check\_HttpStatusCode\_OK" indsat i parameterne
+og udført en efter en. Der testes altså her for eksisterende film i databasen. 
 
-De forgående data fra figur(DATASÆT) bliver her indsat i de parametre som 
-metoden tager og bliver udført en efter en. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/testmoviestatusok.PNG}
+    \caption{Test af eksiterende data}
+    \label{fig:testeks}
+\end{figure}
+
+I metoden på figur \ref{fig:testeks2}, bliver data fra "Check\_HttpStatusCode\_NotFound" indsat i parameterne
+og udført en efter en. Der testes altså her for ikke eksiterende film i databasen. Dette skal selvfølgelig
+give en fejlbesked.  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/testmoviestatusnotfound.PNG}
+    \caption{Test af fejl data}
+    \label{fig:testeks2}
+\end{figure}
+
 Gruppen ser en fordel i at kunne genanvende en metode, 
-frem for at skulle skrive en metode for hvert datasæt. 
+frem for at skulle skrive en metode for hver enkelt test-case. 
 Det giver et overblik og gør det betydeligt nemmere at ændre i data uden at skrive nye metoder eller fjerne dem.\\
 
 INDSÆT BILLEDE AF ALLE TESTS
