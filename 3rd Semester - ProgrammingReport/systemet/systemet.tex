@@ -1,0 +1,20 @@
+I denne projektperiode, har gruppen fået til opgave at implementere et distribueret system. Som en kort introduktion til rapporten, vil dette første kapitel forsøge at beskrive det system,
+gruppen har implementeret. \\
+
+Igennem en brainstorm på en af de første dage i semestret, kom gruppen på den idé, at implementere et booking system til brug i 
+biografer. Motivationen for idéen var at gruppen synes de kunne være interessant at lave, og at systemet ville passe ind i projektet, jf studieordningen. \\
+
+Systemet har primært én hovedfunktion. En bruger skal kunne logge ind i systemet, og booke en billet til en film i biografen. Brugerens oplevelse med systemet skal foregå på følgende måde:
+
+\begin{itemize}
+    \item Brugeren åbner hjemmesiden, og bliver præsenteret for systemets "forside"; En side kun bestående af filmplakater, hvorunder filmens, navn, årstal og rating kan ses. Brugeren kan herfra trykke på den film han ønsker at se, og derfra komme videre til næste side.
+    \item På næste side vil brugeren blive præsenteret for flere informationer om filmen i form af et resumé. Desuden vil brugeren se en liste af tilgængelige forestillinger, hvoraf én kan vælges, og brugeren sendes videre.
+    \item Nu vil brugeren blive bedt om at vælge de sæder han ønsker at booke til den valgte forestilling. Dette vil se ud på traditionel vis, som et "billede" af en biografsal, hvor de reserverede sæder vil være markeret med rødt.
+    \item Når brugeren har valgt sine sæder, vil han blive bedt om enten at logge ind i systemet, eller registrere sig som ny bruger.
+    \item Til slut vil brugeren blive præsenteret for en betalignsside.
+\end{itemize}
+
+Gruppen indsér at der i forbindelse med booking af sæder kan identificeres et samtidighedsproblem der skal løses. Dette vil blive beskrevet nærmere i Kapitel \ref{ch:samtidighed}. \\
+
+For at opfylde studieordningen, skal systemet, udover en web.baseret klient også indeholde en desktop klient. Denne vil være tiltænkt administratorer, typisk medarbejdere i biografen.
+I desktop klienten skal en administrator være i stand til at oprette og fjerne brugere, samt forestillinger. Mere om dette i Kapitel ??.
