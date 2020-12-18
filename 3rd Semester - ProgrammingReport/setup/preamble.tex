@@ -33,6 +33,7 @@
 \usepackage{listings}
 \lstloadlanguages{C,C++,csh,Java}
 \lstset{aboveskip=20pt, belowskip=20pt}
+\lstset{captionpos=b}
 \lstset{
 language=csh,
 basicstyle=\footnotesize\ttfamily,
@@ -92,7 +93,7 @@ backgroundcolor=\color{cloudwhite},
 \usepackage{caption}
 \captionsetup{%
   font=footnotesize,% Set font size to footnotesize
-  labelfont=bf % Bold label (e.g., Figure 3.2) font
+  labelfont=bf, % Bold label (e.g., Figure 3.2) font
 }
 % Make the standard latex tables look so much better
 \usepackage{array,booktabs}
@@ -157,8 +158,8 @@ backgroundcolor=\color{cloudwhite},
 \fancyhf{}% Delete everything
 \setlength{\headheight}{14pt}
 \renewcommand{\headrulewidth}{0pt} % Remove the horizontal line in the header
-\fancyhead[RE]{\small\nouppercase\leftmark}% Even page - chapter title
-\fancyhead[LO]{\small\nouppercase\rightmark}% Uneven page - section title
+\fancyhead[LO]{\small\nouppercase\leftmark}% Even page - chapter title
+%\fancyhead[LO]{\small\nouppercase\rightmark}% Uneven page - section title
 \fancyhead[LE,RO]{\thepage}% Page number on all pages
 % Do not stretch the content of a page. Instead,
 % insert white space at the bottom of the page

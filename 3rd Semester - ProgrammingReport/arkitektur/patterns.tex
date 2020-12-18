@@ -1,0 +1,24 @@
+\section{Design patterns}\label{designpatterns}
+Softwareudvikling er i høj grad en holdsport. Ofte skal flere personer arbejde sammen om at udvikle et stykke software.
+For at sikre at alle udviklere strukturerer deres kode ens, benyttes design patters. I dette projekt, er primært to design 
+patterns blevet brugt: Repository Pattern, og Unit of Work Pattern. Disse vil blive beskrevet nedenfor.
+
+\subsection{Repository Pattern}
+I projektet NordicBio.dal ligger mapperne interfaces, repositories som bliver anvendt i forbindelse med udarbejdelsen af 
+dette mønster, hvor et repository virker som et lager eller en samling af objekter for et specifikt domæne som formidler 
+kommunikationen fra og til databasen. \\
+
+\textbf{Hvorfor valgte gruppen dette pattern?}
+Det er et mønster som gruppen er støt på, og kan se fordele ved at anvende, under undervisningen på 3. semester på uddannelsen. \\
+
+Herudover er mønsteret testbart, da hvert ”lag” understøtter blot ét domæne. \\
+
+I den forbindelse er der en lav kobling da hver ”lag” kun har et ansvar; at håndtere ét domæne og forbindelsen til databasen.
+
+\subsection{Unit of Work Pattern}
+Dette mønster bliver ofte anvendt i forbindelse med repository pattern hvilket også er tilfældet i dette projekt. \\
+
+Dette mønster samler alle repositories i et objekt, hvilket gør det muligt at håndtere ændringer i flere domæner, 
+hvis nødvendigt og pakke disse ændringer ind i et transactionscope altså en transaction som sikre princippet om ”alt eller intet”. 
+Hvis der sker en fejl ved den første ændring eller sql statement vil hele transactionen lave en rollback. På den måde sikre systemet 
+af hvis 2 eller flere afhængige kald ikke alle er successfulde vil ingen af dem blive gennemført.
