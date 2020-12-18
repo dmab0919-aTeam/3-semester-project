@@ -1,0 +1,20 @@
+public MainWindow()
+{
+    InitializeComponent();
+
+    try
+    {
+        Ping myPing = new Ping();
+        PingReply reply = myPing.Send("164.68.106.245", 1000);
+
+        if (reply.Status == IPStatus.Success)
+        {
+            ctlBrowser.Navigate("http://164.68.106.245/login");
+        } else
+        {
+            ctlBrowser.IsEnabled = false;
+            ctlBrowser.Visibility = Visibility.Hidden;
+            Label.IsEnabled = true;
+            Label.Visibility = Visibility.Visible;
+        }
+        .....

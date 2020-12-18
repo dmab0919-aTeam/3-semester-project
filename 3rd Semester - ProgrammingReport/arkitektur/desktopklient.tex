@@ -1,0 +1,20 @@
+\section{Desktop-Klient}\label{desktop}
+Et af kravene til projektet, er en dedikeret desktop klient, som sammen med web-klienten, 
+også skal kunne kommunikere med den udviklede service/API. 
+I gruppens tilfælde, gav det mening at lave desktop-klienten til et administrator-panel, 
+som medarbejdere ville kunne bruge, når data, i form af ”Movies/Showings”, skal opdateres på hjemmesiden. \\
+
+Gruppen har valgt at benytte sig af en WPF (Windows Presentation Foundation) applikation. 
+Applikationen indeholder kun et MainWindow. Koden kan ses i listing \ref{list:mainwindow}
+
+\lstinputlisting[language={[Sharp]C}, caption={MainWindow - Forkortet}, label={list:mainwindow}]{Code/mainwindow.txt}
+
+Det ses at MainWindow omdirigere medarbejderen til en bestemt IP-adresse, 
+og sender personen til login siden. Det vil sige at administrator-panelet er lavet i Vue, 
+ligesom frontenden til web-klienten. Eftersom koden er ”deployed” til en server, 
+kræver det internet at kunne tilgå systemet. 
+Hvis medarbejderen starter programmet uden internet, popper en fejl besked op, 
+og medarbejderen bliver spurgt om at tjekke internetforbindelsen. \\
+
+Når medarbejderen logger ind, får han/hun mulighed for at opdatere de tilgængelige ”Showings”, 
+tilføje nye og slette dem. Det er også muligt at tilføje brugere og fjerne dem igen. 
