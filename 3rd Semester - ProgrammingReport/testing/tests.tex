@@ -1,0 +1,26 @@
+\section{Test Eksempler}\label{sec:testeksempler}
+Nedenfor findes udvalgte sektioner af koden til demonstration af gruppens implementeringen. Den første kode sektion vist nedenfor er en
+setup metode, som i dette tilfælde bliver kørt før hver test i den testklasse. Klassen hedder "ShowingControllerTests" og indeholder 2 metoder.
+Hernæst vises en kode som tester et kald til API'et, hvor det kræver en "Authentication token" for at få tilladelse.\\
+
+\textbf{Setup Before Test}\\
+Første sættes email og password til at matche en af administratorene i systemet. Hernæst instansieres en "jsonbody" og parametrene indsættes.
+Et "Request" oprettes og pejer på ../auth/login som er ruten til "AuthControlleren's" login function. Kroppen bliver tilføjet tilbage 
+"Requestet" og et respons modtaget ved at eksekvere. Hernæst opsamles den "JWT", som skal anvendes til de andre metoder. Det gøres ved at
+deserialisere objektet, da det er serializeret og skal laves til et "JObject" for at opsamle dens "Token" som ses på linje 27.
+
+\lstinputlisting[language={[Sharp]C}, caption={Init()}, label={list:testsetup}]{Code/testadminloginsetup.txt}
+
+\textbf{Metode Eksemple}\\
+Linje 6 til 9, instansieres et get-request som kaldes på API'et med en route til ShowingControllerens "GetAllShowings" metode. Hernæst tilføjes
+en header som indeholder den token som blev oprettet ved login'et (Listing \ref*{list:testsetup}, linje 27).\\
+
+Linje 11 til 14, eksekveres requestet og herefter deserialiseres til en liste af showings. Linje 16 og 17 tester henholdsvis at status koden
+er korrekt og at listen ikke er tom.\\
+
+\textbf{Åbenbaring}\\
+Det er vigtigt at tilføje negative tests, altså tests hvor resultatet forventes at komme tilbage negativt. Et eksempel på dette, er 
+at ovenstående test bliver udført, men ved at logge ind som en almindelig bruger først. Her ville resultatet skulle forventes at være
+negativt da den token en bruger har og den en administrator har ikke er ens og brugeren har derfor ikke retigheder til at foretage kaldet.
+
+\lstinputlisting[language={[Sharp]C}, caption={GetAllShowings(HttpStatusCode expectedHttpStatusCode)}, label={list:testgetallshowings}]{Code/testingadminloginmetode.txt}
