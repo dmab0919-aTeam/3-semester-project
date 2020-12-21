@@ -27,7 +27,7 @@ namespace NordicBio.api.Controllers
         #region - USER SECTION -
 
         [HttpGet] // Get all
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             var data = await _unitOfWork.Movies.GetAllAsync();
             List<MovieDTO> moviedata = _mapper.Map<List<MovieDTO>>(data);
@@ -60,7 +60,7 @@ namespace NordicBio.api.Controllers
 
         [HttpPost] // Post
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Post(MovieDTO movieDTO)
+        public async Task<IActionResult> PostAsync(MovieDTO movieDTO)
         {
             if (movieDTO != null)
             {
