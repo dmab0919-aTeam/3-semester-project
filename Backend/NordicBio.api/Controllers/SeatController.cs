@@ -55,7 +55,7 @@ namespace NordicBio.api.Controllers
         }
         
         [HttpGet("order/{id}")]
-        public async Task<IActionResult> GetOrderid(int id)
+        public async Task<IActionResult> GetOrderIdAsync(int id)
         {
             var data = await _unitOfWork.Seats.GetAllByOrderIdAsync(id);
             List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
@@ -72,16 +72,16 @@ namespace NordicBio.api.Controllers
         {
             try
             {
-                if (seatReservationDTO.selectedseats != null)
+                if (seatReservationDTO.SelectedSeats != null)
                 {
-                    if (seatReservationDTO.selectedseats.Count > 0)
+                    if (seatReservationDTO.SelectedSeats.Count > 0)
                     {
-                        foreach (var seatDTO in seatReservationDTO.selectedseats)
+                        foreach (var seatDTO in seatReservationDTO.SelectedSeats)
                         {
                             seatDTO.ShowingID = seatReservationDTO.ShowingID;
                             seatDTO.UUID = seatReservationDTO.UUID;
                         }
-                        await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatReservationDTO.selectedseats));
+                        await _unitOfWork.Seats.AddSeatAsync(this._mapper.Map<List<Seat>>(seatReservationDTO.SelectedSeats));
                     }
                 }
                 return Ok("Reservation was made");

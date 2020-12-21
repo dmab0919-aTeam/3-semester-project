@@ -8,7 +8,7 @@ namespace NordicBio.model
 {
     public class SeatReservationDTO
     {
-        public List<SeatDTO> selectedseats { get; set; }
+        public List<SeatDTO> SelectedSeats { get; set; }
         public int ShowingID { get; set; }
         public string UUID { get; set; }
     }

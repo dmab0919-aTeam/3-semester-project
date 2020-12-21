@@ -28,7 +28,7 @@ namespace NordicBio.api.Controllers
 
         // GET api/<ShowingController>/5
         [HttpGet("movie/{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Showings.GetShowingsByIDAsync(id);
             List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
