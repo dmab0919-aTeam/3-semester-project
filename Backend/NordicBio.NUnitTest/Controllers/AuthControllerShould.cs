@@ -99,7 +99,6 @@ namespace NordicBio.NUnitTest.Controllers
             }
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(expectedHttpStatusCode));
-
         }
 
         [Test, Order(4)]
