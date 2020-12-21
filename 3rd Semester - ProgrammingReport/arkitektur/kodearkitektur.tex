@@ -15,13 +15,12 @@ NordicBio.api som skal gemmes i databasen.\\
 
 \subsection{Klient}
 Klienten er opbygget i Vue.js som er et open source JavaScript framework, der gør det nemmere at lave grafiske 
-brugerflader til REST API’er. Eftersom Klienten er opbygget i Vue.js kan gui’en bygges i HTML og CSS som kan tilgås 
-gennem en webbrowser. Klienten kan ved hjælp af POST og GET requests modtage og sende data fra serveren, 
-gennem dens api routes.\\
+brugerflader. Eftersom klienten er opbygget i Vue.js kan klienten bygges i HTML og CSS som kan tilgås 
+gennem en webbrowser. Klienten laver POST og GET requests til serveren, gennem API-routes, til at håndtere data\\
 
 \subsection{Sammenfatning}
 I dette afsnit er der blevet redegjort for hvilke teknologier som bliver inddraget i systemet og dets opbygning. 
-Ved at opdele serveren og klienten ind i flere services kan det være nemmere at vedligeholde eller udskifte teknologier 
+Ved at opdele serveren og klienten ind i flere services, kan det være nemmere at vedligeholde eller udskifte teknologier 
 i fremtiden, eftersom de forskellige services kommunikere gennem REST API’et. 
 Dette betyder at Klienten ikke er afhængig af at REST API’et er udviklet i DotNet Core eller andre specifikke sprog så 
 længe det stadig er et REST Api. Det samme gælder for serveren og databasen. Til gengæld kan det være mere uoverskueligt 
