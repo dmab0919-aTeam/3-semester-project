@@ -7,7 +7,7 @@ På den anden side befinder ”White-Box testing", hvilket påviser interne elem
 
 \textbf{Test af klienten} \\
 Gruppen har i projektperioden testet diverse funktionaliteter på klientsiden, 
-men også i selve koden. I backenden er der anvendt noget der hedder NUnit til testning af koden, 
+men også i selve koden. I backenden er der anvendt noget der hedder NUnit til testing af koden, 
 hvori nogle datasæt er opsat til at teste kald til systemets API.\\
 
 \begin{figure}[H]
@@ -17,12 +17,12 @@ hvori nogle datasæt er opsat til at teste kald til systemets API.\\
     \label{fig:testdata}
 \end{figure}
 
-Ovenfor ses en række test data til test af movies i databasen. Ved "Check\_HttpStatusCode\_OK" findes det korrekte data,
-som eksistere i databasen. Ved "Check\_HttpStatusCode\_NotFound" findes værdier, som ikke eksitere, og derfor vil give
+I Figur \ref{fig:testdata} ses en række test data til test af movies i databasen. Ved "Check\_HttpStatusCode\_OK" findes det korrekte data,
+som eksisterer i databasen. Ved "Check\_HttpStatusCode\_NotFound" findes værdier, som ikke eksisterer, og derfor vil give
 en fejl besked. \\
 
 I metoden på figur \ref{fig:testeks}, bliver data fra "Check\_HttpStatusCode\_OK" indsat i parameterne
-og udført en efter en. Der testes altså her for eksisterende film i databasen. 
+og udført én efter én. Der testes altså her for eksisterende film i databasen. 
 
 \begin{figure}[H]
     \centering
@@ -32,7 +32,7 @@ og udført en efter en. Der testes altså her for eksisterende film i databasen.
 \end{figure}
 
 I metoden på figur \ref{fig:testeks2}, bliver data fra "Check\_HttpStatusCode\_NotFound" indsat i parameterne
-og udført en efter en. Der testes altså her for ikke eksiterende film i databasen. Dette skal selvfølgelig
+og udført én efter én. Der testes altså her for ikke eksiterende film i databasen. Dette skal selvfølgelig
 give en fejlbesked.  
 
 \begin{figure}[H]
@@ -46,7 +46,13 @@ Gruppen ser en fordel i at kunne genanvende en metode,
 frem for at skulle skrive en metode for hver enkelt test-case. 
 Det giver et overblik og gør det betydeligt nemmere at ændre i data uden at skrive nye metoder eller fjerne dem.\\
 
-INDSÆT BILLEDE AF ALLE TESTS
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/AllTests.png}
+    \caption{Overblik af alle systemets tests}
+    \label{fig:alltests}
+\end{figure}
 
-Systemet bliver testet 28 forskellige måde (SE BILLEDE AF TESTS), hvilket ikke er en ret stor testdækning. 
+
+Systemet bliver testet gennem 28 forskellige tests, der kan ses på Figur \ref{fig:alltests}, hvilket ikke er en ret stor testdækning. 
 Gruppen har fokuseret på at udvise forståelse for tests og testet, ud fra gruppens syn de vigtigste funktionaliteter.    

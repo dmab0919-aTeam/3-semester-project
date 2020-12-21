@@ -1,0 +1,11 @@
+﻿string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State], UUID) " +
+             "VALUES (@Row, @Number, @ShowingID, @State, @UUID)";
+var parameters = new
+{
+    Row = seat.Row,
+    Number = seat.Number,
+    ShowingID = seat.ShowingID,
+    State = "Reserved",
+    UUID = seat.UUID
+};
+res.Add(await con.ExecuteAsync(sql, parameters));

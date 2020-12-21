@@ -1,0 +1,13 @@
+﻿\section{Input validering}
+I forbindlse med udvikling af et RestApi er det vigtigt at have validering af de forskellige inputs som fremgår i request body'en.
+Dette kunne fx. Være hvis en bruger skal indtaste en email addresse, eller et telefon nummer. Hvor det ikke er godt nok,
+kun at chekke for hvilken type inputtet er. I biograf systemet er der udvilket forskellige typer af input valideringer,
+til forskellige formål såsom email.\\
+
+\lstinputlisting[language={[Sharp]C}, caption={Validation Rules.}, label={list:validation}]{Code/validate.txt}
+
+Som det fremgår på eksempelet i listing \ref{list:validation} er der opsat validerings regler for det forskellige 
+feldter på UserDto objektet. Validerings reglerne er beskrevet med Regular expression (Regex), som betyder det er muligt
+at opstille krav til hvordan en string er konstrueret. I email feldtet er det derfor påkrevet at stringen, 
+skal indeholde et navn, og derefter et @ tegn efterfulgte et domainenavn. Hvis disse valideringer ikke bliver godkendt,
+vil der blive retuneret en eller flere fejlbedskder der har til formål at indikere hvad der er forkert med de forskellige inputs.
