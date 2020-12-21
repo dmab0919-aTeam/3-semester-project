@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Web.WebView2.Core;
+using static System.Net.WebRequestMethods;
 
 namespace WpfApp1
 {
@@ -29,14 +31,18 @@ namespace WpfApp1
             {
                 Ping myPing = new Ping();
                 PingReply reply = myPing.Send("164.68.106.245", 1000);
-
                 if (reply.Status == IPStatus.Success)
                 {
-                    ctlBrowser.Navigate("http://164.68.106.245");
+                    webView.EnsureCoreWebView2Async();
+                    //webView.CoreWebView2.Navigate("http://164.68.106.245");
+
+                    //ctlBrowser.Navigate("http://164.68.106.245");
                 } else
                 {
-                    ctlBrowser.IsEnabled = false;
-                    ctlBrowser.Visibility = Visibility.Hidden;
+                    //ctlBrowser.IsEnabled = false;
+                    //ctlBrowser.Visibility = Visibility.Hidden;
+                    webView.Visibility = Visibility.Hidden;
+                    webView.IsEnabled = false;
                     Label.IsEnabled = true;
                     Label.Visibility = Visibility.Visible;
                 }

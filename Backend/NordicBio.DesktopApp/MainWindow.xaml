@@ -4,13 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
     
+
     <Grid>
         <Label Visibility="Hidden" IsEnabled="False" x:Name="Label" Grid.Row="0" HorizontalAlignment="Left">
-            Programmet kunne ikke starte. Tjek internet forbindelsen og prøv igen. 
+            Programmet kunne ikke starte. Tjek internet forbindelsen og prøv igen.
         </Label>
-        <WebBrowser Grid.Row="1" x:Name="ctlBrowser" Visibility="Visible" IsEnabled="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <wv2:WebView2 Grid.Row="1" x:Name="webView" Source="http://localhost:8080/login" Visibility="Visible" IsEnabled="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <!--<WebBrowser Grid.Row="1" x:Name="ctlBrowser" Visibility="Visible" IsEnabled="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />-->
     </Grid>
 </Window>
