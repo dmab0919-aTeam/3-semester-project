@@ -22,6 +22,13 @@ Projektets 28 test udføres ved hjælp af datasæt som oprettes i en folder ”T
 ”NordicBio.NUnitTest”. Folderen indeholder centralt data og specifikke datasæt til hver controller 
 som bliver testet. \\
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/testpassing.PNG}
+    \caption{Tests Passing}
+    \label{fig:testpassing}
+\end{figure}
+
 I hver klasse findes metoder som returnerer forskellige datasæt én efter én ved hjælp af nøgleordet 
 ”yield return”. Datasættet er specificeret ved hjælp af klassen ”TestCaseData” som tager de parametre 
 som skal testes og de bliver efterfølgende parset ind i metoden som parametre i den rækkefølge de er sat.\\
@@ -30,3 +37,6 @@ Denne tilgang sikre få metoder og hurtig tilførsel af nye datasæt uden af fje
 Det nye datasæt skal blot tilføjes til klassen og den metode som er tilknyttet.\\
 
 Hver test følger denne logik og anvender ”Arrange, Act og Assert” til strukturering af testene. 
+
+
+

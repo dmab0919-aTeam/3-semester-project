@@ -1,0 +1,29 @@
+[SetUp]
+public void Init()
+{
+    // Parameters
+    string email = "admin@1234.dk";
+    string password = "admin123";
+    
+    // Create Json body for login to admin
+    string jsonbody =
+        "{" +
+            "\"email\": " + "\"" + email + "\"," +
+            "\"password\": " + "\"" + password + "\"" +
+        "}";
+
+    // Login with the Admin
+    RestRequest request = new RestRequest("auth/login", Method.POST);
+    request.AddJsonBody(jsonbody);
+
+    // Execute the request
+    IRestResponse response = _client.Execute(request);
+
+    // Collect the JWT
+    if (response.StatusCode == HttpStatusCode.OK)
+    {
+        var jsonResponse = JsonConvert.DeserializeObject<string>(response.Content);
+        var json = JObject.Parse(jsonResponse);
+        _authToken = json.SelectToken("Key").ToString();
+    }
+}

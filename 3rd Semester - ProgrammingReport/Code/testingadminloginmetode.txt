@@ -1,0 +1,18 @@
+[Test]
+[Category("Showings")]
+[TestCaseSource(typeof(CentralizedData), "Check_HttpStatusCode_OK")]
+public void GetAllShowings(HttpStatusCode expectedHttpStatusCode)
+{
+    //arrange
+    RestRequest request = new RestRequest(_controller, Method.GET);
+    request.AddHeader("Authorization", string.Format("bearer {0}", this._authToken));          
+
+    //act
+    IRestResponse response = _client.Execute(request);
+
+    var jsonResponse = JsonConvert.DeserializeObject<List<Showing>>(response.Content);
+
+    //assert
+    Assert.That(response.StatusCode, Is.EqualTo(expectedHttpStatusCode));
+    Assert.That(jsonResponse, Is.Not.Empty);
+        }
