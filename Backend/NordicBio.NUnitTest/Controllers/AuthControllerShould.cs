@@ -122,7 +122,7 @@ namespace NordicBio.NUnitTest.Controllers
         [OneTimeTearDown]
         public void TearDown()
         {
-            var sql = "DELETE FROM Users WHERE FirstName = 'Test'";
+            const string sql = "DELETE FROM Users WHERE FirstName = 'Test'";
 
             using (SqlConnection con = new SqlConnection("Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;"))
             {

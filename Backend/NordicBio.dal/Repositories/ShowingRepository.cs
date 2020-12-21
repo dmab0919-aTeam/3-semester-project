@@ -18,16 +18,16 @@ namespace NordicBio.dal
 
         public ShowingRepository(IConfiguration configuration)
         {
-            this._configuration = configuration;
-            this._constring = _configuration.GetConnectionString("constring");
+            _configuration = configuration;
+            _constring = _configuration.GetConnectionString("constring");
         }
 
         // Get all showings on a movie by movie_id
         public async Task<IEnumerable<Showing>> GetShowingsByIDAsync(int id)
         {
             var parameters = new { Id = id };
-            string sql = "SELECT * FROM [Showings] WHERE [MovieID] = @Id " +
-                "ORDER BY [id]";
+            const string sql = "SELECT * FROM [Showings] WHERE [MovieID] = @Id " +
+                               "ORDER BY [id]";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -44,20 +44,13 @@ namespace NordicBio.dal
         }
         public async Task<IEnumerable<Showing>> GetAllAsync()
         {
-            string sql = "SELECT * FROM [Showings]" +
-                "ORDER BY [ShowingTime]";
+            const string sql = "SELECT * FROM [Showings]" +
+                               "ORDER BY [ShowingTime]";
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    var res = await connection.QueryAsync<Showing>(sql);
-                    return res.ToList();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var res = await connection.QueryAsync<Showing>(sql);
+                return res.ToList();
             }
         }
         public async Task<int> AddAsync(Showing entity)
@@ -91,7 +84,7 @@ namespace NordicBio.dal
 
         public async Task<int> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM [Showings] WHERE [Id] = @ShowingID";
+            const string sql = "DELETE FROM [Showings] WHERE [Id] = @ShowingID";
             var parameters = new { ShowingID = id };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -110,12 +103,12 @@ namespace NordicBio.dal
 
         public async Task<int> UpdateAsync(Showing entity)
         {
-            var sql = "UPDATE [Showings] SET " +
-                        "[Price] = @Price, " +
-                        "[ShowingTime] = @ShowingTime, " +
-                        "[HallNumber] = @HallNumber, " +
-                        "[MovieID] = @MovieID " +
-                       "WHERE [Showings].Id = @Id";
+            const string sql = "UPDATE [Showings] SET " +
+                               "[Price] = @Price, " +
+                               "[ShowingTime] = @ShowingTime, " +
+                               "[HallNumber] = @HallNumber, " +
+                               "[MovieID] = @MovieID " +
+                               "WHERE [Showings].Id = @Id";
 
             var parameters = new
             {
@@ -149,7 +142,7 @@ namespace NordicBio.dal
 
         public async Task<Showing> GetByIDAsync(int id)
         {
-            var sql = "SELECT * FROM [Showings] WHERE [id] = @Id";
+            const string sql = "SELECT * FROM [Showings] WHERE [id] = @Id";
             var parameters = new { Id = id };
             using (var connection = new SqlConnection(_constring))
             {

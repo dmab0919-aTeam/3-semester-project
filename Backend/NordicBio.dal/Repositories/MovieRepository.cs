@@ -23,8 +23,8 @@ namespace NordicBio.dal
         }
         public async Task<int> AddAsync(Movie entity)
         {
-            var sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
-                        "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
+            const string sql = "INSERT INTO [Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
+                               "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
 
             var parameters = new
             {
@@ -42,7 +42,7 @@ namespace NordicBio.dal
         }
         public async Task<int> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM [Movies] WHERE [id] = @Id";
+            const string sql = "DELETE FROM [Movies] WHERE [id] = @Id";
             var parameters = new { Id = id };
             using (var conneciton = new SqlConnection(_constring))
             {
@@ -59,7 +59,7 @@ namespace NordicBio.dal
         }
         public async Task<IEnumerable<Movie>> GetAllAsync()
         {
-            var sql = "SELECT * FROM [Movies]";
+            const string sql = "SELECT * FROM [Movies]";
 
             using (var connection = new SqlConnection(_constring))
             {
@@ -76,7 +76,7 @@ namespace NordicBio.dal
         }
         public async Task<Movie> GetByIDAsync(int id)
         {
-            var sql = "SELECT * FROM [Movies] WHERE [id] = @Id";
+            const string sql = "SELECT * FROM [Movies] WHERE [id] = @Id";
             var parameters = new { Id = id };
             using (var connection = new SqlConnection(_constring))
             {
@@ -93,9 +93,9 @@ namespace NordicBio.dal
         }
         public async Task<int> UpdateAsync(Movie entity)
         {
-            var sql = "UPDATE [Movies] SET Title = @Title, ReleaseDate = @ReleaseDate, " +
-                            "VoteAverage = @VoteAverage, PosterPath = @PosterPath, BackdropPath = @BackdropPath, Description = @Description  " +
-                            "WHERE Id = @Id";
+            const string sql = "UPDATE [Movies] SET Title = @Title, ReleaseDate = @ReleaseDate, " +
+                               "VoteAverage = @VoteAverage, PosterPath = @PosterPath, BackdropPath = @BackdropPath, Description = @Description  " +
+                               "WHERE Id = @Id";
             using (var connection = new SqlConnection(_constring))
             {
                 var result = await connection.ExecuteAsync(sql, entity);

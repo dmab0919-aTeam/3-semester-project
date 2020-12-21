@@ -16,25 +16,18 @@ namespace NordicBio.dal
         private readonly string _constring;
         public UserRepository(IConfiguration configuration)
         {
-            this._configuration = configuration;
-            this._constring = _configuration.GetConnectionString("constring");
+            _configuration = configuration;
+            _constring = _configuration.GetConnectionString("constring");
         }
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            var sql = "SELECT [id], [FirstName], [LastName] ,[Email], [PhoneNumber], [UserRole], [Password] FROM [Users]" +
-                "ORDER BY [id]";
+            const string sql = "SELECT [id], [FirstName], [LastName] ,[Email], [PhoneNumber], [UserRole], [Password] FROM [Users]" +
+                               "ORDER BY [id]";
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    var result = await connection.QueryAsync<User>(sql);
-                    return result.ToList();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var result = await connection.QueryAsync<User>(sql);
+                return result.ToList();
             }
         }
         public async Task<int> AddAsync(User entity)
@@ -49,10 +42,10 @@ namespace NordicBio.dal
                 Password = entity.Password,
                 UserRole = entity.UserRole
             };
-            var sql = "Insert into [Users] " +
-                "(FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) " +
-                "Values " +
-                "(@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
+            const string sql = "Insert into [Users] " +
+                               "(FirstName, LastName, Email, PhoneNumber, Salt, Password, UserRole) " +
+                               "Values " +
+                               "(@Firstname, @Lastname, @Email, @Phonenumber, @Salt, @Password, @UserRole)";
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
@@ -70,7 +63,7 @@ namespace NordicBio.dal
         }
         public async Task<User> GetByEmailAsync(string email)
         {
-            var sql = "SELECT * FROM [Users] WHERE [Email] = @UserEmail";
+            const string sql = "SELECT * FROM [Users] WHERE [Email] = @UserEmail";
             var parameters = new { UserEmail = email };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -88,7 +81,7 @@ namespace NordicBio.dal
         }
         public async Task<int> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM [Users] WHERE [id] = @userid";
+            const string sql = "DELETE FROM [Users] WHERE [id] = @userid";
             var parameters = new { userid = id };
 
             using (SqlConnection connection = new SqlConnection(_constring))
@@ -114,13 +107,13 @@ namespace NordicBio.dal
 
         public async Task<int> UpdateAsync(User entity)
         {
-            var sql = "UPDATE [Users] SET " +
-                        "[FirstName] = @FirstName, " +
-                        "[LastName] = @LastName, " +
-                        "[Email] = @Email, " +
-                        "[PhoneNumber] = @PhoneNumber, " +
-                        "[UserRole] = @UserRole " +
-                       "WHERE [id] = @id";
+            const string sql = "UPDATE [Users] SET " +
+                               "[FirstName] = @FirstName, " +
+                               "[LastName] = @LastName, " +
+                               "[Email] = @Email, " +
+                               "[PhoneNumber] = @PhoneNumber, " +
+                               "[UserRole] = @UserRole " +
+                               "WHERE [id] = @id";
 
             var parameters = new
             {

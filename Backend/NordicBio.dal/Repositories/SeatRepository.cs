@@ -18,14 +18,13 @@ namespace NordicBio.dal
 
         public SeatRepository(IConfiguration configuration)
         {
-            this._configuration = configuration;
-            this._constring = _configuration.GetConnectionString("constring");
+            _configuration = configuration;
+            _constring = _configuration.GetConnectionString("constring");
         }
         public async Task<int> AddAsync(Seat entity)
         {
-            int res;
-            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State]) " +
-                "VALUES (@Row, @Number, @ShowingID, @State)";
+            const string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State]) " +
+                               "VALUES (@Row, @Number, @ShowingID, @State)";
             var parameters = new
             {
                 Row = entity.Row,
@@ -37,17 +36,8 @@ namespace NordicBio.dal
             {
                 using (SqlConnection con = new SqlConnection(_constring))
                 {
-
-                    try
-                    {
-                        res = await con.ExecuteAsync(sql, parameters);
-                        return res;
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                    var res = await con.ExecuteAsync(sql, parameters);
+                    return res;
                 }
             }
 
@@ -56,56 +46,48 @@ namespace NordicBio.dal
         public async Task<List<int>> AddSeatAsync(List<Seat> entityList)
         {
             List<int> res = new List<int>();
-            try
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                using (SqlConnection con = new SqlConnection(_constring))
                 {
-                    using (SqlConnection con = new SqlConnection(_constring))
+                    foreach (var seat in entityList)
                     {
-                        foreach (var seat in entityList)
+                        const string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State], UUID) " +
+                                           "VALUES (@Row, @Number, @ShowingID, @State, @UUID)";
+                        var parameters = new
                         {
-                            string sql = "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, [State], UUID) " +
-                                    "VALUES (@Row, @Number, @ShowingID, @State, @UUID)";
-                            var parameters = new
-                            {
-                                Row = seat.Row,
-                                Number = seat.Number,
-                                ShowingID = seat.ShowingID,
-                                State = "Reserved",
-                                UUID = seat.UUID
-                            };
-                            res.Add(await con.ExecuteAsync(sql, parameters));
-                        }
+                            Row = seat.Row,
+                            Number = seat.Number,
+                            ShowingID = seat.ShowingID,
+                            State = "Reserved",
+                            UUID = seat.UUID
+                        };
+                        res.Add(await con.ExecuteAsync(sql, parameters));
                     }
-                    ts.Complete();
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                ts.Complete();
             }
             return res;
         }
 
         public async Task<int> BuySeatAsync(Seat entity)
         {
-            int res;
-            string sql = "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID) " +
-                "BEGIN " +
-                "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
-                "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID " +
-                "END " +
-                "ELSE " +
-                "BEGIN " +
-                "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved') " +
-                "BEGIN " +
-                "PRINT '' " +
-                "END " +
-                "ELSE " +
-                "BEGIN " +
-                "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UUID) VALUES (@Row, @Number, @ShowingID, @OrderID, 'Bought', @UUID) " +
-                "END " +
-                "END";
+            const string sql = "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID) " +
+                               "BEGIN " +
+                               "UPDATE Seats SET [State] = 'Bought', OrderID = @OrderID " +
+                               "WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved' AND UUID = @UUID " +
+                               "END " +
+                               "ELSE " +
+                               "BEGIN " +
+                               "IF EXISTS (SELECT * FROM Seats WHERE [Row] = @Row AND [Number] = @Number AND ShowingID = @ShowingID AND [State] = 'Reserved') " +
+                               "BEGIN " +
+                               "PRINT '' " +
+                               "END " +
+                               "ELSE " +
+                               "BEGIN " +
+                               "INSERT INTO [dbo].[Seats] (Row, Number, ShowingID, OrderID, [State], UUID) VALUES (@Row, @Number, @ShowingID, @OrderID, 'Bought', @UUID) " +
+                               "END " +
+                               "END";
             var parameters = new
             {
                 OrderID = entity.OrderID,
@@ -117,25 +99,16 @@ namespace NordicBio.dal
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                try
-                {
-                    res = await con.ExecuteAsync(sql, parameters);
-                    return res;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+                var res = await con.ExecuteAsync(sql, parameters);
+                return res;
             }
         }
 
         public async Task<int> DeleteOldSeatsAsync(int id)
         {
-            int res;
-            string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
-                "AND ShowingID = @ShowingID " +
-                "AND State = @Reserved";
+            const string sql = "DELETE FROM Seats WHERE ReserveTime < DATEADD(mi,-10,GETDATE()) " +
+                               "AND ShowingID = @ShowingID " +
+                               "AND State = @Reserved";
             var parameters = new
             {
                 ShowingID = id,
@@ -144,70 +117,41 @@ namespace NordicBio.dal
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    res = await connection.ExecuteAsync(sql, parameters);
-                    return res;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+                var res = await connection.ExecuteAsync(sql, parameters);
+                return res;
             }
         }
         public async Task<IEnumerable<Seat>> GetAllAsync()
         {
-            string sql = "SELECT * FROM [Seats]";
+            const string sql = "SELECT * FROM [Seats]";
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    var result = await connection.QueryAsync<Seat>(sql);
-                    return result.ToList();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var result = await connection.QueryAsync<Seat>(sql);
+                return result.ToList();
             }
         }
         public async Task<IEnumerable<Seat>> GetAllByIdAsync(int id)
         {
-            var sql = "SELECT * FROM [Seats] WHERE [ShowingID] = @Id";
+            const string sql = "SELECT * FROM [Seats] WHERE [ShowingID] = @Id";
             var parameters = new { Id = id };
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    var result = await connection.QueryAsync<Seat>(sql, parameters);
-                    return result;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var result = await connection.QueryAsync<Seat>(sql, parameters);
+                return result;
             }
         }
         
         public async Task<IEnumerable<Seat>> GetAllByOrderIdAsync(int id)
         {
-            var sql = "SELECT * FROM [Seats] WHERE [OrderID] = @Id";
+            const string sql = "SELECT * FROM [Seats] WHERE [OrderID] = @Id";
             var parameters = new { Id = id };
 
             using (var connection = new SqlConnection(_constring))
             {
-                try
-                {
-                    var result = await connection.QueryAsync<Seat>(sql, parameters);
-                    return result.ToList();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var result = await connection.QueryAsync<Seat>(sql, parameters);
+                return result.ToList();
             }
         }
 

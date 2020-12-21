@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace NordicBio.dal.Entities
+﻿namespace NordicBio.dal.Entities
 {
     public class Order
     { 

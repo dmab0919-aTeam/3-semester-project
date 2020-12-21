@@ -10,7 +10,7 @@ namespace NordicBio.dbSetup
     {
         public void Setup()
         {
-            var connectionString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
+            const string connectionString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
 
             // RestSharp client, request and response
             var client = new RestClient("https://api.themoviedb.org");
@@ -22,8 +22,8 @@ namespace NordicBio.dbSetup
             JArray items = (JArray)json["results"];
 
             // Prepaired statement
-            string sql = "INSERT INTO [dbo].[Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
-                "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
+            const string sql = "INSERT INTO [dbo].[Movies] (Title, ReleaseDate, VoteAverage, PosterPath, Description) " +
+                               "VALUES (@Title, @ReleaseDate, @VoteAverage, @PosterPath, @Description)";
 
             // Executer sql statement
             using (var connection = new SqlConnection(connectionString))
