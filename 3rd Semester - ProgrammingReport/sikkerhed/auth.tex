@@ -10,7 +10,7 @@ For at forbygge mod evt misbrug af database leak bliver passwordsne hashet med S
 bliver fremvist i plain tekst i tilfælde af database leak. Dette bliver gjort ved bruger oprettelse hvor brugerens indtastede 
 password bliver krypteret med SHA256 algoritmen, og derefter gemt i databasen. Derfor skal man også hashe det indtastede 
 passwordet når man logger ind i systemet, eftersom det ikke er muligt at sammenligne et krypteret password, og et ikke krypteret password.
-I tilfælde af database leak, og en 'hacker' potentielt kan stjæle daten, kan det være muligt for vedkommende at indtastede
+I tilfælde af database leak, og en 'hacker' potentielt kan stjæle dataen, kan det være muligt for vedkommende at indtastede
 de hashede passwords i et rainbow table, som er et arkiv for hashed passwords hvor man kan se den ukrypteret string af hashen.
 For at undgå dette anvender systemet salt, som er en random string der bliver lavet med et 'Globally Unique Identifier' (guid).
 som er et unikt id, der bliver tilføjet til password strengen. Dermed er hashen beskyttet mod rainbow tabel, eftersom hashen 
@@ -24,7 +24,7 @@ en administrator som kan kalde disse endpoints. Det samme er gældende for de en
 resevation bestilling af biograf sæder. For at løse denne mindre problemstilling, og undgå evt misbrug af disse 
 endpoints, er der blevet implementeret et authentication system som har til formål at beskytte disse endpoints.
 
-\lstinputlisting[language={[Sharp]C}, caption={SKRIV CAPTION HER}, label={list:authorize}]{Code/auth.txt}
+\lstinputlisting[language={[Sharp]C}, caption={Endpoint middleware}, label={list:authorize}]{Code/auth.txt}
 
 Som det fremgår i listing \ref{list:authorize} bliver disse endpoints beskyttet med [Authorize] som betyder at
 endpointet kun kan blive kaldt hvis man er logget ind i systemet. Udover authorize af endpointsne er de også beskyttet 
