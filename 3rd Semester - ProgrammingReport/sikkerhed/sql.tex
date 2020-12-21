@@ -1,1 +1,14 @@
-﻿\section{SQL Injection \& input validering}
+﻿\section{SQL Injection}
+For at undgå SQL injections anvender biograf systemet udelukkende prepared statements til SQL queryes. 
+Dette betyder at det ikke er muligt at injecte SQL i de forskellige endpoints. Biograf systemet bruger ORM'en Dapper,
+som er beskrevet i afsnit \ref{dapper} til at eksekvere disse queryes med prepared statements.\\
+
+\lstinputlisting[language={[Sharp]C}, caption={Prepared Statement}, label={list:sqli}]{Code/sql.txt}
+
+Som det fremgår i listing \ref{list:sqli}, bliver SQL queryien lavet i en string, hvor værdierne på linje 2, bliver beskrevet
+som placeholders. Dette betyder at værdierne i denne SQL query ikke er hardcoded, og værderne som skal tilføjes til
+denne query kan blive assignet gennem parameterne, som foregår mellem linje 5 til 9. Herved skal placeholder navnet,
+og Parameternavnet være ens, så værdierne bliver assignet korrekt til SQL queryien.\\
+
+Til Sidst bliver der kaldt en 'execute' query metode på linje 11, som på tager parameterne og queryen i metode parameterne, 
+hvor queryen og dataen bliver indsat i databasen.\\
