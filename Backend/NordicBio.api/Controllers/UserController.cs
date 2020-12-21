@@ -20,13 +20,9 @@ namespace NordicBio.api.Controllers
         private readonly IMapper _mapper;
         public UserController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-
-        #region - USER SECTION -
-
-        #endregion
 
         #region - Admin Section -
 
@@ -39,6 +35,7 @@ namespace NordicBio.api.Controllers
             {
                 return Ok("User was deleted");
             }
+            
             return BadRequest("Sorry.. User was not deleted");
         }
 
@@ -55,6 +52,7 @@ namespace NordicBio.api.Controllers
             {
                 return BadRequest("Sorry.. User was not created");
             }
+            
             return Ok("Admin succesfully created");
         }
 
@@ -102,15 +100,9 @@ namespace NordicBio.api.Controllers
             {
                 return Ok("User successfully updated");
             }
-            else
-            {
-                return BadRequest("User was not updated");
-            }
+
+            return BadRequest("User was not updated");
         }
-
-
-
-
         #endregion
     }
 }

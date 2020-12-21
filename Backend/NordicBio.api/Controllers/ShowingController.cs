@@ -20,8 +20,8 @@ namespace NordicBio.api.Controllers
         private readonly IMapper _mapper;
         public ShowingController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         #region - USER SECTION -
@@ -43,7 +43,6 @@ namespace NordicBio.api.Controllers
 
         #region - ADMIN SECTION -
 
-        // TODO: admin create showings
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostAsync([FromBody] ShowingDTO showingDTO)
@@ -54,10 +53,8 @@ namespace NordicBio.api.Controllers
                 var data = await _unitOfWork.Showings.AddAsync(showing);
                 return Ok(data);
             }
-            else
-            {
-                return BadRequest("Sorry.. The movie was not updated");
-            }
+
+            return BadRequest("Sorry.. The movie was not updated");
         }
 
         // GET: api/<ShowingController>
@@ -66,12 +63,12 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var data = await _unitOfWork.Showings.GetAllAsync();
-            List<ShowingDTO> showingdata = _mapper.Map<List<ShowingDTO>>(data);
-            if (showingdata == null)
+            List<ShowingDTO> showingData = _mapper.Map<List<ShowingDTO>>(data);
+            if (showingData == null)
             {
                 return NotFound("Sorry.. we found no showings");
             }
-            return Ok(showingdata);
+            return Ok(showingData);
         }
 
         [HttpDelete("{id}")]
@@ -97,13 +94,9 @@ namespace NordicBio.api.Controllers
                 var data = await _unitOfWork.Showings.UpdateAsync(showing);
                 return Ok(data);
             }
-            else
-            {
-                return BadRequest("Sorry.. The movie was not updated");
-            }
 
+            return BadRequest("Sorry.. The movie was not updated");
         }
-
         #endregion
     }
 }

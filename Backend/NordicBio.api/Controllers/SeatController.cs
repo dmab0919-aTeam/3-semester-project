@@ -19,8 +19,8 @@ namespace NordicBio.api.Controllers
 
         public SeatController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         #region - USER SECTION -
@@ -28,13 +28,14 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var data = await _unitOfWork.Seats.GetAllAsync();
-            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
+            List<SeatDTO> seatData = _mapper.Map<List<SeatDTO>>(data);
 
-            if (seatdata.Count == 0)
+            if (seatData.Count == 0)
             {
                 return NotFound("Sorry.. We found no seats");
             }
-            return Ok(seatdata);
+            
+            return Ok(seatData);
         }
 
         // REQUEST - GET *
@@ -45,26 +46,26 @@ namespace NordicBio.api.Controllers
             await _unitOfWork.Seats.DeleteOldSeatsAsync(id);
 
             var data = await _unitOfWork.Seats.GetAllByIdAsync(id);
-            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
+            List<SeatDTO> seatData = _mapper.Map<List<SeatDTO>>(data);
 
-            if (seatdata.Count == 0)
+            if (seatData.Count == 0)
             {
                 return Ok("no seats");
             }
-            return Ok(seatdata);
+            return Ok(seatData);
         }
         
         [HttpGet("order/{id}")]
         public async Task<IActionResult> GetOrderIdAsync(int id)
         {
             var data = await _unitOfWork.Seats.GetAllByOrderIdAsync(id);
-            List<SeatDTO> seatdata = _mapper.Map<List<SeatDTO>>(data);
+            List<SeatDTO> seatData = _mapper.Map<List<SeatDTO>>(data);
 
-            if (seatdata.Count == 0)
+            if (seatData.Count == 0)
             {
                 return Ok("no seats");
             }
-            return Ok(seatdata);
+            return Ok(seatData);
         }
 
         [HttpPost]
@@ -92,9 +93,6 @@ namespace NordicBio.api.Controllers
             }
             
         }
-        #endregion
-        #region - ADMIN SECTION -
-
         #endregion
     }
 }

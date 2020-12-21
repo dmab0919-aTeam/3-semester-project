@@ -12,7 +12,7 @@ namespace NordicBio.dbupdater
         static int Main(string[] args)
         {
 
-            var dbString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
+            const string dbString = "Server=localhost,1433\\Catalog=NordicBio;Database=NordicBio;User=SA;Password=Q23wa!!!32;";
 
             var connectionString =
                 args.FirstOrDefault()

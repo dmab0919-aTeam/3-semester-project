@@ -25,9 +25,5 @@
             Salt = salt;
             Password = password;
         }
-        /*public void AddOrder(Order newOrder) 
-        {
-            orders.Add(newOrder);
-        }*/
     }
 }

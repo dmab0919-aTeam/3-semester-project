@@ -7,7 +7,6 @@ using NordicBio.dal.Entities;
 using NordicBio.dal.Interfaces;
 using NordicBio.model;
 
-
 namespace NordicBio.api.Controllers
 {
     [Route("api/[controller]")]
@@ -22,8 +21,8 @@ namespace NordicBio.api.Controllers
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -34,16 +33,16 @@ namespace NordicBio.api.Controllers
 
             orderDTO.TotalPrice = showing.Price * orderDTO.Seats.Count;
         
-            int OrderID = await this._unitOfWork.Orders.AddAsync(this._mapper.Map<Order>(orderDTO));
+            int orderId = await _unitOfWork.Orders.AddAsync(this._mapper.Map<Order>(orderDTO));
             List<int> skd = new List<int>();
-            if (OrderID != 0)
+            if (orderId != 0)
             {
                 foreach (var seat in orderDTO.Seats)
                 {
                     seat.ShowingID = orderDTO.ShowingID;
-                    seat.OrderID = OrderID;
+                    seat.OrderID = orderId;
                     seat.UUID = orderDTO.UUID;
-                    int status = await this._unitOfWork.Seats.BuySeatAsync(this._mapper.Map<Seat>(seat));
+                    int status = await _unitOfWork.Seats.BuySeatAsync(this._mapper.Map<Seat>(seat));
                     if (status == 0 || status == -1)
                     {
                         skd.Add(status);
@@ -60,20 +59,21 @@ namespace NordicBio.api.Controllers
                 return BadRequest("Sorry.. Something went wrong");
             }
 
-            return Ok(OrderID);
+            return Ok(orderId);
         }
         
         [HttpGet("{id}")] // Get by id
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Orders.GetByIDAsync(id);
-            OrderDTO Order = _mapper.Map<OrderDTO>(data);
+            OrderDTO order = _mapper.Map<OrderDTO>(data);
 
-            if (Order == null)
+            if (order == null)
             {
                 return BadRequest("Sorry.. We found no order");
             }
-            return Ok(Order);
+            
+            return Ok(order);
         }
     }
 }

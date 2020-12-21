@@ -1,5 +1,4 @@
-﻿
-using NordicBio.dal.Entities;
+﻿using NordicBio.dal.Entities;
 
 namespace NordicBio.dal.Interfaces
 {

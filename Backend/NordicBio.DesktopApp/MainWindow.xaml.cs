@@ -34,13 +34,8 @@ namespace WpfApp1
                 if (reply.Status == IPStatus.Success)
                 {
                     webView.EnsureCoreWebView2Async();
-                    //webView.CoreWebView2.Navigate("http://164.68.106.245");
-
-                    //ctlBrowser.Navigate("http://164.68.106.245");
                 } else
                 {
-                    //ctlBrowser.IsEnabled = false;
-                    //ctlBrowser.Visibility = Visibility.Hidden;
                     webView.Visibility = Visibility.Hidden;
                     webView.IsEnabled = false;
                     Label.IsEnabled = true;

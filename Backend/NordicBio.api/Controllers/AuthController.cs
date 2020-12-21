@@ -19,8 +19,8 @@ namespace NordicBio.api.Controllers
 
         public AuthController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace NordicBio.api.Controllers
 
             //Useren bliver fundet i DB, og mappet til userDTO
             var data = await _unitOfWork.Users.GetByEmailAsync(email);
-            UserDTO user = this._mapper.Map<UserDTO>(data);
+            UserDTO user = _mapper.Map<UserDTO>(data);
 
             if (user != null)
             {
@@ -50,15 +50,11 @@ namespace NordicBio.api.Controllers
                     var tokenString = JsonConvert.SerializeObject(new Token(user), Formatting.Indented);
                     return Ok(tokenString);
                 }
-                else
-                {
-                    return BadRequest("Email and password does not match");
-                }
+
+                return BadRequest("Email and password does not match");
             }
-            else
-            {
-                return BadRequest("User not found");
-            }
+
+            return BadRequest("User not found");
         }
 
         [HttpPost]
@@ -83,10 +79,8 @@ namespace NordicBio.api.Controllers
             {
                 return Ok("User successfully created");
             }
-            else
-            {
-                return BadRequest("User was not created");
-            }
+
+            return BadRequest("User was not created");
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NordicBio.api.Validation
+﻿namespace NordicBio.api.Validation
 {
     public class ValidateString
     {

@@ -7,8 +7,6 @@ using NordicBio.model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace NordicBio.api.Controllers
 {
     [Route("api/[controller]")]
@@ -20,8 +18,8 @@ namespace NordicBio.api.Controllers
 
         public MoviesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         #region - USER SECTION -
@@ -30,14 +28,14 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var data = await _unitOfWork.Movies.GetAllAsync();
-            List<MovieDTO> moviedata = _mapper.Map<List<MovieDTO>>(data);
+            List<MovieDTO> movieData = _mapper.Map<List<MovieDTO>>(data);
 
-            if (moviedata == null)
+            if (movieData == null)
             {
                 return NotFound("Sorry.. We found no movies");
             }
 
-            return Ok(moviedata);
+            return Ok(movieData);
 
         }
 
@@ -45,13 +43,13 @@ namespace NordicBio.api.Controllers
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var data = await _unitOfWork.Movies.GetByIDAsync(id);
-            MovieDTO moviedata = _mapper.Map<MovieDTO>(data);
+            MovieDTO movieData = _mapper.Map<MovieDTO>(data);
 
-            if (moviedata == null)
+            if (movieData == null)
             {
                 return NotFound("Sorry.. We found no movie");
             }
-            return Ok(moviedata);
+            return Ok(movieData);
         }
 
 
@@ -84,10 +82,8 @@ namespace NordicBio.api.Controllers
                 var data = await _unitOfWork.Movies.UpdateAsync(movie);
                 return Ok(data);
             }
-            else
-            {
-                return BadRequest("Sorry.. The movie was not updated");
-            }
+
+            return BadRequest("Sorry.. The movie was not updated");
         }
 
         [HttpDelete("{id}")] // Delete by id
@@ -100,6 +96,7 @@ namespace NordicBio.api.Controllers
             {
                 return NotFound("Sorry.. We found no movie to delete with this id");
             }
+            
             return Ok(data);
         }
         #endregion

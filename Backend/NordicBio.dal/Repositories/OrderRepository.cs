@@ -21,11 +21,10 @@ namespace NordicBio.dal
 
         public async Task<int> AddAsync(Order entity)
         {
-            int res;
-            string sql = "INSERT INTO [Orders] " +
-                "(TotalPrice, UserID, ShowingID) " +
-                "OUTPUT INSERTED.Id VALUES " +
-                "(@TotalPrice, @UserID, @ShowingID)";
+            const string sql = "INSERT INTO [Orders] " +
+                               "(TotalPrice, UserID, ShowingID) " +
+                               "OUTPUT INSERTED.Id VALUES " +
+                               "(@TotalPrice, @UserID, @ShowingID)";
             var parameters = new
             {
                 TotalPrice = entity.TotalPrice,
@@ -35,7 +34,7 @@ namespace NordicBio.dal
 
             using (SqlConnection con = new SqlConnection(_constring))
             {
-                res = await con.QuerySingleOrDefaultAsync<int>(sql, parameters);
+                var res = await con.QuerySingleOrDefaultAsync<int>(sql, parameters);
                 return res;
             }
         }
@@ -53,7 +52,7 @@ namespace NordicBio.dal
         }
         public async Task<Order> GetByIDAsync(int id)
         {
-            var sql = "SELECT * FROM [Orders] WHERE [id] = @Id";
+            const string sql = "SELECT * FROM [Orders] WHERE [id] = @Id";
             var parameters = new { Id = id };
             using (var connection = new SqlConnection(_constring))
             {
