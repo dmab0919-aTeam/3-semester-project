@@ -1,21 +1,42 @@
 \section{Vandfalds-Modellen}\label{sec:vandfald}
-Vandfalds-modellen er en sekventiel procesmodel som består af 5-7 forskellige faser. 
-Navnet vandfald er blevet brugt, da det ikke er muligt at vende tilbage til foregående faser, 
-når først en fase er færdiggjort. Resultatet fra hver fase er et krav for at kunne starte på den næste. 
-Hvis kunden kommer med store ændringer til kravene, bliver hele processen nødt til at starte forfra.  
+Vandfalds-modellen er en sekventiel procesmodel som består 
+af 5-7 forskellige faser. Hver fase er en essentiel del af udviklingen
+og bygger ovenpå den forgående fase, og er et krav for at starte næste.\\
+
+Anvendes en Vandfaldsmodel til et software projekt, laves en kontrakt med
+kunden, som indeholder krav, specifikationer og funktionalitet til at 
+dække hele systemet. Prisen bliver fastlagt samt en tidsplan for forventet
+levering af systemet. Efter underskrift designes systemet og hvert trin i 
+modellen følges indtil det endelige produkt, baseret på de fastlagte krav,
+er klar til levering.\\
+
+En af ulemperne ved et stort projekt, som følger vandfaldsmodellen er, 
+at der kan gå måneder, hvis ikke halve år før kunden ser produktet første gang.
+Krav, specifikationer og funktionaliteter kan forstås på mange måder, hvilket
+medfører en risici. Har kunden ikke været god til at udtrykke og beskrive 
+produktet, kan det forventede og det faktuelle produkt være langt fra 
+hinanden.\\
+
+Er produktet omfattende og kompliceret, kan ændringer heraf tage
+lang tid og kræve mange resourcer. Især hvis ændringerne findes i enten 
+arkitekturen eller selve funktionaliteten af systemet. 
+Kunden skal selv betale for disse ændringer udover den aftalte fastlagte 
+pris, samt være indforstået med at skuppe tidsplanen tilsvarende.\\
+  
 Vandfalds-modellen kan ses på Figur \ref{fig:waterfallmodel} \\
 
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{figures/waterfall.png}
     \caption{Vandfaldsmodellen \cite{WaterfallModel}}
     \label{fig:waterfallmodel}
 \end{figure}
 
-Denne metode kan virke godt I forbindelse med mindre projekter, hvor det afsluttende produkt er 
-helt defineret og det ikke forventes at ændringer kan forekomme. Hvis projektet er for stort og kompliceret,
-kan det ofte medføre, at der på sigt vil være ændringer i enten arkitekturen eller selve funktionaliteten.
-Dette tager vandfaldsmodellen ikke højde for.
+I forbindelse med mindre projekter, hvor produktet er nemt at
+definere, ændringer ikke forventes at forekomme og perioden minimal, 
+anvendes vandfaldsmodellen med fordel.
+
 
 \section{Agile metoder}\label{sec:agilemetoder}
 Agil er en betegnelse for en række iterative softwareudviklingsmetoder, hvor der løbende leveres små dele af 
