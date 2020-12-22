@@ -33,7 +33,7 @@ namespace NordicBio.api.Controllers
 
             orderDTO.TotalPrice = showing.Price * orderDTO.Seats.Count;
         
-            int orderId = await _unitOfWork.Orders.AddAsync(this._mapper.Map<Order>(orderDTO));
+            int orderId = await _unitOfWork.Orders.AddAsync(_mapper.Map<Order>(orderDTO));
             List<int> skd = new List<int>();
             if (orderId != 0)
             {
