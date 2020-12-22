@@ -10,11 +10,11 @@ I projektet NordicBio.dal ligger mapperne interfaces og repositories som bliver 
 dette mønster, hvor et repository virker som et lager eller en samling af objekter for et specifikt domæne som formidler 
 kommunikationen fra og til databasen. \\
 
-Det kan uddrages af designklasse diagrammet (designklasse diagrammet beskrives i næste afsnit, 
-og kan ses i bilag \ref{app:designklassediagram}) at et 
+Det kan uddrages af designklassediagrammet (diagrammet  beskrives i næste afsnit, 
+og kan ses i Bilag \ref{app:designklassediagram}) at et 
 "IGenericRepository" interface bliver anvendt til, 
 at sikre de standard metoder alle repositories skal indeholde. 
-Hernæst har hver repository sin egen interface med mere specifike metoder, hvis andre implementationer skal laves.
+Hernæst har hver repository sin egen interface med mere specifike metoder, hvis andre implementationer skal laves. \\
 
 \textbf{Hvorfor valgte gruppen dette pattern?}\\
 Det er et mønster som gruppen er støt på, og kan se fordele ved at anvende, under undervisningen på 3. semester på uddannelsen. \\
@@ -34,5 +34,5 @@ at hvis to eller flere afhængige kald ikke alle er successfulde vil ingen af de
 Gennem dependency injection får hver controller en IUnitOfWork, 
 som bliver deres adgang til alle repositories, hvilket på sin vis giver adgang til databasen.\\
 
-UnitOfWork klassen implementere IUnitOfWork (se bilag \ref{app:designklassediagram}), 
+UnitOfWork klassen implementere IUnitOfWork (se Bilag \ref{app:designklassediagram}), 
 hvilket sikre den indeholder alle nødvendige Repositories.

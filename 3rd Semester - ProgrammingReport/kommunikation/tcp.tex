@@ -5,10 +5,10 @@ Protokollerne specificerer hvordan data skal brydes ned, håndteres, sendes, rut
 
 TCP definerer hvordan applikationer opretter kommunikationskanaler, 
 og hvordan beskeder eller data skal brydes ned i mindre dele inden det sendes. 
-De nedbrudte data segmenter sendes over internettet, 
+De nedbrudte datasegmenter sendes over internettet, 
 og TCP bestemmer ligeledes hvordan det samles igen på destinationen. \\
 
-IP (Internet Protocol) definere hvordan dataet skal adresseres, 
+IP (Internet Protocol) definerer hvordan dataet skal adresseres, 
 og hvilken rute det skal tage for at nå den rigtige destination; altså modtagerens destination. \\
 
 Det skal forstås at TCP’en venter på at IP’en har oprettet den nødvendige forbindelse mellem to enheder, 
@@ -17,18 +17,18 @@ før den kan udføre sit arbejde. \\
 \textbf{De fire lag i TCP/IP:} \\
 Funktionaliteten er delt op i fire lag; Applikations-, transport-, netværks- og et datalinklag.\\
 
-Applikationslag
+Applikationslag:
 \begin{itemize}
-    \item Her findes standardiseret dataudvekslings protokoller. Bland andet ”HTTP” som gruppen anvender.\\
+    \item Her findes standardiseret dataudvekslingsprotokoller. Bland andet ”HTTP” som gruppen anvender.\\
 \end{itemize} 
 
-Transportlag
+Transportlag:
 \begin{itemize}
     \item Transportlaget sørger for en pålidelig forbindelse mellem to enheder. 
     Altså den vedligeholder end-to-end kommunikation på tværs af netværket med TCP-protokollen.\\
 \end{itemize}
 
-Netværkslag
+Netværkslag:
 \begin{itemize}
     \item Håndterer data pakker og forbinder netværker, 
     til at transportere pakkerne på tværs af netværks grænser, 
@@ -36,9 +36,9 @@ Netværkslag
     Det håndterer dataets bevægelser fra afsender til modtager på internettet.\\
 \end{itemize}
 
-Datalinklag
+Datalinklag:
 \begin{itemize}
-    \item Håndtere de fysiske dele ved at sende og modtage data, 
+    \item Håndterer de fysiske dele ved at sende og modtage data, 
     ved brug af et ”Ethernet cable” eller trådløs netværks forbindelse osv.\\
 \end{itemize}
 
